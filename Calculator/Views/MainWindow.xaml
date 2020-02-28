@@ -7,11 +7,93 @@
         mc:Ignorable="d"
         
         Title="Calculator" 
-        Height="500"
-        Width="500"
+        Height="515"
+        Width="515"
+        MinHeight="500"
+        MinWidth="320"
         WindowStartupLocation="CenterScreen">
-    
+
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="97*"/>
+            <RowDefinition Height="35*" MaxHeight="75"/>
+            <RowDefinition Height="309*"/>
+        </Grid.RowDefinitions>
+
+        <!--Functions on top-->
+        <Grid>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <Button Content="☰" Command="" Width="40"/>
+                <TextBlock Text="Here is the name of calculator" VerticalAlignment="Center" FontSize="20"/>
+                <Button Content="◳" Command="" Width="40"/>
+            </StackPanel>
+
+            <Button Content="⟲" Command="" Width="40" HorizontalAlignment="Right"/>
+        </Grid>
         
+        <!--Display-->
+        <TextBlock Text="0" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="50" FontWeight="Bold" FontFamily="Microsoft JhengHei"/>
+
+        <!--Memory buttons-->
+        <Grid Grid.Row="2" >
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <Button Content="MC" Command="" Width="75"/>
+                <Button Content="MR" Command="" Width="75"/>
+                <Button Content="M+" Command="" Width="75"/>
+                <Button Content="M-" Command="" Width="75"/>
+                <Button Content="MS" Command="" Width="75"/>
+            </StackPanel>
+
+            <Button Content="Mˇ" Command="" Width="75" HorizontalAlignment="Right"/>
+        </Grid>
+
+        <!--Keyboard-->
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Button Content="%" Command="" Grid.Row="0" Grid.Column="0"/>
+            <Button Content="CE" Command="" Grid.Row="0" Grid.Column="1"/>
+            <Button Content="C" Command="" Grid.Row="0" Grid.Column="2"/>
+            <Button Content="⌫" Command="" Grid.Row="0" Grid.Column="3"/>
+
+            <Button Content="1/x" Command="" Grid.Row="1" Grid.Column="0"/>
+            <Button Content="x²" Command="" Grid.Row="1" Grid.Column="1"/>
+            <Button Content="√x" Command="" Grid.Row="1" Grid.Column="2"/>
+            <Button Content="÷" Command="" Grid.Row="1" Grid.Column="3"/>
+
+            <Button Content="7" Command="" Grid.Row="2" Grid.Column="0"/>
+            <Button Content="8" Command="" Grid.Row="2" Grid.Column="1"/>
+            <Button Content="9" Command="" Grid.Row="2" Grid.Column="2"/>
+            <Button Content="×" Command="" Grid.Row="2" Grid.Column="3"/>
+
+            <Button Content="4" Command="" Grid.Row="3" Grid.Column="0"/>
+            <Button Content="5" Command="" Grid.Row="3" Grid.Column="1"/>
+            <Button Content="6" Command="" Grid.Row="3" Grid.Column="2"/>
+            <Button Content="-" Command="" Grid.Row="3" Grid.Column="3"/>
+
+            <Button Content="1" Command="" Grid.Row="4" Grid.Column="0"/>
+            <Button Content="2" Command="" Grid.Row="4" Grid.Column="1"/>
+            <Button Content="3" Command="" Grid.Row="4" Grid.Column="2"/>
+            <Button Content="+" Command="" Grid.Row="4" Grid.Column="3"/>
+
+            <Button Content="+/-" Command="" Grid.Row="5" Grid.Column="0"/>
+            <Button Content="0" Command="" Grid.Row="5" Grid.Column="1"/>
+            <Button Content="," Command="" Grid.Row="5" Grid.Column="2"/>
+            <Button Content="=" Command="" Grid.Row="5" Grid.Column="3"/>
+        </Grid>
     </Grid>
 </Window>
