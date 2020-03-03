@@ -15,18 +15,18 @@
         Background="#FFE6E6E6">
 
     <Window.Resources>
-        <Style x:Key="MemoryGrid" TargetType="Grid">
+        <Style x:Key="MemoryButtonsGrid" TargetType="Grid">
             <Style.Resources>
-                <Style BasedOn="{StaticResource MemoryButtons}" TargetType="Button"/>
+                <Style BasedOn="{StaticResource MemoryButton}" TargetType="Button"/>
             </Style.Resources>
         </Style>
         <Style x:Key="KeyboardGrid" TargetType="Grid">
             <Style.Resources>
-                <Style BasedOn="{StaticResource NumberButtons}" TargetType="Button"/>
+                <Style BasedOn="{StaticResource NumberButton}" TargetType="Button"/>
             </Style.Resources>
         </Style>
     </Window.Resources>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -54,7 +54,7 @@
             FontFamily="Microsoft JhengHei"/>
 
         <!--Memory buttons-->
-        <Grid Grid.Row="2" Margin="3, 0, 3, 0" Style="{StaticResource MemoryGrid}">
+        <Grid Grid.Row="2" Margin="3, 0, 3, 0" Style="{StaticResource MemoryButtonsGrid}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -87,30 +87,30 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <Button Content="%" Command="" Grid.Row="0" Grid.Column="0" Style="{StaticResource OperationButtons}"/>
-            <Button Content="CE" Command="" Grid.Row="0" Grid.Column="1" Style="{StaticResource OperationButtons}"/>
-            <Button Content="C" Command="" Grid.Row="0" Grid.Column="2" Style="{StaticResource OperationButtons}"/>
-            <Button Content="⌫" Command="" Grid.Row="0" Grid.Column="3" Style="{StaticResource OperationButtons}"/>
+            <Button Content="%" Command="" Grid.Row="0" Grid.Column="0" Style="{StaticResource AdditionalOperationButton}"/>
+            <Button Content="CE" Command="" Grid.Row="0" Grid.Column="1" Style="{StaticResource AdditionalOperationButton}"/>
+            <Button Content="C" Command="" Grid.Row="0" Grid.Column="2" Style="{StaticResource AdditionalOperationButton}"/>
+            <Button Content="⌫" Command="" Grid.Row="0" Grid.Column="3" Style="{StaticResource AdditionalOperationButton}"/>
 
-            <Button Content="1/x" Command="" Grid.Row="1" Grid.Column="0" Style="{StaticResource OperationButtons}"/>
-            <Button Content="x²" Command="" Grid.Row="1" Grid.Column="1" Style="{StaticResource OperationButtons}"/>
-            <Button Content="√x" Command="" Grid.Row="1" Grid.Column="2" Style="{StaticResource OperationButtons}"/>
-            <Button Content="÷" Command="" Grid.Row="1" Grid.Column="3" Style="{StaticResource OperationButtons}"  FontSize="21"/>
+            <Button Content="1/x" Command="" Grid.Row="1" Grid.Column="0" Style="{StaticResource AdditionalOperationButton}"/>
+            <Button Content="x²" Command="" Grid.Row="1" Grid.Column="1" Style="{StaticResource AdditionalOperationButton}"/>
+            <Button Content="√x" Command="" Grid.Row="1" Grid.Column="2" Style="{StaticResource AdditionalOperationButton}"/>
+            <Button Content="÷" Command="" Grid.Row="1" Grid.Column="3" Style="{StaticResource BasicOperationButton}"/>
 
             <Button Content="7" Command="" Grid.Row="2" Grid.Column="0"/>
             <Button Content="8" Command="" Grid.Row="2" Grid.Column="1"/>
             <Button Content="9" Command="" Grid.Row="2" Grid.Column="2"/>
-            <Button Content="×" Command="" Grid.Row="2" Grid.Column="3" Style="{StaticResource OperationButtons}"  FontSize="21"/>
+            <Button Content="×" Command="" Grid.Row="2" Grid.Column="3" Style="{StaticResource BasicOperationButton}"/>
 
             <Button Content="4" Command="" Grid.Row="3" Grid.Column="0"/>
             <Button Content="5" Command="" Grid.Row="3" Grid.Column="1"/>
             <Button Content="6" Command="" Grid.Row="3" Grid.Column="2"/>
-            <Button Content="-" Command="" Grid.Row="3" Grid.Column="3" Style="{StaticResource OperationButtons}"  FontSize="21"/>
+            <Button Content="‒" Command="" Grid.Row="3" Grid.Column="3" Style="{StaticResource BasicOperationButton}"/>
 
             <Button Content="1" Command="" Grid.Row="4" Grid.Column="0"/>
             <Button Content="2" Command="" Grid.Row="4" Grid.Column="1"/>
             <Button Content="3" Command="" Grid.Row="4" Grid.Column="2"/>
-            <Button Content="+" Command="" Grid.Row="4" Grid.Column="3" Style="{StaticResource OperationButtons}" FontSize="21"/>
+            <Button Content="+" Command="" Grid.Row="4" Grid.Column="3" Style="{StaticResource BasicOperationButton}"/>
 
             <Button Content="+/-" Command="" Grid.Row="5" Grid.Column="0"/>
             <Button Content="0" Command="" Grid.Row="5" Grid.Column="1"/>
