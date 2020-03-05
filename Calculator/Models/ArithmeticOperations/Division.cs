@@ -1,4 +1,6 @@
-﻿namespace Calculator.Models
+﻿using Calculator.Models.Base;
+
+namespace Calculator.Models.ArithmeticOperations
 {
     class Division : BinaryOperation
     {

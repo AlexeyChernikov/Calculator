@@ -1,4 +1,4 @@
-﻿namespace Calculator.Models
+﻿namespace Calculator.Models.Base
 {
     abstract class UniversalOperation
     {

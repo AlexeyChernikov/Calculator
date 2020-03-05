@@ -59,13 +59,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Models\Division.cs" />
-    <Compile Include="Models\Multiplication.cs" />
-    <Compile Include="Models\Addition.cs" />
-    <Compile Include="Models\BinaryOperation.cs" />
-    <Compile Include="Models\Subtraction.cs" />
-    <Compile Include="Models\UnaryOperation.cs" />
-    <Compile Include="Models\UniversalOperation.cs" />
+    <Compile Include="Models\ArithmeticOperations\Division.cs" />
+    <Compile Include="Models\ArithmeticOperations\Multiplication.cs" />
+    <Compile Include="Models\ArithmeticOperations\Addition.cs" />
+    <Compile Include="Models\Base\BinaryOperation.cs" />
+    <Compile Include="Models\ArithmeticOperations\Subtraction.cs" />
+    <Compile Include="Models\Base\UnaryOperation.cs" />
+    <Compile Include="Models\Base\UniversalOperation.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
