@@ -14,108 +14,36 @@
         WindowStartupLocation="CenterScreen"
         Background="#FFE6E6E6">
 
-    <Window.Resources>
-        <Style x:Key="MemoryButtonsGrid" TargetType="Grid">
-            <Style.Resources>
-                <Style BasedOn="{StaticResource MemoryButton}" TargetType="Button"/>
-            </Style.Resources>
-        </Style>
-        <Style x:Key="KeyboardGrid" TargetType="Grid">
-            <Style.Resources>
-                <Style BasedOn="{StaticResource NumberButton}" TargetType="Button"/>
-            </Style.Resources>
-        </Style>
-    </Window.Resources>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="97*"/>
-            <RowDefinition Height="30*" MaxHeight="75"/>
-            <RowDefinition Height="309*"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <!--Calculator name-->
-        <TextBlock 
-            Text="Standart" 
-            FontSize="20" 
-            VerticalAlignment="Center"
-            Margin="10,0,0,0"/>
+        <!--Top panel-->
+        <StackPanel Orientation="Horizontal">
+            <!--Side drop down menu-->
+            <Button
+                Content="☰"
+                FontSize="16"
+                Width="40"/>
 
-        <!--Display-->
-        <TextBlock 
-            Text="0" 
-            Margin="0,0,10,0"
-            Grid.Row="1" 
-            HorizontalAlignment="Right" 
-            VerticalAlignment="Center" 
-            FontSize="43" 
-            FontWeight="Bold" 
-            FontFamily="Microsoft JhengHei"/>
+            <!--Calculator name-->
+            <TextBlock 
+                Text="Standart" 
+                FontSize="20" 
+                VerticalAlignment="Center"
+                Margin="15,0,15,0"/>
 
-        <!--Memory buttons-->
-        <Grid Grid.Row="2" Margin="3, 0, 3, 0" Style="{StaticResource MemoryButtonsGrid}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
+            <!--Side drop down menu-->
+            <Button
+                Content="◳"
+                FontSize="20"
+                Width="40"/>
+        </StackPanel>
 
-            <Button Content="MC" Command="" Grid.Column="0"/>
-            <Button Content="MR" Command="" Grid.Column="1"/>
-            <Button Content="M+" Command="" Grid.Column="2"/>
-            <Button Content="M-" Command="" Grid.Column="3"/>
-            <Button Content="MS" Command="" Grid.Column="4"/>
-        </Grid>
-
-        <!--Keyboard-->
-        <Grid Grid.Row="3" Margin="3, 0, 3, 3" Style="{StaticResource KeyboardGrid}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-
-            <Button Content="%" Command="" Grid.Row="0" Grid.Column="0" Style="{StaticResource AdditionalOperationButton}"/>
-            <Button Content="CE" Command="" Grid.Row="0" Grid.Column="1" Style="{StaticResource AdditionalOperationButton}"/>
-            <Button Content="C" Command="" Grid.Row="0" Grid.Column="2" Style="{StaticResource AdditionalOperationButton}"/>
-            <Button Content="⌫" Command="" Grid.Row="0" Grid.Column="3" Style="{StaticResource AdditionalOperationButton}"/>
-
-            <Button Content="1/x" Command="" Grid.Row="1" Grid.Column="0" Style="{StaticResource AdditionalOperationButton}"/>
-            <Button Content="x²" Command="" Grid.Row="1" Grid.Column="1" Style="{StaticResource AdditionalOperationButton}"/>
-            <Button Content="√x" Command="" Grid.Row="1" Grid.Column="2" Style="{StaticResource AdditionalOperationButton}"/>
-            <Button Content="÷" Command="" Grid.Row="1" Grid.Column="3" Style="{StaticResource BasicOperationButton}"/>
-
-            <Button Content="7" Command="" Grid.Row="2" Grid.Column="0"/>
-            <Button Content="8" Command="" Grid.Row="2" Grid.Column="1"/>
-            <Button Content="9" Command="" Grid.Row="2" Grid.Column="2"/>
-            <Button Content="×" Command="" Grid.Row="2" Grid.Column="3" Style="{StaticResource BasicOperationButton}"/>
-
-            <Button Content="4" Command="" Grid.Row="3" Grid.Column="0"/>
-            <Button Content="5" Command="" Grid.Row="3" Grid.Column="1"/>
-            <Button Content="6" Command="" Grid.Row="3" Grid.Column="2"/>
-            <Button Content="‒" Command="" Grid.Row="3" Grid.Column="3" Style="{StaticResource BasicOperationButton}"/>
-
-            <Button Content="1" Command="" Grid.Row="4" Grid.Column="0"/>
-            <Button Content="2" Command="" Grid.Row="4" Grid.Column="1"/>
-            <Button Content="3" Command="" Grid.Row="4" Grid.Column="2"/>
-            <Button Content="+" Command="" Grid.Row="4" Grid.Column="3" Style="{StaticResource BasicOperationButton}"/>
-
-            <Button Content="+/-" Command="" Grid.Row="5" Grid.Column="0"/>
-            <Button Content="0" Command="" Grid.Row="5" Grid.Column="1"/>
-            <Button Content="," Command="" Grid.Row="5" Grid.Column="2"/>
-            <Button Content="=" Command="" Grid.Row="5" Grid.Column="3" Style="{StaticResource ResultButton}"/>
-        </Grid>
+        <ContentControl Grid.Row="1">
+            <local:StandartCalculatorControl/>
+        </ContentControl>
     </Grid>
 </Window>
