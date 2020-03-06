@@ -2,19 +2,12 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Calculator.Styles">
 
-    <!--#region Brushes-->
-    <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
-    <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
-    <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFC3C3C3"/>
-    <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF8D8D8D"/>
-    <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFB8B8B8"/>
-    <SolidColorBrush x:Key="Button.Pressed.Border" Color="Gray"/>
-    <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
-    <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
-    <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
-    <!--#endregion-->
-
-    <!--#region Styles-->
+    <ResourceDictionary x:Key="ButtonBrushes">
+        <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary Source="Brushes.xaml"/>
+        </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+    
     <Style x:Key="FocusVisual">
         <Setter Property="Control.Template">
             <Setter.Value>
@@ -25,23 +18,22 @@
         </Setter>
     </Style>
     
-    <!--Base buttons style-->
-    <Style x:Key="BaseButtonStyle" TargetType="Button">
+    <!--Base button style-->
+    <Style x:Key="BaseButtonStyle" TargetType="Button" Resources="{StaticResource ButtonBrushes}">
         <Setter Property="Margin" Value="0.5"/>
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
-        
+
         <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-        
         <Setter Property="BorderBrush" Value="{x:Null}"/>
         <Setter Property="BorderThickness" Value="1"/>
-        
+
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
 
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Button}">
+                <ControlTemplate TargetType="Button">
                     <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
                         <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                     </Border>
@@ -67,48 +59,41 @@
         </Setter>
     </Style>
 
-    <!--Memory buttons style-->
+    <!--Memory button style-->
     <Style x:Key="MemoryButton" BasedOn="{StaticResource BaseButtonStyle}" TargetType="Button">
-        <Setter Property="Background">
-            <Setter.Value>
-                <SolidColorBrush Color="#FFDADADA" Opacity="0"/>
-            </Setter.Value>
-        </Setter>
-        
         <Setter Property="FontFamily" Value="Microsoft JhengHei"/>
         <Setter Property="FontWeight" Value="Bold"/>
     </Style>
 
-    <!--Number buttons style-->
+    <!--Number button style-->
     <Style x:Key="NumberButton" BasedOn="{StaticResource BaseButtonStyle}" TargetType="Button">
-        <Setter Property="Background" Value="#FFFAFAFA"/>
-        
+        <Setter Property="Background" Value="{StaticResource NumberButton.Static.Background}"/>
         <Setter Property="FontFamily" Value="Microsoft JhengHei UI"/>
         <Setter Property="FontSize" Value="18"/>
         <Setter Property="FontWeight" Value="Bold"/> 
     </Style>
     
     <!--#region Operations-->
-    <!--Base operations buttons style-->
+    <!--Base operation button style-->
     <Style x:Key="OperationButton" BasedOn="{StaticResource BaseButtonStyle}" TargetType="Button">
-        <Setter Property="Background" Value="#FFDADADA"/>
+        <Setter Property="Background" Value="{StaticResource OperationButton.Static.Background}"/>
     </Style>
-    
-    <!--Basic operations buttons style (+, -, *, /, =)-->
-    <Style x:Key="BasicOperationButton" BasedOn="{StaticResource OperationButton}" TargetType="Button">
+
+    <!--Arithmetic operation button style (+, -, *, /)-->
+    <Style x:Key="ArithmeticOperationButton" BasedOn="{StaticResource OperationButton}" TargetType="Button">
         <Setter Property="FontFamily" Value="Microsoft YaHei Light"/>
         <Setter Property="FontSize" Value="27"/>
     </Style>
     
-    <!--Additional operations buttons style (%, CE, C, ⌫, ...)-->
+    <!--Additional operation button style (%, CE, C, ⌫, ...)-->
     <Style x:Key="AdditionalOperationButton" BasedOn="{StaticResource OperationButton}" TargetType="Button">
         <Setter Property="FontFamily" Value="Microsoft JhengHei UI"/>
         <Setter Property="FontSize" Value="14"/>
     </Style>
     
     <!--Result button style-->
-    <Style x:Key="ResultButton" BasedOn="{StaticResource BasicOperationButton}" TargetType="Button">
-        <Setter Property="Background" Value="#FF8ABAE0"/>
+    <Style x:Key="ResultButton" BasedOn="{StaticResource ArithmeticOperationButton}" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource ResultButton.Static.Background}"/>
 
         <Setter Property="Template">
             <Setter.Value>
@@ -118,12 +103,12 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="#FF3A8ED0"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="#FF3178B1"/>
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource ResultButton.MouseOver.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource ResultButton.MouseOver.Border}"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="#FF0078D7"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="#FF3A8ED0"/>
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource ResultButton.Pressed.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource ResultButton.Pressed.Border}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -131,5 +116,4 @@
         </Setter>
     </Style>
     <!--#endregion Operations-->
-    <!--#endregion Styles-->
 </ResourceDictionary>

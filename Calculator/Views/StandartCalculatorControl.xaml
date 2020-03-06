@@ -7,16 +7,39 @@
              mc:Ignorable="d" 
              d:DesignHeight="460" d:DesignWidth="320">
 
+    <UserControl.Resources>
+        <Style x:Key="MemoryButtonsGrid" TargetType="Grid">
+            <Style.Resources>
+                <Style BasedOn="{StaticResource MemoryButton}" TargetType="Button"/>
+            </Style.Resources>
+        </Style>
+        <Style x:Key="AdditionalOperationButtonsGrid" TargetType="Grid">
+            <Style.Resources>
+                <Style BasedOn="{StaticResource AdditionalOperationButton}" TargetType="Button"/>
+            </Style.Resources>
+        </Style>
+        <Style x:Key="ArithmeticOperationButtonsGrid" TargetType="Grid">
+            <Style.Resources>
+                <Style BasedOn="{StaticResource ArithmeticOperationButton}" TargetType="Button"/>
+            </Style.Resources>
+        </Style>
+        <Style x:Key="NumberButtonsGrid" TargetType="Grid">
+            <Style.Resources>
+                <Style BasedOn="{StaticResource NumberButton}" TargetType="Button"/>
+            </Style.Resources>
+        </Style>
+    </UserControl.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="3*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="7*"/>
         </Grid.RowDefinitions>
 
         <!--Display-->
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition MinHeight="25" Height="25*"/>
+                <RowDefinition Height="25*" MinHeight="25"/>
                 <RowDefinition Height="74*"/>
             </Grid.RowDefinitions>
 
@@ -44,14 +67,14 @@
         </Grid>
 
         <!--Keyboard-->
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" Margin="3, 0, 3, 3">
             <Grid.RowDefinitions>
-                <RowDefinition MaxHeight="75"/>
+                <RowDefinition MaxHeight="60"/>
                 <RowDefinition Height="10*"/>
             </Grid.RowDefinitions>
 
             <!--Memory buttons-->
-            <Grid>
+            <Grid Style="{StaticResource MemoryButtonsGrid}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
@@ -68,7 +91,7 @@
             </Grid>
 
             <!--Main keyboard-->
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1" Style="{StaticResource AdditionalOperationButtonsGrid}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
@@ -95,8 +118,11 @@
                 <Button Content="√x" Command="" Grid.Column="2" Grid.Row="1"/>
                 <!--#endregion -->
 
+                <!--Result button-->
+                <Button Content="=" Command="" Grid.Column="3" Grid.Row="5" Style="{StaticResource ResultButton}"/>
+
                 <!--Arithmetic operation buttons-->
-                <Grid Grid.Row="1" Grid.Column="3" Grid.RowSpan="4">
+                <Grid Grid.Row="1" Grid.Column="3" Grid.RowSpan="4" Style="{StaticResource ArithmeticOperationButtonsGrid}">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
@@ -110,11 +136,8 @@
                     <Button Content="+" Command="" Grid.Row="3"/>
                 </Grid>
 
-                <!--Result button-->
-                <Button Content="=" Command="" Grid.Column="3" Grid.Row="5"/>
-
                 <!--Number buttons-->
-                <Grid Grid.Row="2" Grid.ColumnSpan="3" Grid.RowSpan="4">
+                <Grid Grid.Row="2" Grid.ColumnSpan="3" Grid.RowSpan="4" Style="{StaticResource NumberButtonsGrid}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
