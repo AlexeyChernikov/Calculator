@@ -68,6 +68,8 @@
     <Compile Include="Models\Base\UniversalOperation.cs" />
     <Compile Include="ViewModels\Base\BaseViewModel.cs" />
     <Compile Include="ViewModels\Base\RelayCommand.cs" />
+    <Compile Include="ViewModels\WindowViewModel.cs" />
+    <Compile Include="ViewModels\StandartCalculatorViewModel.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
