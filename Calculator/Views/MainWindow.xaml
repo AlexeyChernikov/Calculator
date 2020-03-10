@@ -4,20 +4,25 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Calculator.Views"
+        xmlns:vm="clr-namespace:Calculator.ViewModels"
         mc:Ignorable="d"
         
         WindowStyle="None"
         AllowsTransparency="True"
-        
+        WindowStartupLocation="CenterScreen"
         
         Title="Calculator" 
         Height="515"
         Width="335"
         MinHeight="506"
         MinWidth="320"
-        WindowStartupLocation="CenterScreen"
         Background="#FFE6E6E6">
 
+    <WindowChrome.WindowChrome>
+        <WindowChrome
+            ResizeBorderThickness="{Binding ResizeBorderThickness}"/>
+    </WindowChrome.WindowChrome>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
