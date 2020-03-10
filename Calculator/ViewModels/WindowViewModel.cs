@@ -7,7 +7,7 @@ using Calculator.ViewModels.Base;
 
 namespace Calculator.ViewModels
 {
-    class WindowViewModel : BaseViewModel
+    public class WindowViewModel : BaseViewModel
     {
 
     }
