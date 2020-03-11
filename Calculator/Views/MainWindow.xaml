@@ -7,26 +7,18 @@
         xmlns:vm="clr-namespace:Calculator.ViewModels"
         mc:Ignorable="d"
         
-        WindowStyle="None"
-        AllowsTransparency="True"
-        WindowStartupLocation="CenterScreen"
-        
         Title="Calculator" 
         Height="515"
         Width="335"
         MinHeight="506"
         MinWidth="320"
-        Background="#FFE6E6E6">
-
-    <WindowChrome.WindowChrome>
-        <WindowChrome
-            ResizeBorderThickness="{Binding ResizeBorderThickness}"/>
-    </WindowChrome.WindowChrome>
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource Window.Background}">
     
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
-            <RowDefinition/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <!--Top panel-->

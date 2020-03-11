@@ -2,6 +2,10 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Calculator.Styles">
 
+    <!--#region Window colors-->
+    <SolidColorBrush x:Key="Window.Background" Color="#FFE6E6E6" />
+    <!--#endregion-->
+
     <!--#region Button colors-->
     <!--Default-->
     <SolidColorBrush x:Key="Button.Static.Background" Color="Transparent" />

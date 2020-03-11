@@ -4,7 +4,7 @@
 
     <FontFamily x:Key="CalcMDL2">pack://application;,,,/Assets/Fonts/#CalcMDL2</FontFamily>
 
-    <Style x:Key="BaseFontFamilyStyle" TargetType="Control">
+    <!--<Style x:Key="BaseFontFamilyStyle" TargetType="Control">
         <Setter Property="FontFamily" Value="{StaticResource CalcMDL2}"/>
     </Style>
     
@@ -13,6 +13,6 @@
     </Style>
 
     <Style TargetType="Button" BasedOn="{StaticResource BaseFontFamilyStyle}"/>
-    <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockFontFamilyStyle}"/>
+    <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockFontFamilyStyle}"/>-->
 
 </ResourceDictionary>
