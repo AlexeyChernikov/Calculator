@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Calculator.ViewModels;
 
 namespace Calculator.Views
 {
@@ -22,6 +23,9 @@ namespace Calculator.Views
         public MainWindow()
         {
             InitializeComponent();
+
+            ////this is bad practice, remove it later
+            //this.DataContext = new WindowViewModel(this);
         }
     }
 }
