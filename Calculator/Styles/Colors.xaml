@@ -4,6 +4,8 @@
 
     <!--#region Window colors-->
     <SolidColorBrush x:Key="Window.Background" Color="#FFE6E6E6" />
+    <SolidColorBrush x:Key="Window.BorderBrush" Color="#FF5D6065" />
+    <Color x:Key="Window.Shadow" R="169" G="169" B="169"/>
     <!--#endregion-->
 
     <!--#region Button colors-->

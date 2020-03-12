@@ -53,6 +53,25 @@
         </Setter>
     </Style>
 
+    <!--Window control button style-->
+    <Style x:Key="WindowControlButton" BasedOn="{StaticResource BaseButtonStyle}" TargetType="Button">
+        <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
+        <!--<Setter Property="Padding" Value="8"/>-->
+        <!--<Setter Property="VerticalAlignment" Value="Stretch"/>
+        
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}">
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="{TemplateBinding Content}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>-->
+    </Style>
+    
+    
+    
     <!--Memory button style-->
     <Style x:Key="MemoryButton" BasedOn="{StaticResource BaseButtonStyle}" TargetType="Button">
         <Setter Property="FontFamily" Value="Microsoft JhengHei"/>
