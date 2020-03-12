@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Calculator.ViewModels.Base;
+using Calculator.WindowHelper;
 
 namespace Calculator.ViewModels
 {
@@ -90,6 +91,9 @@ namespace Calculator.ViewModels
             MinimizeCommand = new RelayCommand(minimizeCommand);
             MaximizeCommand = new RelayCommand(maximizeCommand);
             CloseCommand = new RelayCommand(closeCommand);
+
+            //Fix window resize issue
+            var resizer = new WindowResizer(this.window);
         }
 
         private void minimizeCommand(object parameter) => window.WindowState = WindowState.Minimized;
