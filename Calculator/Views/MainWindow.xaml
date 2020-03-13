@@ -7,15 +7,14 @@
         xmlns:vm="clr-namespace:Calculator.ViewModels"
         mc:Ignorable="d"
         
+        Title="Калькулятор" 
+        Height="522"
+        Width="342"
+        MinHeight="522"
+        MinWidth="342"
         AllowsTransparency="True"
         WindowStyle="None"
-        WindowStartupLocation="CenterScreen"
-        
-        Title="Calculator" 
-        Height="515"
-        Width="335"
-        MinHeight="506"
-        MinWidth="320">
+        WindowStartupLocation="CenterScreen">
 
     <WindowChrome.WindowChrome>
         <WindowChrome
@@ -33,22 +32,24 @@
                         <Border Padding="{Binding OuterMarginSizeThickness, FallbackValue=10}">
 
                             <!--Window border, shadow and main background-->
-                            <Border Background="{StaticResource Window.Background}" BorderBrush="{StaticResource Window.BorderBrush}" BorderThickness="1">
+                            <Border Background="{StaticResource Window.Background}" BorderBrush="{StaticResource Window.Border}" BorderThickness="1">
                                 <Border.Effect>
-                                    <DropShadowEffect Color="{StaticResource Window.Shadow}"  ShadowDepth="0" Opacity="1"/>
+                                    <DropShadowEffect Color="{StaticResource Window.Shadow}"  ShadowDepth="0" Opacity="0.5"/>
                                 </Border.Effect>
 
                                 <!--Main window content-->
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <!--Title bar-->
-                                        <RowDefinition Height="{Binding TitleHeightGridLength, FallbackValue=30}"/>
+                                        <RowDefinition Height="{Binding TitleHeightGridLength, FallbackValue=26}"/>
+                                        <!---->
+                                        <RowDefinition Height="40"/>
                                         <!--Window content-->
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
 
                                     <!--Title bar-->
-                                    <Grid Grid.Row="0" Background="Green">
+                                    <Grid Grid.Row="0">
                                         <Grid.ColumnDefinitions>
                                             <!--Title-->
                                             <ColumnDefinition Width="*"/>
@@ -57,21 +58,43 @@
                                         </Grid.ColumnDefinitions>
 
                                         <!--Title-->
-                                        <TextBlock Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title}" />
+                                        <TextBlock 
+                                            Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title, FallbackValue=Calculator}" 
+                                            VerticalAlignment="Center"
+                                            Margin="12, 0, 0, 0"/>
 
                                         <!--Window buttons-->
                                         <StackPanel Grid.Column="1" Orientation="Horizontal">
-                                            <Button Content="_" Command="{Binding MinimizeCommand}" Style="{StaticResource WindowControlButton}"/>
-                                            <Button Content="[ ]" Command="{Binding MaximizeCommand}" Style="{StaticResource WindowControlButton}"/>
-                                            <Button Content="X" Command="{Binding CloseCommand}" Style="{StaticResource WindowControlButton}"/>
+                                            <Button 
+                                                Content="‒" 
+                                                Command="{Binding MinimizeCommand}" 
+                                                Style="{StaticResource BaseWindowControlButtonStyle}" 
+                                                FontSize="22" 
+                                                Padding="0,-4,0,0"/>
+                                            <Button 
+                                                Content="□" 
+                                                Command="{Binding MaximizeCommand}" 
+                                                Style="{StaticResource BaseWindowControlButtonStyle}" 
+                                                FontSize="21" 
+                                                Padding="0,-6,0,0"/>
+                                            <Button 
+                                                Content="×" 
+                                                Command="{Binding CloseCommand}" 
+                                                Style="{StaticResource WindowCloseControlButtonStyle}" 
+                                                FontSize="23" 
+                                                Padding="0,-4,0,0"/>
                                         </StackPanel>
                                     </Grid>
 
+                                    
+                                    
                                     <!--Window content-->
-                                    <!--"Views" for various calculators are displayed here-->
-                                    <ContentControl Grid.Row="1">
-                                        <local:StandartCalculatorControl/>
-                                    </ContentControl>
+                                    <!--Keyboard and display are displayed here-->
+                                    <Border Grid.Row="2" Padding="3">
+                                        <ContentControl Grid.Row="1">
+                                            <local:StandartCalculatorControl/>
+                                        </ContentControl>
+                                    </Border>
                                 </Grid>
                             </Border>
                         </Border>

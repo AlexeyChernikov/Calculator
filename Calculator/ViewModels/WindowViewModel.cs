@@ -57,7 +57,7 @@ namespace Calculator.ViewModels
         //public CornerRadius WindowCornerRadius { get { return new CornerRadius(WindowRadius); } }
 
         //Height of the title bar
-        public int TitleHeight { get; set; } = 30;
+        public int TitleHeight { get; set; } = 26;
 
         public GridLength TitleHeightGridLength { get { return new GridLength(TitleHeight + ResizeBorder); } }
 

@@ -14,7 +14,6 @@
     
     <!--Base button style-->
     <Style x:Key="BaseButtonStyle" TargetType="Button">
-        <Setter Property="Margin" Value="0.5"/>
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
 
         <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
@@ -53,23 +52,64 @@
         </Setter>
     </Style>
 
-    <!--Window control button style-->
-    <Style x:Key="WindowControlButton" BasedOn="{StaticResource BaseButtonStyle}" TargetType="Button">
+    <!--#region Window control buttons-->
+    <!--Base window control button style-->
+    <Style x:Key="BaseWindowControlButtonStyle" BasedOn="{StaticResource BaseButtonStyle}" TargetType="Button">
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
-        <!--<Setter Property="Padding" Value="8"/>-->
-        <!--<Setter Property="VerticalAlignment" Value="Stretch"/>
-        
+
+        <Setter Property="Width" Value="46"/>
+
+        <Setter Property="Background" Value="{StaticResource WindowControlButton.Static.Background}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource WindowControlButton.Static.Border}"/>
+
+        <Setter Property="FontFamily" Value="Microsoft YaHei Light"/>
+
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}">
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="{TemplateBinding Content}"/>
+                    <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                        <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource WindowControlButton.MouseOver.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource WindowControlButton.MouseOver.Border}"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource WindowControlButton.Pressed.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource WindowControlButton.Pressed.Border}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
-        </Setter>-->
+        </Setter>
     </Style>
-    
+
+    <!--Window close control button style-->
+    <Style x:Key="WindowCloseControlButtonStyle" BasedOn="{StaticResource BaseWindowControlButtonStyle}" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                        <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource WindowCloseControlButton.MouseOver.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource WindowCloseControlButton.MouseOver.Border}"/>
+                            <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource WindowCloseControlButton.MouseOver.Foreground}"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource WindowCloseControlButton.Pressed.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource WindowCloseControlButton.Pressed.Border}"/>
+                            <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource WindowCloseControlButton.Pressed.Foreground}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--#endregion-->
     
     
     <!--Memory button style-->
