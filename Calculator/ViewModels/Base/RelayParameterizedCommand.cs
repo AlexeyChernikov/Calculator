@@ -3,13 +3,15 @@ using System.Windows.Input;
 
 namespace Calculator.ViewModels.Base
 {
-    public class RelayCommand : ICommand
+    public class RelayParameterizedCommand : ICommand
     {
-        private Action execute;
+        private Action<object> execute;
+        private Func<object, bool> canExecute;
 
-        public RelayCommand(Action execute)
+        public RelayParameterizedCommand(Action<object> execute, Func<object, bool> canExecute = null)
         {
             this.execute = execute;
+            this.canExecute = canExecute;
         }
 
         public event EventHandler CanExecuteChanged
@@ -20,12 +22,12 @@ namespace Calculator.ViewModels.Base
 
         public bool CanExecute(object parameter)
         {
-            return true;
+            return canExecute == null || canExecute(parameter);
         }
 
         public void Execute(object parameter)
         {
-            execute();
+            execute(parameter);
         }
     }
 }

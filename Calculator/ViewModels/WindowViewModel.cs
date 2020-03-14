@@ -17,9 +17,6 @@ namespace Calculator.ViewModels
         private Window window;
         private int outerMarginSize = 10;
 
-
-        //private int windowRadius = 10;
-
         #endregion
 
         #region Public properties
@@ -42,20 +39,6 @@ namespace Calculator.ViewModels
 
         public Thickness OuterMarginSizeThickness { get { return new Thickness(OuterMarginSize); } }
 
-        //public int WindowRadius
-        //{
-        //    get
-        //    {
-        //        return window.WindowState == WindowState.Maximized ? 0 : windowRadius;
-        //    }
-        //    set
-        //    {
-        //        windowRadius = value;
-        //    }
-        //}
-
-        //public CornerRadius WindowCornerRadius { get { return new CornerRadius(WindowRadius); } }
-
         //Height of the title bar
         public int TitleHeight { get; set; } = 26;
 
@@ -66,9 +49,7 @@ namespace Calculator.ViewModels
         #region Commands
 
         public ICommand MinimizeCommand { get; set; }
-
         public ICommand MaximizeCommand { get; set; }
-
         public ICommand CloseCommand { get; set; }
 
         #endregion
@@ -83,21 +64,15 @@ namespace Calculator.ViewModels
                 OnPropertyChanged(nameof(ResizeBorderThickness));
                 OnPropertyChanged(nameof(OuterMarginSize));
                 OnPropertyChanged(nameof(OuterMarginSizeThickness));
-                //OnPropertyChanged(nameof(WindowRadius));
-                //OnPropertyChanged(nameof(WindowCornerRadius));
             };
 
             //Create command
-            MinimizeCommand = new RelayCommand(minimizeCommand);
-            MaximizeCommand = new RelayCommand(maximizeCommand);
-            CloseCommand = new RelayCommand(closeCommand);
+            MinimizeCommand = new RelayCommand(() => this.window.WindowState = WindowState.Minimized);
+            MaximizeCommand = new RelayCommand(() => this.window.WindowState ^= WindowState.Maximized);
+            CloseCommand = new RelayCommand(() => this.window.Close());
 
             //Fix window resize issue
             var resizer = new WindowResizer(this.window);
         }
-
-        private void minimizeCommand(object parameter) => window.WindowState = WindowState.Minimized;
-        private void maximizeCommand(object parameter) => window.WindowState ^= WindowState.Maximized;
-        private void closeCommand(object parameter) => window.Close();
     }
 }
