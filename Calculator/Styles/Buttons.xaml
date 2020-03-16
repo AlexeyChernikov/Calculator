@@ -11,162 +11,205 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <!--Base button style-->
     <Style x:Key="BaseButtonStyle" TargetType="Button">
-        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+        <Style.Setters>
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
 
-        <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
-        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-        <Setter Property="BorderBrush" Value="{x:Null}"/>
-        <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Margin" Value="1"/>
 
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
 
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Button">
-                    <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
-                        <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsDefaulted" Value="true">
-                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-                        </Trigger>
-                        <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
-                        </Trigger>
-                        <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
-                        </Trigger>
-                        <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
-                            <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+        <Style.Triggers>
+            <Trigger Property="IsDefaulted" Value="true">
+                <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Background" Value="{StaticResource Button.MouseOver.Background}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource Button.MouseOver.Border}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter Property="Background" Value="{StaticResource Button.Pressed.Background}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource Button.Pressed.Border}"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Background" Value="{StaticResource Button.Disabled.Background}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource Button.Disabled.Border}"/>
+                <Setter Property="TextElement.Foreground" Value="{StaticResource Button.Disabled.Foreground}"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
     <!--#region Window control buttons-->
     <!--Base window control button style-->
     <Style x:Key="BaseWindowControlButtonStyle" BasedOn="{StaticResource BaseButtonStyle}" TargetType="Button">
-        <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
+        <Style.Setters>
+            <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Width" Value="46"/>
 
-        <Setter Property="Width" Value="46"/>
+            <Setter Property="Background" Value="{StaticResource WindowControlButton.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource WindowControlButton.Static.Border}"/>
 
-        <Setter Property="Background" Value="{StaticResource WindowControlButton.Static.Background}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource WindowControlButton.Static.Border}"/>
-
-        <Setter Property="FontFamily" Value="Microsoft YaHei Light"/>
-
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Button">
-                    <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
-                        <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="{StaticResource WindowControlButton.MouseOver.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource WindowControlButton.MouseOver.Border}"/>
-                        </Trigger>
-                        <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="{StaticResource WindowControlButton.Pressed.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource WindowControlButton.Pressed.Border}"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
+            <Setter Property="FontFamily" Value="Microsoft YaHei Light"/>
+        </Style.Setters>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Background" Value="{StaticResource WindowControlButton.MouseOver.Background}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource WindowControlButton.MouseOver.Border}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter Property="Background" Value="{StaticResource WindowControlButton.Pressed.Background}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource WindowControlButton.Pressed.Border}"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
     <!--Window close control button style-->
     <Style x:Key="WindowCloseControlButtonStyle" BasedOn="{StaticResource BaseWindowControlButtonStyle}" TargetType="Button">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Button">
-                    <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
-                        <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="{StaticResource WindowCloseControlButton.MouseOver.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource WindowCloseControlButton.MouseOver.Border}"/>
-                            <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource WindowCloseControlButton.MouseOver.Foreground}"/>
-                        </Trigger>
-                        <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="{StaticResource WindowCloseControlButton.Pressed.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource WindowCloseControlButton.Pressed.Border}"/>
-                            <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource WindowCloseControlButton.Pressed.Foreground}"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Background" Value="{StaticResource WindowCloseControlButton.MouseOver.Background}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource WindowCloseControlButton.MouseOver.Border}"/>
+                <Setter Property="TextElement.Foreground" Value="{StaticResource WindowCloseControlButton.MouseOver.Foreground}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter Property="Background" Value="{StaticResource WindowCloseControlButton.Pressed.Background}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource WindowCloseControlButton.Pressed.Border}"/>
+                <Setter Property="TextElement.Foreground" Value="{StaticResource WindowCloseControlButton.Pressed.Foreground}"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
     <!--#endregion-->
-    
-    
+
+    <!--#region Top panel (menu) buttons-->
+    <!--Base top panel (menu) button style-->
+    <Style x:Key="BaseTopPanelButtonStyle" BasedOn="{StaticResource BaseButtonStyle}" TargetType="Button">
+        <Style.Setters>
+            <Setter Property="Background" Value="{StaticResource TopPanelButton.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TopPanelButton.Static.Border}"/>
+
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Width" Value="40"/>
+        </Style.Setters>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Background" Value="{StaticResource TopPanelButton.Disabled.Background}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource TopPanelButton.Disabled.Border}"/>
+                <Setter Property="TextElement.Foreground" Value="{StaticResource TopPanelButton.Disabled.Foreground}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--Navigation button style-->
+    <Style x:Key="NavigationButtonStyle" BasedOn="{StaticResource BaseTopPanelButtonStyle}" TargetType="Button">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Background" Value="{StaticResource NavigationButton.MouseOver.Background}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource NavigationButton.MouseOver.Border}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter Property="Background" Value="{StaticResource NavigationButton.Pressed.Background}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource NavigationButton.Pressed.Border}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!--#endregion-->
+
     <!--Memory button style-->
-    <Style x:Key="MemoryButton" BasedOn="{StaticResource BaseButtonStyle}" TargetType="Button">
-        <Setter Property="FontFamily" Value="Microsoft JhengHei"/>
-        <Setter Property="FontWeight" Value="Bold"/>
+    <Style x:Key="MemoryButtonStyle" BasedOn="{StaticResource BaseButtonStyle}" TargetType="Button">
+        <Style.Setters>
+            <Setter Property="Background" Value="{StaticResource MemoryButton.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource MemoryButton.Static.Border}"/>
+
+            <Setter Property="FontFamily" Value="Microsoft JhengHei"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style.Setters>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Background" Value="{StaticResource MemoryButton.Disabled.Background}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource MemoryButton.Disabled.Border}"/>
+                <Setter Property="TextElement.Foreground" Value="{StaticResource MemoryButton.Disabled.Foreground}"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
     <!--Number button style-->
-    <Style x:Key="NumberButton" BasedOn="{StaticResource BaseButtonStyle}" TargetType="Button">
-        <Setter Property="Background" Value="{StaticResource NumberButton.Static.Background}"/>
-        <Setter Property="FontFamily" Value="Microsoft JhengHei UI"/>
-        <Setter Property="FontSize" Value="18"/>
-        <Setter Property="FontWeight" Value="Bold"/> 
+    <Style x:Key="NumberButtonStyle" BasedOn="{StaticResource BaseButtonStyle}" TargetType="Button">
+        <Style.Setters>
+            <Setter Property="Background" Value="{StaticResource NumberButton.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource NumberButton.Static.Border}"/>
+
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontFamily" Value="Microsoft JhengHei UI"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style.Setters>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Background" Value="{StaticResource NumberButton.Disabled.Background}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource NumberButton.Disabled.Border}"/>
+                <Setter Property="TextElement.Foreground" Value="{StaticResource NumberButton.Disabled.Foreground}"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
     
-    <!--#region Operations-->
+    <!--#region Operation buttons-->
     <!--Base operation button style-->
-    <Style x:Key="OperationButton" BasedOn="{StaticResource BaseButtonStyle}" TargetType="Button">
-        <Setter Property="Background" Value="{StaticResource OperationButton.Static.Background}"/>
+    <Style x:Key="BaseOperationButtonStyle" BasedOn="{StaticResource BaseButtonStyle}" TargetType="Button">
+        <Style.Setters>
+            <Setter Property="Background" Value="{StaticResource OperationButton.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource OperationButton.Static.Border}"/>
+
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="{StaticResource CalcMDL2}"/>
+        </Style.Setters>
     </Style>
 
     <!--Arithmetic operation button style (+, -, *, /)-->
-    <Style x:Key="ArithmeticOperationButton" BasedOn="{StaticResource OperationButton}" TargetType="Button">
-        <Setter Property="FontFamily" Value="Microsoft YaHei Light"/>
-        <Setter Property="FontSize" Value="27"/>
+    <Style x:Key="ArithmeticOperationButtonStyle" BasedOn="{StaticResource BaseOperationButtonStyle}" TargetType="Button">
+        <Style.Setters>
+            <Setter Property="FontSize" Value="27"/>
+            <Setter Property="FontFamily" Value="Microsoft YaHei Light"/>
+        </Style.Setters>
     </Style>
-    
-    <!--Additional operation button style (%, CE, C, ⌫, ...)-->
-    <Style x:Key="AdditionalOperationButton" BasedOn="{StaticResource OperationButton}" TargetType="Button">
-        <Setter Property="FontFamily" Value="Microsoft JhengHei UI"/>
-        <Setter Property="FontSize" Value="14"/>
-    </Style>
+    <!--#endregion-->
     
     <!--Result button style-->
-    <Style x:Key="ResultButton" BasedOn="{StaticResource ArithmeticOperationButton}" TargetType="Button">
-        <Setter Property="Background" Value="{StaticResource ResultButton.Static.Background}"/>
+    <Style x:Key="ResultButtonStyle" BasedOn="{StaticResource BaseButtonStyle}" TargetType="Button">
+        <Style.Setters>
+            <Setter Property="Background" Value="{StaticResource ResultButton.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource ResultButton.Static.Border}"/>
 
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
-                        <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="{StaticResource ResultButton.MouseOver.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource ResultButton.MouseOver.Border}"/>
-                        </Trigger>
-                        <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="{StaticResource ResultButton.Pressed.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource ResultButton.Pressed.Border}"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
+            <Setter Property="FontSize" Value="27"/>
+            <Setter Property="FontFamily" Value="Microsoft YaHei Light"/>
+        </Style.Setters>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Background" Value="{StaticResource ResultButton.MouseOver.Background}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource ResultButton.MouseOver.Border}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter Property="Background" Value="{StaticResource ResultButton.Pressed.Background}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource ResultButton.Pressed.Border}"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
-    <!--#endregion Operations-->
+    
 </ResourceDictionary>
