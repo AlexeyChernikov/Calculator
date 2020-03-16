@@ -10,30 +10,25 @@
     <UserControl.Resources>
         <Style x:Key="MemoryButtonsGrid" TargetType="Grid">
             <Style.Resources>
-                <Style BasedOn="{StaticResource MemoryButton}" TargetType="Button"/>
-            </Style.Resources>
-        </Style>
-        <Style x:Key="AdditionalOperationButtonsGrid" TargetType="Grid">
-            <Style.Resources>
-                <Style BasedOn="{StaticResource AdditionalOperationButton}" TargetType="Button"/>
-            </Style.Resources>
-        </Style>
-        <Style x:Key="ArithmeticOperationButtonsGrid" TargetType="Grid">
-            <Style.Resources>
-                <Style BasedOn="{StaticResource ArithmeticOperationButton}" TargetType="Button"/>
+                <Style BasedOn="{StaticResource MemoryButtonStyle}" TargetType="Button"/>
             </Style.Resources>
         </Style>
         <Style x:Key="NumberButtonsGrid" TargetType="Grid">
             <Style.Resources>
-                <Style BasedOn="{StaticResource NumberButton}" TargetType="Button"/>
+                <Style BasedOn="{StaticResource NumberButtonStyle}" TargetType="Button"/>
+            </Style.Resources>
+        </Style>
+        <Style x:Key="OperationButtonsGrid" TargetType="Grid">
+            <Style.Resources>
+                <Style BasedOn="{StaticResource BaseOperationButtonStyle}" TargetType="Button"/>
             </Style.Resources>
         </Style>
     </UserControl.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="7*"/>
+            <RowDefinition Height="49*"/>
+            <RowDefinition Height="181.3*"/>
         </Grid.RowDefinitions>
 
         <!--Display-->
@@ -67,7 +62,7 @@
         </Grid>
 
         <!--Keyboard-->
-        <Grid Grid.Row="1" Margin="3, 0, 3, 3">
+        <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition MaxHeight="60"/>
                 <RowDefinition Height="10*"/>
@@ -91,7 +86,7 @@
             </Grid>
 
             <!--Main keyboard-->
-            <Grid Grid.Row="1" Style="{StaticResource AdditionalOperationButtonsGrid}">
+            <Grid Grid.Row="1" Style="{StaticResource OperationButtonsGrid}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
@@ -118,23 +113,15 @@
                 <Button Content="√x" Command="" Grid.Column="2" Grid.Row="1"/>
                 <!--#endregion -->
 
+                <!--#region Arithmetic operation buttons-->
+                <Button Content="÷" Command="" Grid.Column="3" Grid.Row="1" Style="{StaticResource ArithmeticOperationButtonStyle}"/>
+                <Button Content="×" Command="" Grid.Column="3" Grid.Row="2" Style="{StaticResource ArithmeticOperationButtonStyle}"/>
+                <Button Content="‒" Command="" Grid.Column="3" Grid.Row="3" Style="{StaticResource ArithmeticOperationButtonStyle}"/>
+                <Button Content="+" Command="" Grid.Column="3" Grid.Row="4" Style="{StaticResource ArithmeticOperationButtonStyle}"/>
+                <!--#endregion -->
+                
                 <!--Result button-->
-                <Button Content="=" Command="" Grid.Column="3" Grid.Row="5" Style="{StaticResource ResultButton}"/>
-
-                <!--Arithmetic operation buttons-->
-                <Grid Grid.Row="1" Grid.Column="3" Grid.RowSpan="4" Style="{StaticResource ArithmeticOperationButtonsGrid}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-
-                    <Button Content="÷" Command="" Grid.Row="0"/>
-                    <Button Content="×" Command="" Grid.Row="1"/>
-                    <Button Content="‒" Command="" Grid.Row="2"/>
-                    <Button Content="+" Command="" Grid.Row="3"/>
-                </Grid>
+                <Button Content="=" Command="" Grid.Column="3" Grid.Row="5" Style="{StaticResource ResultButtonStyle}"/>
 
                 <!--Number buttons-->
                 <Grid Grid.Row="2" Grid.ColumnSpan="3" Grid.RowSpan="4" Style="{StaticResource NumberButtonsGrid}">
