@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="Calculator.Views.MainWindowContentControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Calculator.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="480" d:DesignWidth="340">
+    <Grid>
+        <Grid.RowDefinitions>
+            <!--Top panel (menu)-->
+            <RowDefinition Height="40"/>
+            <!--Content-->
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--Top panel (menu)-->
+        <StackPanel Orientation="Horizontal">
+            <!--Navigation button-->
+            <Button
+                Content="☰"
+                Command=""
+                Style="{StaticResource NavigationButtonStyle}"
+                FontSize="16"/>
+
+            <!--The name of the current calculator-->
+            <TextBlock 
+                Text="{Binding CurrentCalculatorName, FallbackValue=Standart}" 
+                FontSize="20" 
+                VerticalAlignment="Center"
+                Margin="11,0,11,0"/>
+
+            <!--Over other windows button-->
+            <Button
+                Content="◳"
+                Command=""
+                Style="{StaticResource BaseTopPanelButtonStyle}"
+                FontSize="20"/>
+        </StackPanel>
+
+        <!--Content-->
+        <!--The selected calculator is displayed here-->
+        <Border Grid.Row="1" Padding="3">
+            <ContentControl>
+                <local:StandartCalculatorControl/>
+            </ContentControl>
+        </Border>
+    </Grid>
+</UserControl>

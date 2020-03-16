@@ -7,7 +7,7 @@
         xmlns:vm="clr-namespace:Calculator.ViewModels"
         mc:Ignorable="d"
         
-        Title="Калькулятор" 
+        Title="Calculator" 
         Height="522"
         Width="342"
         MinHeight="522"
@@ -93,7 +93,7 @@
 
                                         <!--Main content-->
                                         <ContentControl Grid.Row="1">
-                                            <local:StandartCalculatorControl/>
+                                            <local:MainWindowContentControl/>
                                         </ContentControl>
                                     </Grid>
                                 </Border>
