@@ -15,7 +15,6 @@ namespace Calculator.ViewModels
         #region Private member
 
         private Window window;
-        private int outerMarginSize = 10;
 
         #endregion
 
@@ -23,21 +22,7 @@ namespace Calculator.ViewModels
 
         public int ResizeBorder { get; set; } = 6;
 
-        public Thickness ResizeBorderThickness { get { return new Thickness(ResizeBorder + OuterMarginSize); } }
-
-        public int OuterMarginSize
-        {
-            get
-            {
-                return window.WindowState == WindowState.Maximized ? 0 : outerMarginSize;
-            }
-            set
-            {
-                outerMarginSize = value;
-            }
-        }
-
-        public Thickness OuterMarginSizeThickness { get { return new Thickness(OuterMarginSize); } }
+        public Thickness ResizeBorderThickness { get { return new Thickness(ResizeBorder); } }
 
         //Height of the title bar
         public int TitleHeight { get; set; } = 26;
@@ -59,11 +44,9 @@ namespace Calculator.ViewModels
             this.window = window;
 
             //Window resize
-            window.StateChanged += (sender, e) =>
+            this.window.StateChanged += (sender, e) =>
             {
                 OnPropertyChanged(nameof(ResizeBorderThickness));
-                OnPropertyChanged(nameof(OuterMarginSize));
-                OnPropertyChanged(nameof(OuterMarginSizeThickness));
             };
 
             //Create command

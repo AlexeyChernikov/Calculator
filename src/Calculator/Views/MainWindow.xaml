@@ -8,10 +8,10 @@
         mc:Ignorable="d"
         
         Title="Calculator" 
-        Height="522"
-        Width="342"
-        MinHeight="522"
-        MinWidth="342"
+        Height="509"
+        Width="322"
+        MinHeight="502"
+        MinWidth="322"
         AllowsTransparency="True"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen">
@@ -19,8 +19,7 @@
     <WindowChrome.WindowChrome>
         <WindowChrome
             ResizeBorderThickness="{Binding ResizeBorderThickness}"
-            CaptionHeight="{Binding TitleHeight}"
-            GlassFrameThickness="0"/>
+            CaptionHeight="{Binding TitleHeight}"/>
     </WindowChrome.WindowChrome>
 
     <Window.Resources>
@@ -28,75 +27,64 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Window}">
-                        <!--Outer border with the drop shadow margin-->
-                        <Border Padding="{Binding OuterMarginSizeThickness, FallbackValue=10}">
-                            <!--Window outline-->
+                        <!--Window background and border-->
+                        <Border Background="{StaticResource Window.Background}" BorderBrush="{StaticResource Window.Border}" BorderThickness="1">
+                            <!--Window contents-->
                             <Grid>
-                                <!--Window background and border-->
-                                <Border Background="{StaticResource Window.Background}" BorderBrush="{StaticResource Window.Border}" BorderThickness="1">
-                                    <!--Window shadow-->
-                                    <Border.Effect>
-                                        <DropShadowEffect Color="{StaticResource Window.Shadow}"  ShadowDepth="0" Opacity="0.5"/>
-                                    </Border.Effect>
+                                <Grid.RowDefinitions>
+                                    <!--Title bar-->
+                                    <RowDefinition Height="{Binding TitleHeightGridLength, FallbackValue=26}"/>
+                                    <!--Main content-->
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
 
-                                    <!--Window contents-->
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <!--Title bar-->
-                                            <RowDefinition Height="{Binding TitleHeightGridLength, FallbackValue=26}"/>
-                                            <!--Main content-->
-                                            <RowDefinition Height="*"/>
-                                        </Grid.RowDefinitions>
+                                <!--Title bar-->
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <!--Title-->
+                                        <ColumnDefinition Width="*"/>
+                                        <!--Window control buttons-->
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
 
-                                        <!--Title bar-->
-                                        <Grid Grid.Row="0">
-                                            <Grid.ColumnDefinitions>
-                                                <!--Title-->
-                                                <ColumnDefinition Width="*"/>
-                                                <!--Window control buttons-->
-                                                <ColumnDefinition Width="auto"/>
-                                            </Grid.ColumnDefinitions>
-
-                                            <!--Title-->
-                                            <TextBlock 
+                                    <!--Title-->
+                                    <TextBlock 
                                             Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title, FallbackValue=Calculator}" 
                                             VerticalAlignment="Center"
                                             Margin="12, 0, 0, 0"/>
 
-                                            <!--Window control buttons-->
-                                            <StackPanel Grid.Column="1" Orientation="Horizontal">
-                                                <!--Minimize button-->
-                                                <Button 
+                                    <!--Window control buttons-->
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                        <!--Minimize button-->
+                                        <Button 
                                                 Content="‒" 
                                                 Command="{Binding MinimizeCommand}" 
                                                 Style="{StaticResource BaseWindowControlButtonStyle}" 
                                                 FontSize="22" 
                                                 Padding="0,-4,0,0"/>
 
-                                                <!--Maximize button-->
-                                                <Button 
+                                        <!--Maximize button-->
+                                        <Button 
                                                 Content="□" 
                                                 Command="{Binding MaximizeCommand}" 
                                                 Style="{StaticResource BaseWindowControlButtonStyle}" 
                                                 FontSize="21" 
                                                 Padding="0,-6,0,0"/>
 
-                                                <!--Close button-->
-                                                <Button 
+                                        <!--Close button-->
+                                        <Button 
                                                 Content="×" 
                                                 Command="{Binding CloseCommand}" 
                                                 Style="{StaticResource WindowCloseControlButtonStyle}" 
                                                 FontSize="24" 
                                                 Padding="0,-4,0,0"/>
-                                            </StackPanel>
-                                        </Grid>
+                                    </StackPanel>
+                                </Grid>
 
-                                        <!--Main content-->
-                                        <ContentControl Grid.Row="1">
-                                            <local:MainWindowContentControl/>
-                                        </ContentControl>
-                                    </Grid>
-                                </Border>
+                                <!--Main content-->
+                                <ContentControl Grid.Row="1">
+                                    <local:MainWindowContentControl/>
+                                </ContentControl>
                             </Grid>
                         </Border>
                     </ControlTemplate>

@@ -3,9 +3,8 @@
                     xmlns:local="clr-namespace:Calculator.Styles">
 
     <!--#region Window colors-->
-    <SolidColorBrush x:Key="Window.Background" Color="#FFE6E6E6" />
-    <SolidColorBrush x:Key="Window.Border" Color="#FF5D6065" />
-    <Color x:Key="Window.Shadow">#FFA9A9A9</Color>
+    <SolidColorBrush x:Key="Window.Background" Color="#FFE6E6E6"/>
+    <SolidColorBrush x:Key="Window.Border" Color="#FF5D6065"/>
     <!--#endregion-->
 
     <!--#region Button colors-->
