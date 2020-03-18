@@ -28,7 +28,7 @@
                 Text="{Binding CurrentCalculatorName, FallbackValue=Standart}" 
                 FontSize="20" 
                 VerticalAlignment="Center"
-                Margin="11,0,11,0"/>
+                Margin="11,0,13,0"/>
 
             <!--Over other windows button-->
             <Button

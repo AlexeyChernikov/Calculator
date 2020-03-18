@@ -28,7 +28,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Window}">
                         <!--Window background and border-->
-                        <Border Background="{StaticResource Window.Background}" BorderBrush="{StaticResource Window.Border}" BorderThickness="1">
+                        <Border Background="{StaticResource Window.Static.Background}" BorderBrush="{StaticResource Window.Static.Border}" BorderThickness="1">
                             <!--Window contents-->
                             <Grid>
                                 <Grid.RowDefinitions>

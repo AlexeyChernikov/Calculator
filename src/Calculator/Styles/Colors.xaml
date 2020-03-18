@@ -3,10 +3,18 @@
                     xmlns:local="clr-namespace:Calculator.Styles">
 
     <!--#region Window colors-->
-    <SolidColorBrush x:Key="Window.Background" Color="#FFE6E6E6"/>
-    <SolidColorBrush x:Key="Window.Border" Color="#FF5D6065"/>
+    <SolidColorBrush x:Key="Window.Static.Background" Color="#FFE6E6E6"/>
+    <SolidColorBrush x:Key="Window.Static.Border" Color="#FF5D6065"/>
     <!--#endregion-->
 
+    <!--#region Display colors-->
+    <!--Current expression-->
+    <SolidColorBrush x:Key="CurrentExpression.Static.Foreground" Color="#FF4D4D4D"/>
+
+    <!--Current number-->
+    <SolidColorBrush x:Key="CurrentNumber.Static.Background" Color="Transparent"/>
+    <!--#endregion-->
+    
     <!--#region Button colors-->
     <!--#region Default button-->
     <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD" />
