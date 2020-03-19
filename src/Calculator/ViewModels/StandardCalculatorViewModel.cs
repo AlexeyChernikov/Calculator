@@ -7,8 +7,8 @@ using Calculator.ViewModels.Base;
 
 namespace Calculator.ViewModels
 {
-    class StandartCalculatorViewModel : BaseViewModel
+    class StandardCalculatorViewModel : BaseViewModel
     {
-
+        
     }
 }

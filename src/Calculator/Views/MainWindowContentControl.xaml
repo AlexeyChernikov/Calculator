@@ -25,7 +25,7 @@
 
             <!--The name of the current calculator-->
             <TextBlock 
-                Text="{Binding CurrentCalculatorName, FallbackValue=Standart}" 
+                Text="{Binding CurrentCalculatorName, FallbackValue=Standard}" 
                 FontSize="20" 
                 VerticalAlignment="Center"
                 Margin="11,0,13,0"/>
@@ -42,7 +42,7 @@
         <!--The selected calculator is displayed here-->
         <Border Grid.Row="1" Padding="3">
             <ContentControl>
-                <local:StandartCalculatorControl/>
+                <local:StandardCalculatorControl/>
             </ContentControl>
         </Border>
     </Grid>
