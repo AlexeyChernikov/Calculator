@@ -23,9 +23,6 @@ namespace Calculator.Views
         public MainWindow()
         {
             InitializeComponent();
-
-            //this is bad practice, remove it later
-            this.DataContext = new WindowViewModel(this);
         }
     }
 }

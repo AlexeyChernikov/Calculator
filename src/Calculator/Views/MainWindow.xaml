@@ -16,6 +16,10 @@
         WindowStyle="None"
         WindowStartupLocation="CenterScreen">
 
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
+    
     <WindowChrome.WindowChrome>
         <WindowChrome
             ResizeBorderThickness="{Binding ResizeBorderThickness}"
