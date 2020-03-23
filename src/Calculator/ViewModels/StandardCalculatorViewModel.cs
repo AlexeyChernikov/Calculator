@@ -254,6 +254,7 @@ namespace Calculator.ViewModels
 
 
             //сейчас все команды работают не корректно (вообще не работают)
+            //вынести всю реализацию команд в отдельные классы
             #region Create commands
 
             #region Commands for memory operations
@@ -270,8 +271,25 @@ namespace Calculator.ViewModels
             #region Commands for additional operations
 
             ClearCommand = new RelayCommand(() => { CurrentNumber = "0"; CurrentExpression = ""; });
-            ClearEntryCommand = new RelayCommand(() => CurrentNumber = "0");
-            BackspaceCommand = new RelayCommand(() => CurrentNumber = CurrentNumber.Remove(CurrentNumber.Length - 1));
+            ClearEntryCommand = new RelayCommand(() => { if (CurrentNumber != "0") { CurrentNumber = "0"; } });
+            BackspaceCommand = new RelayCommand(() => 
+            { 
+                if (CurrentNumber[0] != '-') 
+                {
+                    if (CurrentNumber.Length != 1) 
+                        CurrentNumber = CurrentNumber.Remove(CurrentNumber.Length - 1); 
+                    else if (CurrentNumber != "0") 
+                        CurrentNumber = "0"; 
+                }
+                else
+                {
+                    if (CurrentNumber.Length != 2)
+                        CurrentNumber = CurrentNumber.Remove(CurrentNumber.Length - 1);
+                    else
+                        CurrentNumber = "0";
+                }
+            });
+            
             FindPercentageCommand = new RelayCommand(() => MessageBox.Show(currentNumber));
             //PartOfTheWholeCommand = ;
             //SquaredNumberCommand = ;
@@ -291,18 +309,18 @@ namespace Calculator.ViewModels
 
             #region Number pad commands
 
-            NumberZeroCommand = new RelayCommand(() => CurrentNumber += "0");
-            NumberOneCommand = new RelayCommand(() => CurrentNumber += "1");
-            NumberTwoCommand = new RelayCommand(() => CurrentNumber += "2");
-            NumberThreeCommand = new RelayCommand(() => CurrentNumber += "3");
-            NumberFourCommand = new RelayCommand(() => CurrentNumber += "4");
-            NumberFiveCommand = new RelayCommand(() => CurrentNumber += "5");
-            NumberSixCommand = new RelayCommand(() => CurrentNumber += "6");
-            NumberSevenCommand = new RelayCommand(() => CurrentNumber += "7");
-            NumberEightCommand = new RelayCommand(() => CurrentNumber += "8");
-            NumberNineCommand = new RelayCommand(() => CurrentNumber += "9");
-            InvertSignCommand = new RelayCommand(() => CurrentNumber += "-");
-            CommaCommand = new RelayCommand(() => CurrentNumber += ",");
+            NumberZeroCommand = new RelayCommand(() => { if (CurrentNumber!="0") CurrentNumber += '0'; });
+            NumberOneCommand = new RelayCommand(() => { if (CurrentNumber != "0") CurrentNumber += '1'; else CurrentNumber = "1"; });
+            NumberTwoCommand = new RelayCommand(() => { if (CurrentNumber != "0") CurrentNumber += '2'; else CurrentNumber = "2"; });
+            NumberThreeCommand = new RelayCommand(() => { if (CurrentNumber != "0") CurrentNumber += '3'; else CurrentNumber = "3"; });
+            NumberFourCommand = new RelayCommand(() => { if (CurrentNumber != "0") CurrentNumber += '4'; else CurrentNumber = "4"; });
+            NumberFiveCommand = new RelayCommand(() => { if (CurrentNumber != "0") CurrentNumber += '5'; else CurrentNumber = "5"; });
+            NumberSixCommand = new RelayCommand(() => { if (CurrentNumber != "0") CurrentNumber += '6'; else CurrentNumber = "6"; });
+            NumberSevenCommand = new RelayCommand(() => { if (CurrentNumber != "0") CurrentNumber += '7'; else CurrentNumber = "7"; });
+            NumberEightCommand = new RelayCommand(() => { if (CurrentNumber != "0") CurrentNumber += '8'; else CurrentNumber = "8"; });
+            NumberNineCommand = new RelayCommand(() => { if (CurrentNumber != "0") CurrentNumber += '9'; else CurrentNumber = "9"; });
+            InvertSignCommand = new RelayCommand(() => { if (CurrentNumber != "0") { if (CurrentNumber.IndexOf('-') == -1) CurrentNumber = CurrentNumber.Insert(0, "-"); else CurrentNumber = CurrentNumber.Remove(0, 1); } });
+            CommaCommand = new RelayCommand(() => { if (CurrentNumber.IndexOf(',') == -1) CurrentNumber += ',';});
 
             #endregion
             
