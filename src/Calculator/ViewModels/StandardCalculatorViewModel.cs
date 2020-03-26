@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Calculator.ViewModels.Base;
+using Calculator.Models.FormingAnExpression;
 
 namespace Calculator.ViewModels
 {
@@ -23,12 +24,20 @@ namespace Calculator.ViewModels
         /// </summary>
         private string currentNumber = "0";
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        private bool press = true;
+
         #endregion
 
         #region Public properties
 
         /// <summary>
-        /// 
+        /// To display the current expression on the display
         /// </summary>
         public string CurrentExpression
         {
@@ -44,7 +53,7 @@ namespace Calculator.ViewModels
         }
 
         /// <summary>
-        /// 
+        /// To display the current number on the display
         /// </summary>
         public string CurrentNumber
         {
@@ -106,7 +115,7 @@ namespace Calculator.ViewModels
         #region Commands for additional operations
 
         /// <summary>
-        /// Erases all previously entered data
+        /// Clears all previously entered data
         /// </summary>
         /// <remarks>
         /// At the same time, the numbers recorded in the memory are stored
@@ -114,12 +123,12 @@ namespace Calculator.ViewModels
         public ICommand ClearCommand { get; }
 
         /// <summary>
-        /// Erases the last entered number
+        /// Clears the current number
         /// </summary>
         public ICommand ClearEntryCommand { get; }
 
         /// <summary>
-        /// Erases the last digit entered in the current number
+        /// Clears the last digit entered in the current number
         /// </summary>
         public ICommand BackspaceCommand { get; }
 
@@ -179,9 +188,6 @@ namespace Calculator.ViewModels
         /// <summary>
         /// Adds number 0 to the current number
         /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
         public ICommand NumberZeroCommand { get; }
 
         /// <summary>
@@ -230,9 +236,9 @@ namespace Calculator.ViewModels
         public ICommand NumberNineCommand { get; }
 
         /// <summary>
-        /// Inverts the sign of the current number
+        /// Inverts a number from positive to negative and vice versa
         /// </summary>
-        public ICommand InvertSignCommand { get; }
+        public ICommand InvertNumberCommand { get; }
 
         /// <summary>
         /// Makes the current number real
@@ -250,11 +256,6 @@ namespace Calculator.ViewModels
         /// </summary>
         public StandardCalculatorViewModel()
         {
-            //Objects initialization
-
-
-            //сейчас все команды работают не корректно (вообще не работают)
-            //вынести всю реализацию команд в отдельные классы
             #region Create commands
 
             #region Commands for memory operations
@@ -270,27 +271,16 @@ namespace Calculator.ViewModels
 
             #region Commands for additional operations
 
-            ClearCommand = new RelayCommand(() => { CurrentNumber = "0"; CurrentExpression = ""; });
-            ClearEntryCommand = new RelayCommand(() => { if (CurrentNumber != "0") { CurrentNumber = "0"; } });
-            BackspaceCommand = new RelayCommand(() => 
-            { 
-                if (CurrentNumber[0] != '-') 
-                {
-                    if (CurrentNumber.Length != 1) 
-                        CurrentNumber = CurrentNumber.Remove(CurrentNumber.Length - 1); 
-                    else if (CurrentNumber != "0") 
-                        CurrentNumber = "0"; 
-                }
-                else
-                {
-                    if (CurrentNumber.Length != 2)
-                        CurrentNumber = CurrentNumber.Remove(CurrentNumber.Length - 1);
-                    else
-                        CurrentNumber = "0";
-                }
+            ClearCommand = new RelayCommand(() => 
+            {
+                CurrentNumber = ClearData.ClearNumber(CurrentNumber);
+                CurrentExpression = ClearData.ClearExpression(CurrentExpression);
             });
-            
-            FindPercentageCommand = new RelayCommand(() => MessageBox.Show(currentNumber));
+
+            ClearEntryCommand = new RelayCommand(() => CurrentNumber = ClearData.ClearNumber(CurrentNumber));
+            BackspaceCommand = new RelayCommand(() => CurrentNumber = ClearData.Backspace(CurrentNumber));
+
+            //FindPercentageCommand = ;
             //PartOfTheWholeCommand = ;
             //SquaredNumberCommand = ;
             //SqrtCommand = ;
@@ -299,31 +289,55 @@ namespace Calculator.ViewModels
 
             #region Commands for basic math operations
 
-            DivisionCommand = new RelayCommand(() => { CurrentExpression += CurrentNumber + " ÷ "; });
-            MultiplyCommand = new RelayCommand(() => { CurrentExpression += CurrentNumber + " × "; });
-            SubtractionCommand = new RelayCommand(() => { CurrentExpression += CurrentNumber + " - "; });
-            AdditionCommand = new RelayCommand(() => { CurrentExpression += CurrentNumber + " + "; });
-            EquallyCommand = new RelayCommand(() => { CurrentExpression += CurrentNumber + " = "; });
+            DivisionCommand = new RelayCommand(() =>
+            {
+                CurrentExpression = BasicMathOperationsLogic.SetOperation(CurrentExpression, CurrentNumber, " ÷ ", ref press);
+                CurrentNumber = ClearData.ClearNumber(CurrentNumber);
+            });
 
+            MultiplyCommand = new RelayCommand(() =>
+            {
+                CurrentExpression = BasicMathOperationsLogic.SetOperation(CurrentExpression, CurrentNumber, " × ", ref press);
+                CurrentNumber = ClearData.ClearNumber(CurrentNumber);
+            });
+
+            SubtractionCommand = new RelayCommand(() =>
+            {
+                CurrentExpression = BasicMathOperationsLogic.SetOperation(CurrentExpression, CurrentNumber, " - ", ref press);
+                CurrentNumber = ClearData.ClearNumber(CurrentNumber);
+            });
+
+            AdditionCommand = new RelayCommand(() =>
+            {
+                CurrentExpression = BasicMathOperationsLogic.SetOperation(CurrentExpression, CurrentNumber, " + ", ref press);
+                CurrentNumber = ClearData.ClearNumber(CurrentNumber);
+            });
+
+            EquallyCommand = new RelayCommand(() =>
+            {
+                CurrentExpression = BasicMathOperationsLogic.SetOperation(CurrentExpression, CurrentNumber, " = ", ref press);
+                CurrentNumber = "Calculation result";
+            });
+            
             #endregion
 
             #region Number pad commands
 
-            NumberZeroCommand = new RelayCommand(() => { if (CurrentNumber!="0") CurrentNumber += '0'; });
-            NumberOneCommand = new RelayCommand(() => { if (CurrentNumber != "0") CurrentNumber += '1'; else CurrentNumber = "1"; });
-            NumberTwoCommand = new RelayCommand(() => { if (CurrentNumber != "0") CurrentNumber += '2'; else CurrentNumber = "2"; });
-            NumberThreeCommand = new RelayCommand(() => { if (CurrentNumber != "0") CurrentNumber += '3'; else CurrentNumber = "3"; });
-            NumberFourCommand = new RelayCommand(() => { if (CurrentNumber != "0") CurrentNumber += '4'; else CurrentNumber = "4"; });
-            NumberFiveCommand = new RelayCommand(() => { if (CurrentNumber != "0") CurrentNumber += '5'; else CurrentNumber = "5"; });
-            NumberSixCommand = new RelayCommand(() => { if (CurrentNumber != "0") CurrentNumber += '6'; else CurrentNumber = "6"; });
-            NumberSevenCommand = new RelayCommand(() => { if (CurrentNumber != "0") CurrentNumber += '7'; else CurrentNumber = "7"; });
-            NumberEightCommand = new RelayCommand(() => { if (CurrentNumber != "0") CurrentNumber += '8'; else CurrentNumber = "8"; });
-            NumberNineCommand = new RelayCommand(() => { if (CurrentNumber != "0") CurrentNumber += '9'; else CurrentNumber = "9"; });
-            InvertSignCommand = new RelayCommand(() => { if (CurrentNumber != "0") { if (CurrentNumber.IndexOf('-') == -1) CurrentNumber = CurrentNumber.Insert(0, "-"); else CurrentNumber = CurrentNumber.Remove(0, 1); } });
-            CommaCommand = new RelayCommand(() => { if (CurrentNumber.IndexOf(',') == -1) CurrentNumber += ',';});
+            NumberZeroCommand = new RelayCommand(() => CurrentNumber = NumberPadLogic.SetNumber(CurrentNumber, '0', out press));
+            NumberOneCommand = new RelayCommand(() => CurrentNumber = NumberPadLogic.SetNumber(CurrentNumber, '1', out press));
+            NumberTwoCommand = new RelayCommand(() => CurrentNumber = NumberPadLogic.SetNumber(CurrentNumber, '2', out press));
+            NumberThreeCommand = new RelayCommand(() => CurrentNumber = NumberPadLogic.SetNumber(CurrentNumber, '3', out press));
+            NumberFourCommand = new RelayCommand(() => CurrentNumber = NumberPadLogic.SetNumber(CurrentNumber, '4', out press));
+            NumberFiveCommand = new RelayCommand(() => CurrentNumber = NumberPadLogic.SetNumber(CurrentNumber, '5', out press));
+            NumberSixCommand = new RelayCommand(() => CurrentNumber = NumberPadLogic.SetNumber(CurrentNumber, '6', out press));
+            NumberSevenCommand = new RelayCommand(() => CurrentNumber = NumberPadLogic.SetNumber(CurrentNumber, '7', out press));
+            NumberEightCommand = new RelayCommand(() => CurrentNumber = NumberPadLogic.SetNumber(CurrentNumber, '8', out press));
+            NumberNineCommand = new RelayCommand(() => CurrentNumber = NumberPadLogic.SetNumber(CurrentNumber, '9', out press));
+            InvertNumberCommand = new RelayCommand(() => CurrentNumber = NumberPadLogic.InvertNumber(CurrentNumber));
+            CommaCommand = new RelayCommand(() => CurrentNumber = NumberPadLogic.PutAComma(CurrentNumber));
 
             #endregion
-            
+
             #endregion
         }
 

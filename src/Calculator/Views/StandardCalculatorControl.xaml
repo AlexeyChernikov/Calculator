@@ -171,7 +171,7 @@
                     <Button Content="7" Command="{Binding NumberSevenCommand}" Grid.Column="0" Grid.Row="0"/>
                     <Button Content="8" Command="{Binding NumberEightCommand}" Grid.Column="1" Grid.Row="0"/>
                     <Button Content="9" Command="{Binding NumberNineCommand}" Grid.Column="2" Grid.Row="0"/>
-                    <Button Content="+/-" Command="{Binding InvertSignCommand}" Grid.Column="0" Grid.Row="3"/>
+                    <Button Content="+/-" Command="{Binding InvertNumberCommand}" Grid.Column="0" Grid.Row="3"/>
                     <Button Content="," Command="{Binding CommaCommand}" Grid.Column="2" Grid.Row="3"/>
                 </Grid>
             </Grid>
