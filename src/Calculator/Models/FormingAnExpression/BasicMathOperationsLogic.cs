@@ -26,11 +26,19 @@ namespace Calculator.Models.FormingAnExpression
             if (press)
             {
                 press = false;
-                return currentExpression + currentNumber + selectedOperation;
+                return NegateCheck(currentNumber) ? (currentExpression + '(' + currentNumber + ')' + selectedOperation) : (currentExpression + currentNumber + selectedOperation);
             }
 
             press = false;
             return !currentExpression.EndsWith(selectedOperation) && currentExpression != "" ? (currentExpression.Remove(currentExpression.Length - 3, 3) + selectedOperation) : currentExpression;
+        }
+
+        /// <summary>
+        /// To check if a current number is negative
+        /// </summary>
+        private static bool NegateCheck(string currentNumber)
+        {
+            return currentNumber[0] == '-' ? true : false;
         }
     }
 }
