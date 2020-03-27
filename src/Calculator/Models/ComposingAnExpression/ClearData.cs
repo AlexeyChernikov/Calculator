@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Calculator.Models.FormingAnExpression
+namespace Calculator.Models.ComposingAnExpression
 {
     /// <summary>
     /// To clear the entered data

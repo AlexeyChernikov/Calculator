@@ -4,30 +4,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Calculator.Models.FormingAnExpression
+namespace Calculator.Models.ComposingAnExpression
 {
     /// <summary>
-    /// 
+    /// Logic for forming the current expression
     /// </summary>
-    static class BasicMathOperationsLogic
+    static class FormingAnExpression
     {
+        #region Public methods
+
         /// <summary>
-        /// 
+        /// To add the current number and the selected operation to the current expression
         /// </summary>
-        /// <returns>
-        /// 
-        /// </returns>
         public static string SetOperation(string currentNumber, string currentExpression, string selectedOperation, ref bool whichBtnIsPressed)
         {
+            whichBtnIsPressed = false;
+
             if (whichBtnIsPressed)
             {
-                whichBtnIsPressed = false;
                 return NegateCheck(currentNumber) ? (currentExpression + '(' + currentNumber + ')' + selectedOperation) : (currentExpression + currentNumber + selectedOperation);
             }
 
-            whichBtnIsPressed = false;
             return !currentExpression.EndsWith(selectedOperation) && currentExpression != "" ? (currentExpression.Remove(currentExpression.Length - 3, 3) + selectedOperation) : currentExpression;
         }
+
+        #endregion
+
+        #region Private methods
 
         /// <summary>
         /// To check if a current number is negative
@@ -36,5 +39,7 @@ namespace Calculator.Models.FormingAnExpression
         {
             return currentNumber[0] == '-' ? true : false;
         }
+
+        #endregion
     }
 }

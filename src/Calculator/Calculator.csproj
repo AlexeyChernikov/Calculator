@@ -65,9 +65,9 @@
     <Compile Include="Models\ArithmeticOperations\Subtraction.cs" />
     <Compile Include="Models\Base\UnaryOperation.cs" />
     <Compile Include="Models\Base\UniversalOperation.cs" />
-    <Compile Include="Models\FormingAnExpression\BasicMathOperationsLogic.cs" />
-    <Compile Include="Models\FormingAnExpression\ClearData.cs" />
-    <Compile Include="Models\FormingAnExpression\NumberPadLogic.cs" />
+    <Compile Include="Models\ComposingAnExpression\FormingAnExpression.cs" />
+    <Compile Include="Models\ComposingAnExpression\ClearData.cs" />
+    <Compile Include="Models\ComposingAnExpression\FormingCurrentNumber.cs" />
     <Compile Include="ViewModels\Base\BaseViewModel.cs" />
     <Compile Include="ViewModels\Base\RelayParameterizedCommand.cs" />
     <Compile Include="ViewModels\Base\RelayCommand.cs" />

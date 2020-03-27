@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Calculator.ViewModels.Base;
-using Calculator.Models.FormingAnExpression;
+using Calculator.Models.ComposingAnExpression;
 
 namespace Calculator.ViewModels
 {
@@ -292,31 +292,31 @@ namespace Calculator.ViewModels
 
             DivisionCommand = new RelayCommand(() =>
             {
-                CurrentExpression = BasicMathOperationsLogic.SetOperation(CurrentNumber, CurrentExpression, " ÷ ", ref whichBtnIsPressed);
+                CurrentExpression = FormingAnExpression.SetOperation(CurrentNumber, CurrentExpression, " ÷ ", ref whichBtnIsPressed);
                 CurrentNumber = ClearData.ClearNumber(CurrentNumber);
             });
 
             MultiplyCommand = new RelayCommand(() =>
             {
-                CurrentExpression = BasicMathOperationsLogic.SetOperation(CurrentNumber, CurrentExpression, " × ", ref whichBtnIsPressed);
+                CurrentExpression = FormingAnExpression.SetOperation(CurrentNumber, CurrentExpression, " × ", ref whichBtnIsPressed);
                 CurrentNumber = ClearData.ClearNumber(CurrentNumber);
             });
 
             SubtractionCommand = new RelayCommand(() =>
             {
-                CurrentExpression = BasicMathOperationsLogic.SetOperation(CurrentNumber, CurrentExpression, " - ", ref whichBtnIsPressed);
+                CurrentExpression = FormingAnExpression.SetOperation(CurrentNumber, CurrentExpression, " - ", ref whichBtnIsPressed);
                 CurrentNumber = ClearData.ClearNumber(CurrentNumber);
             });
 
             AdditionCommand = new RelayCommand(() =>
             {
-                CurrentExpression = BasicMathOperationsLogic.SetOperation(CurrentNumber, CurrentExpression, " + ", ref whichBtnIsPressed);
+                CurrentExpression = FormingAnExpression.SetOperation(CurrentNumber, CurrentExpression, " + ", ref whichBtnIsPressed);
                 CurrentNumber = ClearData.ClearNumber(CurrentNumber);
             });
 
             EquallyCommand = new RelayCommand(() =>
             {
-                CurrentExpression = BasicMathOperationsLogic.SetOperation(CurrentNumber, CurrentExpression, " = ", ref whichBtnIsPressed);
+                CurrentExpression = FormingAnExpression.SetOperation(CurrentNumber, CurrentExpression, " = ", ref whichBtnIsPressed);
                 CurrentNumber = "Calculation result";
             });
             
@@ -324,18 +324,18 @@ namespace Calculator.ViewModels
 
             #region Number pad commands
 
-            NumberZeroCommand = new RelayCommand(() => CurrentNumber = NumberPadLogic.SetNumber(CurrentNumber, '0', out whichBtnIsPressed));
-            NumberOneCommand = new RelayCommand(() => CurrentNumber = NumberPadLogic.SetNumber(CurrentNumber, '1', out whichBtnIsPressed));
-            NumberTwoCommand = new RelayCommand(() => CurrentNumber = NumberPadLogic.SetNumber(CurrentNumber, '2', out whichBtnIsPressed));
-            NumberThreeCommand = new RelayCommand(() => CurrentNumber = NumberPadLogic.SetNumber(CurrentNumber, '3', out whichBtnIsPressed));
-            NumberFourCommand = new RelayCommand(() => CurrentNumber = NumberPadLogic.SetNumber(CurrentNumber, '4', out whichBtnIsPressed));
-            NumberFiveCommand = new RelayCommand(() => CurrentNumber = NumberPadLogic.SetNumber(CurrentNumber, '5', out whichBtnIsPressed));
-            NumberSixCommand = new RelayCommand(() => CurrentNumber = NumberPadLogic.SetNumber(CurrentNumber, '6', out whichBtnIsPressed));
-            NumberSevenCommand = new RelayCommand(() => CurrentNumber = NumberPadLogic.SetNumber(CurrentNumber, '7', out whichBtnIsPressed));
-            NumberEightCommand = new RelayCommand(() => CurrentNumber = NumberPadLogic.SetNumber(CurrentNumber, '8', out whichBtnIsPressed));
-            NumberNineCommand = new RelayCommand(() => CurrentNumber = NumberPadLogic.SetNumber(CurrentNumber, '9', out whichBtnIsPressed));
-            InvertNumberCommand = new RelayCommand(() => CurrentNumber = NumberPadLogic.InvertNumber(CurrentNumber));
-            CommaCommand = new RelayCommand(() => CurrentNumber = NumberPadLogic.PutAComma(CurrentNumber, out whichBtnIsPressed));
+            NumberZeroCommand = new RelayCommand(() => CurrentNumber = FormingCurrentNumber.SetNumber(CurrentNumber, '0', out whichBtnIsPressed));
+            NumberOneCommand = new RelayCommand(() => CurrentNumber = FormingCurrentNumber.SetNumber(CurrentNumber, '1', out whichBtnIsPressed));
+            NumberTwoCommand = new RelayCommand(() => CurrentNumber = FormingCurrentNumber.SetNumber(CurrentNumber, '2', out whichBtnIsPressed));
+            NumberThreeCommand = new RelayCommand(() => CurrentNumber = FormingCurrentNumber.SetNumber(CurrentNumber, '3', out whichBtnIsPressed));
+            NumberFourCommand = new RelayCommand(() => CurrentNumber = FormingCurrentNumber.SetNumber(CurrentNumber, '4', out whichBtnIsPressed));
+            NumberFiveCommand = new RelayCommand(() => CurrentNumber = FormingCurrentNumber.SetNumber(CurrentNumber, '5', out whichBtnIsPressed));
+            NumberSixCommand = new RelayCommand(() => CurrentNumber = FormingCurrentNumber.SetNumber(CurrentNumber, '6', out whichBtnIsPressed));
+            NumberSevenCommand = new RelayCommand(() => CurrentNumber = FormingCurrentNumber.SetNumber(CurrentNumber, '7', out whichBtnIsPressed));
+            NumberEightCommand = new RelayCommand(() => CurrentNumber = FormingCurrentNumber.SetNumber(CurrentNumber, '8', out whichBtnIsPressed));
+            NumberNineCommand = new RelayCommand(() => CurrentNumber = FormingCurrentNumber.SetNumber(CurrentNumber, '9', out whichBtnIsPressed));
+            InvertNumberCommand = new RelayCommand(() => CurrentNumber = FormingCurrentNumber.InvertNumber(CurrentNumber));
+            CommaCommand = new RelayCommand(() => CurrentNumber = FormingCurrentNumber.PutAComma(CurrentNumber, out whichBtnIsPressed));
 
             #endregion
 

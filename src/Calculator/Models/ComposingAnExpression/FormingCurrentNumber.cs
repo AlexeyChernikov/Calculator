@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Calculator.Models.FormingAnExpression
+namespace Calculator.Models.ComposingAnExpression
 {
     /// <summary>
     /// Logic for forming the current number
     /// </summary>
-    static class NumberPadLogic
+    static class FormingCurrentNumber
     {
         #region Private members
 
@@ -68,12 +68,12 @@ namespace Calculator.Models.FormingAnExpression
             int extraSize = 0;
 
             //If there is a '-' sign in the number
-            if (currentNumber.IndexOf('-') == 0)
+            if (currentNumber.IndexOf('-') != -1)
             {
                 extraSize++;
             }
 
-            //If the number is ','
+            //If there is a ',' sign in the number
             if (currentNumber.IndexOf(',') != -1)
             {
                 extraSize++;
