@@ -15,9 +15,9 @@ namespace Calculator.Models.FormingAnExpression
         /// <returns>
         /// 
         /// </returns>
-        public static string SetNumber(string currentNumber, char pressedNumber, out bool press)
+        public static string SetNumber(string currentNumber, char pressedNumber, out bool whichBtnIsPressed)
         {
-            press = true;
+            whichBtnIsPressed = true;
             return currentNumber != "0" ? (currentNumber + pressedNumber) : pressedNumber.ToString();
         }
 
@@ -41,8 +41,9 @@ namespace Calculator.Models.FormingAnExpression
         /// <returns>
         /// 
         /// </returns>
-        public static string PutAComma(string currentNumber)
+        public static string PutAComma(string currentNumber, out bool whichBtnIsPressed)
         {
+            whichBtnIsPressed = true;
             return currentNumber.IndexOf(',') == -1 ? currentNumber + ',' : currentNumber;
         }
     }

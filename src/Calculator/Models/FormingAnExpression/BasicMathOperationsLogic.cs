@@ -14,22 +14,18 @@ namespace Calculator.Models.FormingAnExpression
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="currentExpression"></param>
-        /// <param name="currentNumber"></param>
-        /// <param name="selectedOperation"></param>
-        /// <param name="press"></param>
         /// <returns>
         /// 
         /// </returns>
-        public static string SetOperation(string currentExpression, string currentNumber, string selectedOperation, ref bool press)
+        public static string SetOperation(string currentNumber, string currentExpression, string selectedOperation, ref bool whichBtnIsPressed)
         {
-            if (press)
+            if (whichBtnIsPressed)
             {
-                press = false;
+                whichBtnIsPressed = false;
                 return NegateCheck(currentNumber) ? (currentExpression + '(' + currentNumber + ')' + selectedOperation) : (currentExpression + currentNumber + selectedOperation);
             }
 
-            press = false;
+            whichBtnIsPressed = false;
             return !currentExpression.EndsWith(selectedOperation) && currentExpression != "" ? (currentExpression.Remove(currentExpression.Length - 3, 3) + selectedOperation) : currentExpression;
         }
 
