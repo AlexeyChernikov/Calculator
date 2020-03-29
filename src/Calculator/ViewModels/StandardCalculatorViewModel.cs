@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Calculator.ViewModels.Base;
+using Calculator.Models.Calculation;
 using Calculator.Models.ComposingAnExpression;
 
 namespace Calculator.ViewModels
@@ -32,25 +33,11 @@ namespace Calculator.ViewModels
         /// </remarks>
         private bool whichBtnIsPressed = true;
 
+        private Calculate calculate;
+
         #endregion
 
         #region Public properties
-
-        /// <summary>
-        /// To display the current expression on the display
-        /// </summary>
-        public string CurrentExpression
-        {
-            get
-            {
-                return currentExpression;
-            }
-            set
-            {
-                currentExpression = value;
-                OnPropertyChanged(nameof(CurrentExpression));
-            }
-        }
 
         /// <summary>
         /// To display the current number on the display
@@ -65,6 +52,22 @@ namespace Calculator.ViewModels
             {
                 currentNumber = value;
                 OnPropertyChanged(nameof(CurrentNumber));
+            }
+        }
+
+        /// <summary>
+        /// To display the current expression on the display
+        /// </summary>
+        public string CurrentExpression
+        {
+            get
+            {
+                return currentExpression;
+            }
+            set
+            {
+                currentExpression = value;
+                OnPropertyChanged(nameof(CurrentExpression));
             }
         }
 
@@ -256,6 +259,12 @@ namespace Calculator.ViewModels
         /// </summary>
         public StandardCalculatorViewModel()
         {
+            #region Initialization
+
+            calculate = new Calculate();
+
+            #endregion
+
             #region Create commands
 
             #region Commands for memory operations
@@ -317,7 +326,7 @@ namespace Calculator.ViewModels
             EquallyCommand = new RelayCommand(() =>
             {
                 CurrentExpression = FormingAnExpression.SetOperation(CurrentNumber, CurrentExpression, " = ", ref whichBtnIsPressed);
-                CurrentNumber = "Calculation result";
+                CurrentNumber = calculate.Calc(CurrentExpression).ToString();
             });
             
             #endregion
