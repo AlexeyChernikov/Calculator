@@ -58,6 +58,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\Calculation\Operations\ArithmeticOperations\Negation.cs" />
     <Compile Include="Models\Calculation\Operations\Base\BinaryOperation.cs" />
     <Compile Include="Models\Calculation\Operations\Base\UnaryOperation.cs" />
     <Compile Include="Models\Calculation\Operations\Base\UniversalOperation.cs" />
