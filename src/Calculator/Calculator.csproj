@@ -58,13 +58,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Models\ArithmeticOperations\Division.cs" />
-    <Compile Include="Models\ArithmeticOperations\Multiplication.cs" />
-    <Compile Include="Models\ArithmeticOperations\Addition.cs" />
-    <Compile Include="Models\Base\BinaryOperation.cs" />
-    <Compile Include="Models\ArithmeticOperations\Subtraction.cs" />
-    <Compile Include="Models\Base\UnaryOperation.cs" />
-    <Compile Include="Models\Base\UniversalOperation.cs" />
+    <Compile Include="Models\Calculation\Operations\Base\BinaryOperation.cs" />
+    <Compile Include="Models\Calculation\Operations\Base\UnaryOperation.cs" />
+    <Compile Include="Models\Calculation\Operations\Base\UniversalOperation.cs" />
+    <Compile Include="Models\Calculation\Calculate.cs" />
+    <Compile Include="Models\Calculation\Operations\ArithmeticOperations\Multiplication.cs" />
+    <Compile Include="Models\Calculation\Operations\ArithmeticOperations\Subtraction.cs" />
+    <Compile Include="Models\Calculation\Operations\ArithmeticOperations\Division.cs" />
+    <Compile Include="Models\Calculation\Operations\ArithmeticOperations\Addition.cs" />
     <Compile Include="Models\ComposingAnExpression\FormingAnExpression.cs" />
     <Compile Include="Models\ComposingAnExpression\ClearData.cs" />
     <Compile Include="Models\ComposingAnExpression\FormingCurrentNumber.cs" />

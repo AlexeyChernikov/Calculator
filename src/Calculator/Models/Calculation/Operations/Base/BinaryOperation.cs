@@ -1,5 +1,8 @@
-﻿namespace Calculator.Models.Base
+﻿namespace Calculator.Models.Calculation.Operations.Base
 {
+    /// <summary>
+    /// To perform operations with two operands
+    /// </summary>
     abstract class BinaryOperation : UniversalOperation
     {
         protected UniversalOperation leftArg;

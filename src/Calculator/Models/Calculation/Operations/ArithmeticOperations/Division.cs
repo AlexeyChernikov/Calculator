@@ -1,7 +1,10 @@
-﻿using Calculator.Models.Base;
+﻿using Calculator.Models.Calculation.Operations.Base;
 
-namespace Calculator.Models.ArithmeticOperations
+namespace Calculator.Models.Calculation.Operations.ArithmeticOperations
 {
+    /// <summary>
+    /// For dividing numbers
+    /// </summary>
     class Division : BinaryOperation
     {
         public Division(UniversalOperation leftArg, UniversalOperation rightArg) : base(leftArg, rightArg) { }

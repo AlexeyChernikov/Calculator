@@ -1,7 +1,10 @@
-﻿using Calculator.Models.Base;
+﻿using Calculator.Models.Calculation.Operations.Base;
 
-namespace Calculator.Models.ArithmeticOperations
+namespace Calculator.Models.Calculation.Operations.ArithmeticOperations
 {
+    /// <summary>
+    /// For subtracting numbers
+    /// </summary>
     class Subtraction : BinaryOperation
     {
         public Subtraction(UniversalOperation leftArg, UniversalOperation rightArg) : base(leftArg, rightArg) { }

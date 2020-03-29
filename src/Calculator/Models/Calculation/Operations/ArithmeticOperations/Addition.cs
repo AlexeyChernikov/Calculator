@@ -1,7 +1,10 @@
-﻿using Calculator.Models.Base;
+﻿using Calculator.Models.Calculation.Operations.Base;
 
-namespace Calculator.Models.ArithmeticOperations
+namespace Calculator.Models.Calculation.Operations.ArithmeticOperations
 {
+    /// <summary>
+    /// For adding numbers
+    /// </summary>
     class Addition : BinaryOperation
     {
         public Addition(UniversalOperation leftArg, UniversalOperation rightArg) : base(leftArg, rightArg) { }
