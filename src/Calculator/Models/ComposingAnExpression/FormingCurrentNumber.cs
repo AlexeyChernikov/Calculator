@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Calculator.Common;
 
 namespace Calculator.Models.ComposingAnExpression
 {
@@ -26,13 +27,13 @@ namespace Calculator.Models.ComposingAnExpression
         /// <summary>
         /// To add the selected digit to the current number
         /// </summary>
-        public static string SetNumber(string currentNumber, char pressedNumber, out bool whichBtnIsPressed)
+        public static string SetNumber(string currentNumber, Numerals pressedNumeral, out bool whichBtnIsPressed)
         {
             whichBtnIsPressed = true;
 
             if (CurrentNumberSizeCheck(currentNumber))
             {
-                return currentNumber != "0" ? (currentNumber + pressedNumber) : pressedNumber.ToString();
+                return currentNumber != "0" ? (currentNumber + (int)pressedNumeral) : ("" + (int)pressedNumeral);
             }
 
             return currentNumber;
@@ -43,7 +44,14 @@ namespace Calculator.Models.ComposingAnExpression
         /// </summary>
         public static string InvertNumber(string currentNumber)
         {
-            return currentNumber != "0" ? (currentNumber.IndexOf('-') == -1 ? currentNumber.Insert(0, "-") : currentNumber.Remove(0, 1)) : currentNumber;
+            if (currentNumber != "0")
+            {
+                return currentNumber.IndexOf('-') == -1 ? currentNumber.Insert(0, "-") : currentNumber.Remove(0, 1);
+            }
+            else
+            {
+                return currentNumber;
+            }
         }
 
         /// <summary>
@@ -79,7 +87,7 @@ namespace Calculator.Models.ComposingAnExpression
                 extraSize++;
             }
 
-            return (currentNumber.Length - extraSize) < currentNumberMaxSize ? true : false;
+            return currentNumber.Length < (currentNumberMaxSize + extraSize) ? true : false;
         }
 
         #endregion
