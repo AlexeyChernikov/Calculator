@@ -1,5 +1,4 @@
-﻿using System;
-using Calculator.Models.Calculation.Operations.Base;
+﻿using Calculator.Models.Calculation.Operations.Base;
 using Calculator.Models.Calculation.Operations.ArithmeticOperations;
 
 namespace Calculator.Models.Calculation
@@ -93,7 +92,7 @@ namespace Calculator.Models.Calculation
                 {
                     result = new Multiplication(result, ParsingAnExpression_HighPriority());
                 }
-                else if (MatchSearch('÷'))
+                else if (MatchSearch('÷') || MatchSearch('/'))
                 {
                     result = new Division(result, ParsingAnExpression_HighPriority());
                 }
@@ -120,14 +119,18 @@ namespace Calculator.Models.Calculation
             {
                 result = new Negation(ParsingAnExpression_LowPriority());
             }
+            else if (MatchSearch('√'))
+            {
+                result = new RootExtraction(ParsingAnExpression_LowPriority());
+            }
+
+            else if (MatchSearch('S') && MatchSearch('q') && MatchSearch('r'))  //Workaround (horrible piece of shit)
+            {
+                result = new Exponentiation(ParsingAnExpression_LowPriority(), new Number(2));
+            }
             else if (MatchSearch('('))
             {
                 result = ParsingAnExpression_LowPriority();
-
-                if (!MatchSearch(')'))
-                {
-                    Console.WriteLine("Missing ')'");
-                }
             }
             else
             {
@@ -146,10 +149,10 @@ namespace Calculator.Models.Calculation
                 {
                     val = double.Parse(currentExpression.Substring(startPosition, pos - startPosition));
                 }
-                catch (Exception e)
+                catch (System.Exception e)
                 {
-                    Console.WriteLine("The number is not parsed...");
-                    Console.WriteLine(e);
+                    System.Console.WriteLine("The number is not parsed...");
+                    System.Console.WriteLine(e);
                 }
 
                 result = new Number(val);

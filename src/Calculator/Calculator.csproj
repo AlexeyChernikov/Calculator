@@ -60,6 +60,8 @@
     </ApplicationDefinition>
     <Compile Include="Common\Numerals.cs" />
     <Compile Include="Common\Operations.cs" />
+    <Compile Include="Models\Calculation\Operations\ArithmeticOperations\Exponentiation.cs" />
+    <Compile Include="Models\Calculation\Operations\ArithmeticOperations\RootExtraction.cs" />
     <Compile Include="Models\Calculation\Operations\ArithmeticOperations\Negation.cs" />
     <Compile Include="Models\Calculation\Operations\Base\BinaryOperation.cs" />
     <Compile Include="Models\Calculation\Operations\Base\Number.cs" />
