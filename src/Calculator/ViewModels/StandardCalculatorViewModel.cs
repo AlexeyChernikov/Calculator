@@ -44,6 +44,11 @@ namespace Calculator.ViewModels
         /// </summary>
         private Calculate calculate;
 
+        ///// <summary>
+        ///// Для составления выражения
+        ///// </summary>
+        //private ComposingAnExpression composingAnExpression;
+
         #endregion
 
         #region Public properties
@@ -124,7 +129,7 @@ namespace Calculator.ViewModels
 
         #endregion
 
-        #region Commands for additional operations
+        #region Commands for clearing data
 
         /// <summary>
         /// Clears all previously entered data
@@ -143,6 +148,10 @@ namespace Calculator.ViewModels
         /// Clears the last digit entered in the current number
         /// </summary>
         public ICommand BackspaceCommand { get; }
+
+        #endregion
+
+        #region Commands for additional operations
 
         /// <summary>
         /// Finds a percentage of the current expression
@@ -287,9 +296,9 @@ namespace Calculator.ViewModels
             */
             #endregion
 
-            #region Commands for additional operations
+            #region Commands for clearing data
 
-            ClearCommand = new RelayCommand(() => 
+            ClearCommand = new RelayCommand(() =>
             {
                 CurrentNumber = ClearData.ClearNumber(CurrentNumber);
                 CurrentExpression = ClearData.ClearExpression(CurrentExpression);
@@ -309,21 +318,32 @@ namespace Calculator.ViewModels
 
             BackspaceCommand = new RelayCommand(() => CurrentNumber = ClearData.Backspace(CurrentNumber));
 
-            //FindPercentageCommand = ;
+            #endregion
+
+            #region Commands for additional operations
+
+            FindPercentageCommand = new RelayCommand(() =>
+            {
+                CurrentExpression = FormingAnExpression.FindPercentage(CurrentNumber, CurrentExpression, ref firstUsedCheck, ref whichBtnIsPressed);
+                CurrentNumber = ClearData.ClearNumber(CurrentNumber);
+            });
 
             PartOfTheWholeCommand = new RelayCommand(() =>
             {
                 CurrentExpression = FormingAnExpression.SetAdditionalOperation(CurrentNumber, CurrentExpression, "1/", ref firstUsedCheck, out whichBtnIsPressed);
+                CurrentNumber = ClearData.ClearNumber(CurrentNumber);
             });
 
             SqrCommand = new RelayCommand(() =>
             {
                 CurrentExpression = FormingAnExpression.SetAdditionalOperation(CurrentNumber, CurrentExpression, "Sqr", ref firstUsedCheck, out whichBtnIsPressed);
+                CurrentNumber = ClearData.ClearNumber(CurrentNumber);
             });
 
             SqrtCommand = new RelayCommand(() => 
             {
                 CurrentExpression = FormingAnExpression.SetAdditionalOperation(CurrentNumber, CurrentExpression, "√", ref firstUsedCheck, out whichBtnIsPressed);
+                CurrentNumber = ClearData.ClearNumber(CurrentNumber);
             });
 
             #endregion

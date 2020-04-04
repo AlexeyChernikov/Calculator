@@ -41,6 +41,29 @@ namespace Calculator.Models.Calculation
             return result.Operation();
         }
 
+        /// <summary>
+        /// To find the percentage of a number
+        /// </summary>
+        /// <returns>
+        /// Percentage of number
+        /// </returns>
+        public double CalcPercentage(string currentNumber, string currentExpression)
+        {
+            //Calculating the number from which to find the percentage
+            this.currentExpression = currentExpression;
+            pos = 0;
+            UniversalOperation number = ParsingAnExpression_LowPriority();
+
+            //Calculate the percentage which to find
+            this.currentExpression = currentNumber;
+            pos = 0;
+            UniversalOperation percent = ParsingAnExpression_LowPriority();
+
+            //Calculating the percentage of a number
+            UniversalOperation result = new Multiplication(new Division(number, new Number(100)), percent);
+            return result.Operation();
+        }
+
         #endregion
 
         #region Private methods

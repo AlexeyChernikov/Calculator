@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Calculator.Common;
+using Calculator.Models.Calculation;
 
 namespace Calculator.Models.ComposingAnExpression
 {
@@ -73,6 +74,42 @@ namespace Calculator.Models.ComposingAnExpression
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="currentNumber"></param>
+        /// <param name="currentExpression"></param>
+        /// <param name="firstUsedCheck"></param>
+        /// <param name="whichBtnIsPressed"></param>
+        /// <returns>
+        /// 
+        /// </returns>
+        public static string FindPercentage(string currentNumber, string currentExpression, ref bool firstUsedCheck, ref bool whichBtnIsPressed)
+        {
+            Calculate calculate = new Calculate();
+
+            whichBtnIsPressed = true;
+
+            bool _firstUsedCheck = firstUsedCheck;
+            firstUsedCheck = false;
+
+            if (currentExpression.Length != 0)
+            {
+                if (_firstUsedCheck)
+                {
+                    return currentExpression + calculate.CalcPercentage(NumberStandardization(currentNumber), currentExpression.Remove(currentExpression.Length - 3, 3)).ToString();
+                }
+                else
+                {
+                    return ChangePercentage(currentNumber, currentExpression);
+                }
+            }
+            else
+            {
+                return currentExpression + calculate.CalcPercentage(NumberStandardization(currentNumber), "0").ToString(); ;
+            }
+        }
+
         #endregion
 
         #region Private methods
@@ -93,8 +130,64 @@ namespace Calculator.Models.ComposingAnExpression
                 case Operations.RootExtraction: return "";
             }
 
-            return "";
+            return "Operation not found";
         }
+
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>
+        /// 
+        /// </returns>
+        private static string ChangePercentage(string currentNumber, string currentExpression)
+        {
+            StringBuilder stringBuilderCurExpr = new StringBuilder(currentExpression);
+            char[] destination;
+            int pos;
+            int fragmentSize;
+            string copiedFragment;
+
+            //Search for the fragment size to replace
+            //If the expression has at least one basic math operation
+            if (currentExpression.IndexOf('+') != -1 || currentExpression.IndexOf('-') != -1 ||
+                currentExpression.IndexOf('×') != -1 || currentExpression.IndexOf('÷') != -1)
+            {
+                for (int i = stringBuilderCurExpr.Length - 1; ; i--)
+                {
+                    if (stringBuilderCurExpr[i] == ' ')
+                    {
+                        pos = i + 1;
+                        fragmentSize = stringBuilderCurExpr.Length - pos;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                pos = 0;
+                fragmentSize = stringBuilderCurExpr.Length - 1;
+            }
+
+            //Fragment replacement
+            destination = new char[fragmentSize];
+            stringBuilderCurExpr.CopyTo(pos, destination, 0, fragmentSize);
+            copiedFragment = new string(destination);
+            stringBuilderCurExpr.Remove(pos, fragmentSize);
+
+            Calculate calculate = new Calculate();
+
+            stringBuilderCurExpr.Insert(pos, calculate.CalcPercentage(copiedFragment, stringBuilderCurExpr.ToString().Remove(stringBuilderCurExpr.Length - 3, 3)));
+
+            return stringBuilderCurExpr.ToString();
+        }
+
+
+
+
+
 
         /// <summary>
         /// To change an additional operation in the current expression
@@ -143,6 +236,11 @@ namespace Calculator.Models.ComposingAnExpression
 
             return stringBuilderCurExpr.ToString();
         }
+
+
+
+
+
 
         /// <summary>
         /// To change the sign of the last operation
