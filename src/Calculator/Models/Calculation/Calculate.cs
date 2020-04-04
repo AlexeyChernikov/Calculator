@@ -144,16 +144,20 @@ namespace Calculator.Models.Calculation
             }
             else if (MatchSearch('√'))
             {
-                result = new RootExtraction(ParsingAnExpression_LowPriority());
+                result = new RootExtraction(ParsingAnExpression_HighPriority());
             }
-
-            else if (MatchSearch('S') && MatchSearch('q') && MatchSearch('r'))  //Workaround (horrible piece of shit)
+            else if (MatchSearch('S') && MatchSearch('q') && MatchSearch('r'))  //Workaround
             {
-                result = new Exponentiation(ParsingAnExpression_LowPriority(), new Number(2));
+                result = new Exponentiation(ParsingAnExpression_HighPriority(), new Number(2));
             }
             else if (MatchSearch('('))
             {
                 result = ParsingAnExpression_LowPriority();
+
+                if (!MatchSearch(')'))
+                {
+                    System.Console.WriteLine("Missing ')'");
+                }
             }
             else
             {
