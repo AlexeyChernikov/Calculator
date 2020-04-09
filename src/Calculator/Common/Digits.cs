@@ -1,6 +1,6 @@
 ﻿namespace Calculator.Common
 {
-    enum Numerals
+    enum Digits
     {
         Zero,
         One,

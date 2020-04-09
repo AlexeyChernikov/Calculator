@@ -1,42 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using Calculator.Common;
+﻿using Calculator.Common;
 
-namespace Calculator.Models.ComposingAnExpression
+namespace Calculator.Models.MakeAnExpression
 {
     /// <summary>
     /// Logic for forming the current number
     /// </summary>
-    static class FormingCurrentNumber
+    static class CurrentNumberFormation
     {
         #region Private members
 
         /// <summary>
         /// The maximum size of the current number
         /// </summary>
-        private static int currentNumberMaxSize = 16;
+        private static readonly int currentNumberMaxSize = 16;
 
         #endregion
 
         #region Public methods
 
         /// <summary>
-        /// To add the selected digit to the current number
+        /// To add the pressed digit to the current number
         /// </summary>
-        public static string SetNumber(string currentNumber, Numerals pressedNumeral, out bool whichBtnIsPressed)
+        public static string SetNumber(string currentNumber, Digits pressedDigit, ButtonsState buttonsState)
         {
-            whichBtnIsPressed = true;
-
             if (CurrentNumberSizeCheck(currentNumber))
             {
-                return currentNumber != "0" ? (currentNumber + (int)pressedNumeral) : ("" + (int)pressedNumeral);
+                return currentNumber != "0" ? (currentNumber + (int)pressedDigit) : ((int)pressedDigit).ToString();
             }
-
-            return currentNumber;
+            else
+            {
+                return currentNumber;
+            }
         }
 
         /// <summary>
@@ -57,10 +51,8 @@ namespace Calculator.Models.ComposingAnExpression
         /// <summary>
         /// To add a comma to the current number
         /// </summary>
-        public static string PutAComma(string currentNumber, out bool whichBtnIsPressed)
+        public static string PutAComma(string currentNumber)
         {
-            whichBtnIsPressed = true;
-
             return currentNumber.IndexOf(',') == -1 ? currentNumber + ',' : currentNumber;
         }
 

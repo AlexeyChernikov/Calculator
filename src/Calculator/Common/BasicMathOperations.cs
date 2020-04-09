@@ -1,13 +1,11 @@
 ﻿namespace Calculator.Common
 {
-    enum Operations
+    enum BasicMathOperations
     {
         Addition,
         Subtraction,
         Multiplication,
         Division,
-        Equally,
-        Exponentiation,
-        RootExtraction
+        Equal
     }
 }

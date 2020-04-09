@@ -107,7 +107,7 @@
                 </Grid>
 
                 <!--Memory history-->
-                <Button Content="Mˇ" Command="{Binding MemoryHistoryCommand}" Grid.Column="2"/>
+                <Button Content="Mˇ" Command="{Binding MemoryStorageCommand}" Grid.Column="2"/>
             </Grid>
 
             <!--Main keyboard-->
@@ -143,7 +143,7 @@
                 <Button Content="×" Command="{Binding MultiplyCommand}" Grid.Column="3" Grid.Row="2" Style="{StaticResource ArithmeticOperationButtonStyle}"/>
                 <Button Content="‒" Command="{Binding SubtractionCommand}" Grid.Column="3" Grid.Row="3" Style="{StaticResource ArithmeticOperationButtonStyle}"/>
                 <Button Content="+" Command="{Binding AdditionCommand}" Grid.Column="3" Grid.Row="4" Style="{StaticResource ArithmeticOperationButtonStyle}"/>
-                <Button Content="=" Command="{Binding EquallyCommand}" Grid.Column="3" Grid.Row="5" Style="{StaticResource ResultButtonStyle}"/>
+                <Button Content="=" Command="{Binding EqualCommand}" Grid.Column="3" Grid.Row="5" Style="{StaticResource ResultButtonStyle}"/>
                 <!--#endregion -->
                 
                 <!--Number pad-->
@@ -161,16 +161,16 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
 
-                    <Button Content="0" Command="{Binding NumberZeroCommand}" Grid.Column="1" Grid.Row="3"/>
-                    <Button Content="1" Command="{Binding NumberOneCommand}" Grid.Column="0" Grid.Row="2"/>
-                    <Button Content="2" Command="{Binding NumberTwoCommand}" Grid.Column="1" Grid.Row="2"/>
-                    <Button Content="3" Command="{Binding NumberThreeCommand}" Grid.Column="2" Grid.Row="2"/>
-                    <Button Content="4" Command="{Binding NumberFourCommand}" Grid.Column="0" Grid.Row="1"/>
-                    <Button Content="5" Command="{Binding NumberFiveCommand}" Grid.Column="1" Grid.Row="1"/>
-                    <Button Content="6" Command="{Binding NumberSixCommand}" Grid.Column="2" Grid.Row="1"/>
-                    <Button Content="7" Command="{Binding NumberSevenCommand}" Grid.Column="0" Grid.Row="0"/>
-                    <Button Content="8" Command="{Binding NumberEightCommand}" Grid.Column="1" Grid.Row="0"/>
-                    <Button Content="9" Command="{Binding NumberNineCommand}" Grid.Column="2" Grid.Row="0"/>
+                    <Button Content="0" Command="{Binding DigitZeroCommand}" Grid.Column="1" Grid.Row="3"/>
+                    <Button Content="1" Command="{Binding DigitOneCommand}" Grid.Column="0" Grid.Row="2"/>
+                    <Button Content="2" Command="{Binding DigitTwoCommand}" Grid.Column="1" Grid.Row="2"/>
+                    <Button Content="3" Command="{Binding DigitThreeCommand}" Grid.Column="2" Grid.Row="2"/>
+                    <Button Content="4" Command="{Binding DigitFourCommand}" Grid.Column="0" Grid.Row="1"/>
+                    <Button Content="5" Command="{Binding DigitFiveCommand}" Grid.Column="1" Grid.Row="1"/>
+                    <Button Content="6" Command="{Binding DigitSixCommand}" Grid.Column="2" Grid.Row="1"/>
+                    <Button Content="7" Command="{Binding DigitSevenCommand}" Grid.Column="0" Grid.Row="0"/>
+                    <Button Content="8" Command="{Binding DigitEightCommand}" Grid.Column="1" Grid.Row="0"/>
+                    <Button Content="9" Command="{Binding DigitNineCommand}" Grid.Column="2" Grid.Row="0"/>
                     <Button Content="+/-" Command="{Binding InvertNumberCommand}" Grid.Column="0" Grid.Row="3"/>
                     <Button Content="," Command="{Binding CommaCommand}" Grid.Column="2" Grid.Row="3"/>
                 </Grid>

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Calculator.Models.ComposingAnExpression
+﻿namespace Calculator.Models.MakeAnExpression
 {
     /// <summary>
     /// To clear the entered data
@@ -28,7 +22,7 @@ namespace Calculator.Models.ComposingAnExpression
         }
 
         /// <summary>
-        /// To clear the last number in the current number
+        /// To clear the last digit in the current number
         /// </summary>
         public static string Backspace(string currentNumber)
         {

@@ -58,8 +58,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Common\Numerals.cs" />
-    <Compile Include="Common\Operations.cs" />
+    <Compile Include="Common\BasicMathOperations.cs" />
+    <Compile Include="Common\ButtonsState.cs" />
+    <Compile Include="Common\Digits.cs" />
+    <Compile Include="Common\AdditionalOperations.cs" />
     <Compile Include="Models\Calculation\Operations\ArithmeticOperations\Exponentiation.cs" />
     <Compile Include="Models\Calculation\Operations\ArithmeticOperations\RootExtraction.cs" />
     <Compile Include="Models\Calculation\Operations\ArithmeticOperations\Negation.cs" />
@@ -72,9 +74,10 @@
     <Compile Include="Models\Calculation\Operations\ArithmeticOperations\Subtraction.cs" />
     <Compile Include="Models\Calculation\Operations\ArithmeticOperations\Division.cs" />
     <Compile Include="Models\Calculation\Operations\ArithmeticOperations\Addition.cs" />
-    <Compile Include="Models\ComposingAnExpression\FormingAnExpression.cs" />
-    <Compile Include="Models\ComposingAnExpression\ClearData.cs" />
-    <Compile Include="Models\ComposingAnExpression\FormingCurrentNumber.cs" />
+    <Compile Include="Models\MakeAnExpression\ClearData.cs" />
+    <Compile Include="Models\MakeAnExpression\NumberStandardization.cs" />
+    <Compile Include="Models\MakeAnExpression\CurrentExpressionFormation.cs" />
+    <Compile Include="Models\MakeAnExpression\CurrentNumberFormation.cs" />
     <Compile Include="ViewModels\Base\BaseViewModel.cs" />
     <Compile Include="ViewModels\Base\RelayParameterizedCommand.cs" />
     <Compile Include="ViewModels\Base\RelayCommand.cs" />
