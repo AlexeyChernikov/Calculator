@@ -21,11 +21,11 @@ namespace Calculator.Models.MakeAnExpression
         /// <summary>
         /// To add the pressed digit to the current number
         /// </summary>
-        public static string SetNumber(string currentNumber, Digits pressedDigit, ButtonsState buttonsState)
+        public static string SetNumber(string currentNumber, Digits pressedDigit)
         {
             if (CurrentNumberSizeCheck(currentNumber))
             {
-                return currentNumber != "0" ? (currentNumber + (int)pressedDigit) : ((int)pressedDigit).ToString();
+                return currentNumber != ((int)Digits.Zero).ToString() ? (currentNumber + (int)pressedDigit) : ((int)pressedDigit).ToString();
             }
             else
             {
@@ -38,7 +38,7 @@ namespace Calculator.Models.MakeAnExpression
         /// </summary>
         public static string InvertNumber(string currentNumber)
         {
-            if (currentNumber != "0")
+            if (currentNumber != ((int)Digits.Zero).ToString())
             {
                 return currentNumber.IndexOf('-') == -1 ? currentNumber.Insert(0, "-") : currentNumber.Remove(0, 1);
             }

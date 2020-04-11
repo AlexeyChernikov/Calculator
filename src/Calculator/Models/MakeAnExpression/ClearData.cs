@@ -1,4 +1,6 @@
-﻿namespace Calculator.Models.MakeAnExpression
+﻿using Calculator.Common;
+
+namespace Calculator.Models.MakeAnExpression
 {
     /// <summary>
     /// To clear the entered data
@@ -10,7 +12,7 @@
         /// </summary>
         public static string ClearNumber(string currentNumber)
         {
-            return currentNumber != "0" ? "0" : currentNumber;
+            return currentNumber != ((int)Digits.Zero).ToString() ? ((int)Digits.Zero).ToString() : currentNumber;
         }
 
         /// <summary>
@@ -18,7 +20,7 @@
         /// </summary>
         public static string ClearExpression(string currentExpression)
         {
-            return currentExpression != "" ? "" : currentExpression;
+            return currentExpression != string.Empty ? string.Empty : currentExpression;
         }
 
         /// <summary>
@@ -26,23 +28,9 @@
         /// </summary>
         public static string Backspace(string currentNumber)
         {
-            //If the current number is non negative
-            if (currentNumber[0] != '-')
-            {
-                if (currentNumber.Length != 1)
-                {
-                    return currentNumber.Remove(currentNumber.Length - 1);
-                }
-            }
-            else
-            {
-                if (currentNumber.Length != 2)
-                {
-                    return currentNumber.Remove(currentNumber.Length - 1);
-                }
-            }
+            int len = currentNumber.IndexOf('-') == -1 ? 1 : 2;
 
-            return "0";
+            return currentNumber.Length != len ? currentNumber.Remove(currentNumber.Length - 1) : ((int)Digits.Zero).ToString();
         }
     }
 }

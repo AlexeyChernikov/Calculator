@@ -75,7 +75,6 @@
     <Compile Include="Models\Calculation\Operations\ArithmeticOperations\Division.cs" />
     <Compile Include="Models\Calculation\Operations\ArithmeticOperations\Addition.cs" />
     <Compile Include="Models\MakeAnExpression\ClearData.cs" />
-    <Compile Include="Common\CommonData.cs" />
     <Compile Include="Models\MakeAnExpression\NumberStandardization.cs" />
     <Compile Include="Models\MakeAnExpression\CurrentExpressionFormation.cs" />
     <Compile Include="Models\MakeAnExpression\CurrentNumberFormation.cs" />

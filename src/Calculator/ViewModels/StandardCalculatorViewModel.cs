@@ -29,12 +29,12 @@ namespace Calculator.ViewModels
         /// <summary>
         /// Contains current entered number
         /// </summary>
-        private string currentNumber = "0";
+        private string currentNumber = ((int)Digits.Zero).ToString();
 
         /// <summary>
         /// Contains current entered expression
         /// </summary>
-        private string currentExpression = "";
+        private string currentExpression = string.Empty;
 
         #endregion
 
@@ -414,61 +414,61 @@ namespace Calculator.ViewModels
 
             DigitZeroCommand = new RelayCommand(() =>
             {
-                CurrentNumber = CurrentNumberFormation.SetNumber(CurrentNumber, Digits.Zero, buttonsState);
+                CurrentNumber = CurrentNumberFormation.SetNumber(CurrentNumber, Digits.Zero);
                 buttonsState.NumberPadBtnPressed = true;
             });
 
             DigitOneCommand = new RelayCommand(() =>
             {
-                CurrentNumber = CurrentNumberFormation.SetNumber(CurrentNumber, Digits.One, buttonsState);
+                CurrentNumber = CurrentNumberFormation.SetNumber(CurrentNumber, Digits.One);
                 buttonsState.NumberPadBtnPressed = true;
             });
 
             DigitTwoCommand = new RelayCommand(() =>
             {
-                CurrentNumber = CurrentNumberFormation.SetNumber(CurrentNumber, Digits.Two, buttonsState);
+                CurrentNumber = CurrentNumberFormation.SetNumber(CurrentNumber, Digits.Two);
                 buttonsState.NumberPadBtnPressed = true;
             });
 
             DigitThreeCommand = new RelayCommand(() =>
             {
-                CurrentNumber = CurrentNumberFormation.SetNumber(CurrentNumber, Digits.Three, buttonsState);
+                CurrentNumber = CurrentNumberFormation.SetNumber(CurrentNumber, Digits.Three);
                 buttonsState.NumberPadBtnPressed = true;
             });
 
             DigitFourCommand = new RelayCommand(() =>
             {
-                CurrentNumber = CurrentNumberFormation.SetNumber(CurrentNumber, Digits.Four, buttonsState);
+                CurrentNumber = CurrentNumberFormation.SetNumber(CurrentNumber, Digits.Four);
                 buttonsState.NumberPadBtnPressed = true;
             });
 
             DigitFiveCommand = new RelayCommand(() =>
             {
-                CurrentNumber = CurrentNumberFormation.SetNumber(CurrentNumber, Digits.Five, buttonsState);
+                CurrentNumber = CurrentNumberFormation.SetNumber(CurrentNumber, Digits.Five);
                 buttonsState.NumberPadBtnPressed = true;
             });
 
             DigitSixCommand = new RelayCommand(() =>
             {
-                CurrentNumber = CurrentNumberFormation.SetNumber(CurrentNumber, Digits.Six, buttonsState);
+                CurrentNumber = CurrentNumberFormation.SetNumber(CurrentNumber, Digits.Six);
                 buttonsState.NumberPadBtnPressed = true;
             });
 
             DigitSevenCommand = new RelayCommand(() =>
             {
-                CurrentNumber = CurrentNumberFormation.SetNumber(CurrentNumber, Digits.Seven, buttonsState);
+                CurrentNumber = CurrentNumberFormation.SetNumber(CurrentNumber, Digits.Seven);
                 buttonsState.NumberPadBtnPressed = true;
             });
 
             DigitEightCommand = new RelayCommand(() =>
             {
-                CurrentNumber = CurrentNumberFormation.SetNumber(CurrentNumber, Digits.Eight, buttonsState);
+                CurrentNumber = CurrentNumberFormation.SetNumber(CurrentNumber, Digits.Eight);
                 buttonsState.NumberPadBtnPressed = true;
             });
 
             DigitNineCommand = new RelayCommand(() =>
             {
-                CurrentNumber = CurrentNumberFormation.SetNumber(CurrentNumber, Digits.Nine, buttonsState);
+                CurrentNumber = CurrentNumberFormation.SetNumber(CurrentNumber, Digits.Nine);
                 buttonsState.NumberPadBtnPressed = true;
             });
 
@@ -478,11 +478,11 @@ namespace Calculator.ViewModels
                 buttonsState.NumberPadBtnPressed = true;
             });
 
-            CommaCommand = new RelayCommand(() =>
+            CommaCommand = new RelayParameterizedCommand((obj) =>
             {
                 CurrentNumber = CurrentNumberFormation.PutAComma(CurrentNumber);
                 buttonsState.NumberPadBtnPressed = true;
-            });
+            }, (obj) => !buttonsState.EqualBtnPressed);
 
             #endregion
 
