@@ -14,40 +14,40 @@ namespace Calculator.Models.MakeAnExpression
         /// <summary>
         /// To add the current number and the selected operation to the current expression
         /// </summary>
-        public static string SetBasicMathOperation(string currentNumber, string currentExpression, BasicMathOperations selectedOperation, ButtonsState buttonsState)
+        public static string SetBasicMathOperation(string currentNumber, string currentExpression, BasicMathOperations pressedOperation, ButtonsState buttonsState)
         {
             //Both are pressed 
             //If the number and additional operation were pressed
             if (buttonsState.NumberPadBtnPressed && buttonsState.AdditionalOperationBtnPressed)
             {
-                return currentExpression + SetSelectedBasicMathOperation(selectedOperation);
+                return currentExpression + SetSelectedBasicMathOperation(pressedOperation);
             }
             //Pressed and not pressed
             //If a number was pressed, but not an additional operation
             else if (buttonsState.NumberPadBtnPressed && !buttonsState.AdditionalOperationBtnPressed)
             {
-                return currentExpression + NumberStandardization.Standardization(currentNumber) + SetSelectedBasicMathOperation(selectedOperation);
+                return currentExpression + NumberStandardization.Standardization(currentNumber) + SetSelectedBasicMathOperation(pressedOperation);
             }
             //Сhanging the operation sign
             else
             {
-                return ChangeOperation(currentExpression, SetSelectedBasicMathOperation(selectedOperation));
+                return ChangeOperation(currentExpression, SetSelectedBasicMathOperation(pressedOperation));
             }
         }
 
         /// <summary>
         /// To add the selected operation applied to the current number in the current expression
         /// </summary>
-        public static string SetAdditionalOperation(string currentNumber, string currentExpression, AdditionalOperations selectedOperation, ButtonsState buttonsState)
+        public static string SetAdditionalOperation(string currentNumber, string currentExpression, AdditionalOperations pressedOperation, ButtonsState buttonsState)
         {
             //If an additional operation is not used for the first time
             if (buttonsState.AdditionalOperationBtnPressed)
             {
-                return ChangeTheSetOfRecentAdditionalOperations(currentExpression, SetSelectedAdditionalOperation(selectedOperation));
+                return ChangeTheSetOfRecentAdditionalOperations(currentExpression, SetSelectedAdditionalOperation(pressedOperation));
             }
             else
             {
-                return currentExpression + SetSelectedAdditionalOperation(selectedOperation) + '(' + NumberStandardization.Standardization(currentNumber) + ')';
+                return currentExpression + SetSelectedAdditionalOperation(pressedOperation) + '(' + NumberStandardization.Standardization(currentNumber) + ')';
             }
         }
 
@@ -86,9 +86,9 @@ namespace Calculator.Models.MakeAnExpression
         /// <returns>
         /// A string representing the selected operation
         /// </returns>
-        private static string SetSelectedBasicMathOperation(BasicMathOperations selectedOperation)
+        private static string SetSelectedBasicMathOperation(BasicMathOperations pressedOperation)
         {
-            switch (selectedOperation)
+            switch (pressedOperation)
             {
                 case BasicMathOperations.Addition: return " + ";
                 case BasicMathOperations.Subtraction: return " - ";
@@ -106,9 +106,9 @@ namespace Calculator.Models.MakeAnExpression
         /// <returns>
         /// A string representing the selected operation
         /// </returns>
-        private static string SetSelectedAdditionalOperation(AdditionalOperations selectedOperation)
+        private static string SetSelectedAdditionalOperation(AdditionalOperations pressedOperation)
         {
-            switch (selectedOperation)
+            switch (pressedOperation)
             {
                 case AdditionalOperations.PartOfTheWhole: return "1/";
                 case AdditionalOperations.Exponentiation: return "Sqr";
@@ -122,11 +122,11 @@ namespace Calculator.Models.MakeAnExpression
         /// <summary>
         /// To change the sign of the last operation
         /// </summary>
-        private static string ChangeOperation(string currentExpression, string selectedOperation)
+        private static string ChangeOperation(string currentExpression, string pressedOperation)
         {
-            if (!currentExpression.EndsWith(selectedOperation))
+            if (!currentExpression.EndsWith(pressedOperation))
             {
-                return currentExpression.Remove(currentExpression.Length - 3, 3) + selectedOperation;
+                return currentExpression.Remove(currentExpression.Length - 3, 3) + pressedOperation;
             }
             else
             {
@@ -144,13 +144,13 @@ namespace Calculator.Models.MakeAnExpression
         /// <returns>
         /// Modified additional operation
         /// </returns>
-        private static string ChangeTheSetOfRecentAdditionalOperations(string currentExpression, string selectedOperation)
+        private static string ChangeTheSetOfRecentAdditionalOperations(string currentExpression, string pressedOperation)
         {
             int pos;
             string copiedFragment;
             StringBuilder stringBuilderCurExpr = CurrentExpressionChange(currentExpression, out pos, out copiedFragment);
 
-            return stringBuilderCurExpr.Insert(pos, selectedOperation + '(' + copiedFragment + ')').ToString();
+            return stringBuilderCurExpr.Insert(pos, pressedOperation + '(' + copiedFragment + ')').ToString();
         }
 
         /// <summary>

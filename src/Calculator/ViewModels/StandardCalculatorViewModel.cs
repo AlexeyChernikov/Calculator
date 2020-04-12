@@ -7,8 +7,7 @@ using System.Windows;
 using System.Windows.Input;
 using Calculator.Common;
 using Calculator.ViewModels.Base;
-using Calculator.Models.Calculation;
-using Calculator.Models.MakeAnExpression;
+using Calculator.Models;
 
 namespace Calculator.ViewModels
 {
@@ -17,24 +16,9 @@ namespace Calculator.ViewModels
         #region Private members
 
         /// <summary>
-        /// Structure containing data about pressed buttons
+        /// Contains logic for the calculator
         /// </summary>
-        private ButtonsState buttonsState;
-
-        /// <summary>
-        /// To calculate the current expression
-        /// </summary>
-        private Calculate calculate;
-
-        /// <summary>
-        /// Contains current entered number
-        /// </summary>
-        private string currentNumber = ((int)Digits.Zero).ToString();
-
-        /// <summary>
-        /// Contains current entered expression
-        /// </summary>
-        private string currentExpression = string.Empty;
+        private CalculatorLogic calculatorLogic;
 
         #endregion
 
@@ -47,11 +31,10 @@ namespace Calculator.ViewModels
         {
             get
             {
-                return currentNumber;
+                return calculatorLogic.CurrentNumber;
             }
             set
             {
-                currentNumber = value;
                 OnPropertyChanged(nameof(CurrentNumber));
             }
         }
@@ -63,11 +46,10 @@ namespace Calculator.ViewModels
         {
             get
             {
-                return currentExpression;
+                return calculatorLogic.CurrentExpression;
             }
             set
             {
-                currentExpression = value;
                 OnPropertyChanged(nameof(CurrentExpression));
             }
         }
@@ -266,6 +248,19 @@ namespace Calculator.ViewModels
 
         #endregion
 
+        #region Private methods
+
+        /// <summary>
+        /// To UpdateMainProperties the current number and current expression
+        /// </summary>
+        private void UpdateMainProperties()
+        {
+            CurrentNumber = calculatorLogic.CurrentNumber;
+            CurrentExpression = calculatorLogic.CurrentExpression;
+        }
+
+        #endregion
+
         #region Constructor
 
         /// <summary>
@@ -275,8 +270,7 @@ namespace Calculator.ViewModels
         {
             #region Initialization
 
-            buttonsState = new ButtonsState(true, false, false);
-            calculate = new Calculate();
+            calculatorLogic = new CalculatorLogic();
 
             #endregion
 
@@ -297,24 +291,20 @@ namespace Calculator.ViewModels
 
             ClearCommand = new RelayCommand(() =>
             {
-                CurrentNumber = ClearData.ClearNumber(CurrentNumber);
-                CurrentExpression = ClearData.ClearExpression(CurrentExpression);
-
-                buttonsState.NumberPadBtnPressed = true;
-                buttonsState.AdditionalOperationBtnPressed = false;
-                buttonsState.EqualBtnPressed = false;
+                calculatorLogic.ClearAll();
+                UpdateMainProperties();
             });
 
             ClearEntryCommand = new RelayCommand(() =>
             {
-                CurrentNumber = ClearData.ClearNumber(CurrentNumber);
-
-                buttonsState.NumberPadBtnPressed = true;
+                calculatorLogic.ClearEntry();
+                UpdateMainProperties();
             });
 
             BackspaceCommand = new RelayCommand(() => 
             {
-                CurrentNumber = ClearData.Backspace(CurrentNumber);
+                calculatorLogic.Backspace();
+                CurrentNumber = calculatorLogic.CurrentNumber;
             });
 
             #endregion
@@ -323,38 +313,26 @@ namespace Calculator.ViewModels
 
             FindPercentageCommand = new RelayCommand(() =>
             {
-                CurrentExpression = CurrentExpressionFormation.FindPercentage(CurrentNumber, CurrentExpression, buttonsState);
-                CurrentNumber = ClearData.ClearNumber(CurrentNumber);
-
-                buttonsState.NumberPadBtnPressed = true;
-                buttonsState.AdditionalOperationBtnPressed = true;
+                calculatorLogic.FindPercentage();
+                UpdateMainProperties();
             });
 
             PartOfTheWholeCommand = new RelayCommand(() =>
             {
-                CurrentExpression = CurrentExpressionFormation.SetAdditionalOperation(CurrentNumber, CurrentExpression, AdditionalOperations.PartOfTheWhole, buttonsState);
-                CurrentNumber = ClearData.ClearNumber(CurrentNumber);
-
-                buttonsState.NumberPadBtnPressed = true;
-                buttonsState.AdditionalOperationBtnPressed = true;
+                calculatorLogic.SetAdditionalOperation(AdditionalOperations.PartOfTheWhole);
+                UpdateMainProperties();
             });
 
             SqrCommand = new RelayCommand(() =>
             {
-                CurrentExpression = CurrentExpressionFormation.SetAdditionalOperation(CurrentNumber, CurrentExpression, AdditionalOperations.Exponentiation, buttonsState);
-                CurrentNumber = ClearData.ClearNumber(CurrentNumber);
-
-                buttonsState.NumberPadBtnPressed = true;
-                buttonsState.AdditionalOperationBtnPressed = true;
+                calculatorLogic.SetAdditionalOperation(AdditionalOperations.Exponentiation);
+                UpdateMainProperties();
             });
 
             SqrtCommand = new RelayCommand(() =>
             {
-                CurrentExpression = CurrentExpressionFormation.SetAdditionalOperation(CurrentNumber, CurrentExpression, AdditionalOperations.RootExtraction, buttonsState);
-                CurrentNumber = ClearData.ClearNumber(CurrentNumber);
-
-                buttonsState.NumberPadBtnPressed = true;
-                buttonsState.AdditionalOperationBtnPressed = true;
+                calculatorLogic.SetAdditionalOperation(AdditionalOperations.RootExtraction);
+                UpdateMainProperties();
             });
 
             #endregion
@@ -363,126 +341,50 @@ namespace Calculator.ViewModels
 
             AdditionCommand = new RelayCommand(() =>
             {
-                CurrentExpression = CurrentExpressionFormation.SetBasicMathOperation(CurrentNumber, CurrentExpression, BasicMathOperations.Addition, buttonsState);
-                CurrentNumber = ClearData.ClearNumber(CurrentNumber);
-
-                buttonsState.NumberPadBtnPressed = false;
-                buttonsState.AdditionalOperationBtnPressed = false;
+                calculatorLogic.SetBasicMathOperation(BasicMathOperations.Addition);
+                UpdateMainProperties();
             });
 
             SubtractionCommand = new RelayCommand(() =>
             {
-                CurrentExpression = CurrentExpressionFormation.SetBasicMathOperation(CurrentNumber, CurrentExpression, BasicMathOperations.Subtraction, buttonsState);
-                CurrentNumber = ClearData.ClearNumber(CurrentNumber);
-
-                buttonsState.NumberPadBtnPressed = false;
-                buttonsState.AdditionalOperationBtnPressed = false;
+                calculatorLogic.SetBasicMathOperation(BasicMathOperations.Subtraction);
+                UpdateMainProperties();
             });
 
             MultiplyCommand = new RelayCommand(() =>
             {
-                CurrentExpression = CurrentExpressionFormation.SetBasicMathOperation(CurrentNumber, CurrentExpression, BasicMathOperations.Multiplication, buttonsState);
-                CurrentNumber = ClearData.ClearNumber(CurrentNumber);
-
-                buttonsState.NumberPadBtnPressed = false;
-                buttonsState.AdditionalOperationBtnPressed = false;
+                calculatorLogic.SetBasicMathOperation(BasicMathOperations.Multiplication);
+                UpdateMainProperties();
             });
 
             DivisionCommand = new RelayCommand(() =>
             {
-                CurrentExpression = CurrentExpressionFormation.SetBasicMathOperation(CurrentNumber, CurrentExpression, BasicMathOperations.Division, buttonsState);
-                CurrentNumber = ClearData.ClearNumber(CurrentNumber);
-
-                buttonsState.NumberPadBtnPressed = false;
-                buttonsState.AdditionalOperationBtnPressed = false;
+                calculatorLogic.SetBasicMathOperation(BasicMathOperations.Division);
+                UpdateMainProperties();
             });
 
-            //возможно дописать отдельную функцию
             EqualCommand = new RelayCommand(() =>
             {
-                CurrentExpression = CurrentExpressionFormation.SetBasicMathOperation(CurrentNumber, CurrentExpression, BasicMathOperations.Equal, buttonsState);
-                CurrentNumber = calculate.Calc(CurrentExpression).ToString();
-
-                buttonsState.NumberPadBtnPressed = false;
-                buttonsState.AdditionalOperationBtnPressed = false;
-                buttonsState.EqualBtnPressed = true;
+                calculatorLogic.SetBasicMathOperation(BasicMathOperations.Equal);
+                UpdateMainProperties();
             });
 
             #endregion
 
             #region Number pad commands
 
-            DigitZeroCommand = new RelayCommand(() =>
-            {
-                CurrentNumber = CurrentNumberFormation.SetNumber(CurrentNumber, Digits.Zero);
-                buttonsState.NumberPadBtnPressed = true;
-            });
-
-            DigitOneCommand = new RelayCommand(() =>
-            {
-                CurrentNumber = CurrentNumberFormation.SetNumber(CurrentNumber, Digits.One);
-                buttonsState.NumberPadBtnPressed = true;
-            });
-
-            DigitTwoCommand = new RelayCommand(() =>
-            {
-                CurrentNumber = CurrentNumberFormation.SetNumber(CurrentNumber, Digits.Two);
-                buttonsState.NumberPadBtnPressed = true;
-            });
-
-            DigitThreeCommand = new RelayCommand(() =>
-            {
-                CurrentNumber = CurrentNumberFormation.SetNumber(CurrentNumber, Digits.Three);
-                buttonsState.NumberPadBtnPressed = true;
-            });
-
-            DigitFourCommand = new RelayCommand(() =>
-            {
-                CurrentNumber = CurrentNumberFormation.SetNumber(CurrentNumber, Digits.Four);
-                buttonsState.NumberPadBtnPressed = true;
-            });
-
-            DigitFiveCommand = new RelayCommand(() =>
-            {
-                CurrentNumber = CurrentNumberFormation.SetNumber(CurrentNumber, Digits.Five);
-                buttonsState.NumberPadBtnPressed = true;
-            });
-
-            DigitSixCommand = new RelayCommand(() =>
-            {
-                CurrentNumber = CurrentNumberFormation.SetNumber(CurrentNumber, Digits.Six);
-                buttonsState.NumberPadBtnPressed = true;
-            });
-
-            DigitSevenCommand = new RelayCommand(() =>
-            {
-                CurrentNumber = CurrentNumberFormation.SetNumber(CurrentNumber, Digits.Seven);
-                buttonsState.NumberPadBtnPressed = true;
-            });
-
-            DigitEightCommand = new RelayCommand(() =>
-            {
-                CurrentNumber = CurrentNumberFormation.SetNumber(CurrentNumber, Digits.Eight);
-                buttonsState.NumberPadBtnPressed = true;
-            });
-
-            DigitNineCommand = new RelayCommand(() =>
-            {
-                CurrentNumber = CurrentNumberFormation.SetNumber(CurrentNumber, Digits.Nine);
-                buttonsState.NumberPadBtnPressed = true;
-            });
-
-            InvertNumberCommand = new RelayCommand(() =>
-            {
-                CurrentNumber = CurrentNumberFormation.InvertNumber(CurrentNumber);
-                buttonsState.NumberPadBtnPressed = true;
-            });
-
-            CommaCommand = new RelayParameterizedCommand((obj) =>
-            {
-                CurrentNumber = CurrentNumberFormation.PutAComma(CurrentNumber);
-                buttonsState.NumberPadBtnPressed = true;
-            }, (obj) => !buttonsState.EqualBtnPressed);
+            DigitZeroCommand = new RelayCommand(() => CurrentNumber = calculatorLogic.SetNumber(Digits.Zero));
+            DigitOneCommand = new RelayCommand(() => CurrentNumber = calculatorLogic.SetNumber(Digits.One));
+            DigitTwoCommand = new RelayCommand(() => CurrentNumber = calculatorLogic.SetNumber(Digits.Two));
+            DigitThreeCommand = new RelayCommand(() => CurrentNumber = calculatorLogic.SetNumber(Digits.Three));
+            DigitFourCommand = new RelayCommand(() => CurrentNumber = calculatorLogic.SetNumber(Digits.Four));
+            DigitFiveCommand = new RelayCommand(() => CurrentNumber = calculatorLogic.SetNumber(Digits.Five));
+            DigitSixCommand = new RelayCommand(() => CurrentNumber = calculatorLogic.SetNumber(Digits.Six));
+            DigitSevenCommand = new RelayCommand(() => CurrentNumber = calculatorLogic.SetNumber(Digits.Seven));
+            DigitEightCommand = new RelayCommand(() => CurrentNumber = calculatorLogic.SetNumber(Digits.Eight));
+            DigitNineCommand = new RelayCommand(() => CurrentNumber = calculatorLogic.SetNumber(Digits.Nine));
+            InvertNumberCommand = new RelayCommand(() => CurrentNumber = calculatorLogic.InvertNumber());
+            CommaCommand = new RelayCommand(() => CurrentNumber = calculatorLogic.PutAComma());
 
             #endregion
 
