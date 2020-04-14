@@ -3,16 +3,20 @@
 namespace Calculator.Models.MakeAnExpression
 {
     /// <summary>
-    /// Logic for forming the current number
+    /// Contains methods for forming the current number
     /// </summary>
-    static class CurrentNumberFormation
+    class CurrentNumberFormation
     {
         #region Private members
+
+        private CurrentData currentData;
+        private ButtonsState buttonsState;
+        private ClearData clearData;
 
         /// <summary>
         /// The maximum size of the current number
         /// </summary>
-        private static readonly int currentNumberMaxSize = 16;
+        private readonly int currentNumberMaxSize = 16;
 
         #endregion
 
@@ -21,39 +25,42 @@ namespace Calculator.Models.MakeAnExpression
         /// <summary>
         /// To add the pressed digit to the current number
         /// </summary>
-        public static string SetNumber(string currentNumber, Digits pressedDigit)
+        public void SetNumber(Digits pressedDigit)
         {
-            if (CurrentNumberSizeCheck(currentNumber))
+            EqualBtnPressed_Check();
+
+            if (CurrentNumberSizeCheck(currentData.CurrentNumber))
             {
-                return currentNumber != ((int)Digits.Zero).ToString() ? (currentNumber + (int)pressedDigit) : ((int)pressedDigit).ToString();
+                currentData.CurrentNumber = currentData.CurrentNumber != ((int)Digits.Zero).ToString() ? (currentData.CurrentNumber + (int)pressedDigit) : ((int)pressedDigit).ToString();
             }
-            else
-            {
-                return currentNumber;
-            }
+
+            buttonsState.NumberPadBtnPressed_Change(true);
         }
 
         /// <summary>
         /// To add or remove a minus in the current number
         /// </summary>
-        public static string InvertNumber(string currentNumber)
+        public void InvertNumber()
         {
-            if (currentNumber != ((int)Digits.Zero).ToString())
+            EqualBtnPressed_Check();
+
+            if (currentData.CurrentNumber != ((int)Digits.Zero).ToString())
             {
-                return currentNumber.IndexOf('-') == -1 ? currentNumber.Insert(0, "-") : currentNumber.Remove(0, 1);
+                currentData.CurrentNumber = currentData.CurrentNumber.IndexOf('-') == -1 ? currentData.CurrentNumber.Insert(0, "-") : currentData.CurrentNumber.Remove(0, 1);
             }
-            else
-            {
-                return currentNumber;
-            }
+
+            buttonsState.NumberPadBtnPressed_Change(true);
         }
 
         /// <summary>
         /// To add a comma to the current number
         /// </summary>
-        public static string PutAComma(string currentNumber)
+        public void PutAComma()
         {
-            return currentNumber.IndexOf(',') == -1 ? currentNumber + ',' : currentNumber;
+            EqualBtnPressed_Check();
+
+            currentData.CurrentNumber = currentData.CurrentNumber.IndexOf(',') == -1 ? currentData.CurrentNumber + ',' : currentData.CurrentNumber;
+            buttonsState.NumberPadBtnPressed_Change(true);
         }
 
         #endregion
@@ -63,7 +70,7 @@ namespace Calculator.Models.MakeAnExpression
         /// <summary>
         /// To check the size of the current number
         /// </summary>
-        private static bool CurrentNumberSizeCheck(string currentNumber)
+        private bool CurrentNumberSizeCheck(string currentNumber)
         {
             int extraSize = 0;
 
@@ -80,6 +87,33 @@ namespace Calculator.Models.MakeAnExpression
             }
 
             return currentNumber.Length < (currentNumberMaxSize + extraSize) ? true : false;
+        }
+
+        /// <summary>
+        /// To check if the "Equal" button has been pressed
+        /// </summary>
+        /// <remarks>If "true", clears all data</remarks>
+        private void EqualBtnPressed_Check()
+        {
+            //If calculations have already been completed
+            if (buttonsState.EqualBtnPressed)
+            {
+                clearData.ClearAll();
+            }
+        }
+
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public CurrentNumberFormation(CurrentData currentData, ButtonsState buttonsState)
+        {
+            this.currentData = currentData;
+            this.buttonsState = buttonsState;
+            clearData = new ClearData(currentData, buttonsState);
         }
 
         #endregion

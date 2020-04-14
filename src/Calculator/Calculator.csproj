@@ -59,7 +59,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Common\BasicMathOperations.cs" />
-    <Compile Include="Common\ButtonsState.cs" />
     <Compile Include="Common\Digits.cs" />
     <Compile Include="Common\AdditionalOperations.cs" />
     <Compile Include="Models\Calculation\Operations\ArithmeticOperations\Exponentiation.cs" />
@@ -74,8 +73,9 @@
     <Compile Include="Models\Calculation\Operations\ArithmeticOperations\Subtraction.cs" />
     <Compile Include="Models\Calculation\Operations\ArithmeticOperations\Division.cs" />
     <Compile Include="Models\Calculation\Operations\ArithmeticOperations\Addition.cs" />
-    <Compile Include="Models\CalculatorLogic.cs" />
+    <Compile Include="Models\MakeAnExpression\ButtonsState.cs" />
     <Compile Include="Models\MakeAnExpression\ClearData.cs" />
+    <Compile Include="Models\MakeAnExpression\CurrentData.cs" />
     <Compile Include="Models\MakeAnExpression\NumberStandardization.cs" />
     <Compile Include="Models\MakeAnExpression\CurrentExpressionFormation.cs" />
     <Compile Include="Models\MakeAnExpression\CurrentNumberFormation.cs" />

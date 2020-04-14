@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using Calculator.Common;
+using Calculator.Models.MakeAnExpression;
 using Calculator.ViewModels.Base;
-using Calculator.Models;
 
 namespace Calculator.ViewModels
 {
@@ -16,9 +10,29 @@ namespace Calculator.ViewModels
         #region Private members
 
         /// <summary>
-        /// Contains logic for the calculator
+        /// To track the values ​​of the current number and current expression
         /// </summary>
-        private CalculatorLogic calculatorLogic;
+        private CurrentData currentData;
+
+        /// <summary>
+        /// To track the status of buttons
+        /// </summary>
+        private ButtonsState buttonsState;
+
+        /// <summary>
+        /// To access methods for clearing data
+        /// </summary>
+        private ClearData clearData;
+
+        /// <summary>
+        /// To access methods for formation the current number
+        /// </summary>
+        private CurrentNumberFormation currentNumberFormation;
+
+        /// <summary>
+        /// To access methods for formation the current expression
+        /// </summary>
+        private CurrentExpressionFormation currentExpressionFormation;
 
         #endregion
 
@@ -31,7 +45,7 @@ namespace Calculator.ViewModels
         {
             get
             {
-                return calculatorLogic.CurrentNumber;
+                return currentData.CurrentNumber;
             }
             set
             {
@@ -46,7 +60,7 @@ namespace Calculator.ViewModels
         {
             get
             {
-                return calculatorLogic.CurrentExpression;
+                return currentData.CurrentExpression;
             }
             set
             {
@@ -251,12 +265,12 @@ namespace Calculator.ViewModels
         #region Private methods
 
         /// <summary>
-        /// To UpdateMainProperties the current number and current expression
+        /// To update main properties the current number and current expression
         /// </summary>
         private void UpdateMainProperties()
         {
-            CurrentNumber = calculatorLogic.CurrentNumber;
-            CurrentExpression = calculatorLogic.CurrentExpression;
+            CurrentNumber = currentData.CurrentNumber;
+            CurrentExpression = currentData.CurrentExpression;
         }
 
         #endregion
@@ -270,7 +284,11 @@ namespace Calculator.ViewModels
         {
             #region Initialization
 
-            calculatorLogic = new CalculatorLogic();
+            currentData = new CurrentData();
+            buttonsState = new ButtonsState();
+            clearData = new ClearData(currentData, buttonsState);
+            currentNumberFormation = new CurrentNumberFormation(currentData, buttonsState);
+            currentExpressionFormation = new CurrentExpressionFormation(currentData, buttonsState);
 
             #endregion
 
@@ -291,20 +309,20 @@ namespace Calculator.ViewModels
 
             ClearCommand = new RelayCommand(() =>
             {
-                calculatorLogic.ClearAll();
+                clearData.ClearAll();
                 UpdateMainProperties();
             });
 
             ClearEntryCommand = new RelayCommand(() =>
             {
-                calculatorLogic.ClearEntry();
+                clearData.ClearEntry();
                 UpdateMainProperties();
             });
 
-            BackspaceCommand = new RelayCommand(() => 
+            BackspaceCommand = new RelayCommand(() =>
             {
-                calculatorLogic.Backspace();
-                CurrentNumber = calculatorLogic.CurrentNumber;
+                clearData.Backspace();
+                UpdateMainProperties();
             });
 
             #endregion
@@ -313,25 +331,25 @@ namespace Calculator.ViewModels
 
             FindPercentageCommand = new RelayCommand(() =>
             {
-                calculatorLogic.FindPercentage();
+                currentExpressionFormation.FindPercentage();
                 UpdateMainProperties();
             });
 
             PartOfTheWholeCommand = new RelayCommand(() =>
             {
-                calculatorLogic.SetAdditionalOperation(AdditionalOperations.PartOfTheWhole);
+                currentExpressionFormation.SetAdditionalOperation(AdditionalOperations.PartOfTheWhole);
                 UpdateMainProperties();
             });
 
             SqrCommand = new RelayCommand(() =>
             {
-                calculatorLogic.SetAdditionalOperation(AdditionalOperations.Exponentiation);
+                currentExpressionFormation.SetAdditionalOperation(AdditionalOperations.Exponentiation);
                 UpdateMainProperties();
             });
 
             SqrtCommand = new RelayCommand(() =>
             {
-                calculatorLogic.SetAdditionalOperation(AdditionalOperations.RootExtraction);
+                currentExpressionFormation.SetAdditionalOperation(AdditionalOperations.RootExtraction);
                 UpdateMainProperties();
             });
 
@@ -341,31 +359,31 @@ namespace Calculator.ViewModels
 
             AdditionCommand = new RelayCommand(() =>
             {
-                calculatorLogic.SetBasicMathOperation(BasicMathOperations.Addition);
+                currentExpressionFormation.SetBasicMathOperation(BasicMathOperations.Addition);
                 UpdateMainProperties();
             });
 
             SubtractionCommand = new RelayCommand(() =>
             {
-                calculatorLogic.SetBasicMathOperation(BasicMathOperations.Subtraction);
+                currentExpressionFormation.SetBasicMathOperation(BasicMathOperations.Subtraction);
                 UpdateMainProperties();
             });
 
             MultiplyCommand = new RelayCommand(() =>
             {
-                calculatorLogic.SetBasicMathOperation(BasicMathOperations.Multiplication);
+                currentExpressionFormation.SetBasicMathOperation(BasicMathOperations.Multiplication);
                 UpdateMainProperties();
             });
 
             DivisionCommand = new RelayCommand(() =>
             {
-                calculatorLogic.SetBasicMathOperation(BasicMathOperations.Division);
+                currentExpressionFormation.SetBasicMathOperation(BasicMathOperations.Division);
                 UpdateMainProperties();
             });
 
             EqualCommand = new RelayCommand(() =>
             {
-                calculatorLogic.SetBasicMathOperation(BasicMathOperations.Equal);
+                currentExpressionFormation.SetBasicMathOperation(BasicMathOperations.Equal);
                 UpdateMainProperties();
             });
 
@@ -373,18 +391,77 @@ namespace Calculator.ViewModels
 
             #region Number pad commands
 
-            DigitZeroCommand = new RelayCommand(() => CurrentNumber = calculatorLogic.SetNumber(Digits.Zero));
-            DigitOneCommand = new RelayCommand(() => CurrentNumber = calculatorLogic.SetNumber(Digits.One));
-            DigitTwoCommand = new RelayCommand(() => CurrentNumber = calculatorLogic.SetNumber(Digits.Two));
-            DigitThreeCommand = new RelayCommand(() => CurrentNumber = calculatorLogic.SetNumber(Digits.Three));
-            DigitFourCommand = new RelayCommand(() => CurrentNumber = calculatorLogic.SetNumber(Digits.Four));
-            DigitFiveCommand = new RelayCommand(() => CurrentNumber = calculatorLogic.SetNumber(Digits.Five));
-            DigitSixCommand = new RelayCommand(() => CurrentNumber = calculatorLogic.SetNumber(Digits.Six));
-            DigitSevenCommand = new RelayCommand(() => CurrentNumber = calculatorLogic.SetNumber(Digits.Seven));
-            DigitEightCommand = new RelayCommand(() => CurrentNumber = calculatorLogic.SetNumber(Digits.Eight));
-            DigitNineCommand = new RelayCommand(() => CurrentNumber = calculatorLogic.SetNumber(Digits.Nine));
-            InvertNumberCommand = new RelayCommand(() => CurrentNumber = calculatorLogic.InvertNumber());
-            CommaCommand = new RelayCommand(() => CurrentNumber = calculatorLogic.PutAComma());
+            DigitZeroCommand = new RelayCommand(() =>
+            {
+                currentNumberFormation.SetNumber(Digits.Zero);
+                UpdateMainProperties();
+            });
+
+            DigitOneCommand = new RelayCommand(() =>
+            {
+                currentNumberFormation.SetNumber(Digits.One);
+                UpdateMainProperties();
+            });
+
+            DigitTwoCommand = new RelayCommand(() =>
+            {
+                currentNumberFormation.SetNumber(Digits.Two);
+                UpdateMainProperties();
+            });
+
+            DigitThreeCommand = new RelayCommand(() =>
+            {
+                currentNumberFormation.SetNumber(Digits.Three);
+                UpdateMainProperties();
+            });
+
+            DigitFourCommand = new RelayCommand(() =>
+            {
+                currentNumberFormation.SetNumber(Digits.Four);
+                UpdateMainProperties();
+            });
+
+            DigitFiveCommand = new RelayCommand(() =>
+            {
+                currentNumberFormation.SetNumber(Digits.Five);
+                UpdateMainProperties();
+            });
+
+            DigitSixCommand = new RelayCommand(() =>
+            {
+                currentNumberFormation.SetNumber(Digits.Six);
+                UpdateMainProperties();
+            });
+
+            DigitSevenCommand = new RelayCommand(() =>
+            {
+                currentNumberFormation.SetNumber(Digits.Seven);
+                UpdateMainProperties();
+            });
+
+            DigitEightCommand = new RelayCommand(() =>
+            {
+                currentNumberFormation.SetNumber(Digits.Eight);
+                UpdateMainProperties();
+            });
+
+            DigitNineCommand = new RelayCommand(() =>
+            {
+                currentNumberFormation.SetNumber(Digits.Nine);
+                UpdateMainProperties();
+            });
+
+            InvertNumberCommand = new RelayCommand(() =>
+            {
+                currentNumberFormation.InvertNumber();
+                UpdateMainProperties();
+            });
+
+            CommaCommand = new RelayCommand(() =>
+            {
+                currentNumberFormation.PutAComma();
+                UpdateMainProperties();
+            });
 
             #endregion
 
