@@ -11,6 +11,7 @@ namespace Calculator.Models.MakeAnExpression
 
         private CurrentData currentData;
         private ButtonsState buttonsState;
+        private CurrentExpressionFormation currentExpressionFormation;
 
         #endregion
 
@@ -40,6 +41,12 @@ namespace Calculator.Models.MakeAnExpression
             {
                 ClearAll();
             }
+            //else if (buttonsState.AdditionalOperationBtnPressed && currentExpressionFormation.MathSignCheck(currentData.CurrentExpression))
+            //{
+            //    currentData.CurrentExpression = currentExpressionFormation.CurrentExpressionChange(currentData.CurrentExpression);
+            //    buttonsState.NumberPadBtnPressed_Change(true);
+            //    buttonsState.AdditionalOperationBtnPressed_Change(false);
+            //}
             else
             {
                 currentData.CurrentNumber = ClearNumber(currentData.CurrentNumber);
@@ -54,10 +61,17 @@ namespace Calculator.Models.MakeAnExpression
         {
             if (buttonsState.EqualBtnPressed)
             {
-                currentData.CurrentExpression = ClearExpression(currentData.CurrentExpression);
-                buttonsState.NumberPadBtnPressed_Change(true);
-                buttonsState.AdditionalOperationBtnPressed_Change(false);
-                buttonsState.EqualBtnPressed_Change(false);
+                if (NumberStandardization.NumberCheck(currentData.CurrentNumber))
+                {
+                    currentData.CurrentExpression = ClearExpression(currentData.CurrentExpression);
+                    buttonsState.NumberPadBtnPressed_Change(true);
+                    buttonsState.AdditionalOperationBtnPressed_Change(false);
+                    buttonsState.EqualBtnPressed_Change(false);
+                }
+                else
+                {
+                    ClearAll();
+                }
             }
             else
             {

@@ -28,10 +28,26 @@ namespace Calculator.Models.MakeAnExpression
             return number;
         }
 
+        /// <summary>
+        /// To check if the current number is a number
+        /// </summary>
+        public static bool NumberCheck(string currentNumber)
+        {
+            try
+            {
+                decimal.Parse(currentNumber);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         #endregion
 
         #region Private methods
-        
+
         /// <summary>
         /// To convert real number
         /// </summary>

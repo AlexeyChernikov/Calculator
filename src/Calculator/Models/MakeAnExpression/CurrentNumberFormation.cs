@@ -12,6 +12,7 @@ namespace Calculator.Models.MakeAnExpression
         private CurrentData currentData;
         private ButtonsState buttonsState;
         private ClearData clearData;
+        private CurrentExpressionFormation currentExpressionFormation;
 
         /// <summary>
         /// The maximum size of the current number
@@ -29,6 +30,12 @@ namespace Calculator.Models.MakeAnExpression
         {
             EqualBtnPressed_Check();
 
+            if (buttonsState.AdditionalOperationBtnPressed)
+            {
+                currentData.CurrentExpression = currentExpressionFormation.CurrentExpressionChange(currentData.CurrentExpression);
+                buttonsState.AdditionalOperationBtnPressed_Change(false);
+            }
+
             if (CurrentNumberSizeCheck(currentData.CurrentNumber))
             {
                 currentData.CurrentNumber = currentData.CurrentNumber != ((int)Digits.Zero).ToString() ? (currentData.CurrentNumber + (int)pressedDigit) : ((int)pressedDigit).ToString();
@@ -44,6 +51,12 @@ namespace Calculator.Models.MakeAnExpression
         {
             EqualBtnPressed_Check();
 
+            if (buttonsState.AdditionalOperationBtnPressed)
+            {
+                currentData.CurrentExpression = currentExpressionFormation.CurrentExpressionChange(currentData.CurrentExpression);
+                buttonsState.AdditionalOperationBtnPressed_Change(false);
+            }
+
             if (currentData.CurrentNumber != ((int)Digits.Zero).ToString())
             {
                 currentData.CurrentNumber = currentData.CurrentNumber.IndexOf('-') == -1 ? currentData.CurrentNumber.Insert(0, "-") : currentData.CurrentNumber.Remove(0, 1);
@@ -58,6 +71,12 @@ namespace Calculator.Models.MakeAnExpression
         public void PutAComma()
         {
             EqualBtnPressed_Check();
+
+            if (buttonsState.AdditionalOperationBtnPressed)
+            {
+                currentData.CurrentExpression = currentExpressionFormation.CurrentExpressionChange(currentData.CurrentExpression);
+                buttonsState.AdditionalOperationBtnPressed_Change(false);
+            }
 
             currentData.CurrentNumber = currentData.CurrentNumber.IndexOf(',') == -1 ? currentData.CurrentNumber + ',' : currentData.CurrentNumber;
             buttonsState.NumberPadBtnPressed_Change(true);
@@ -114,6 +133,7 @@ namespace Calculator.Models.MakeAnExpression
             this.currentData = currentData;
             this.buttonsState = buttonsState;
             clearData = new ClearData(currentData, buttonsState);
+            currentExpressionFormation = new CurrentExpressionFormation(currentData, buttonsState);
         }
 
         #endregion

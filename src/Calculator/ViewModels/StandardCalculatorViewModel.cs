@@ -329,63 +329,63 @@ namespace Calculator.ViewModels
 
             #region Commands for additional operations
 
-            FindPercentageCommand = new RelayCommand(() =>
+            FindPercentageCommand = new RelayParameterizedCommand((obj) =>
             {
                 currentExpressionFormation.FindPercentage();
                 UpdateMainProperties();
-            });
+            }, (obj) => NumberStandardization.NumberCheck(currentData.CurrentNumber));
 
-            PartOfTheWholeCommand = new RelayCommand(() =>
+            PartOfTheWholeCommand = new RelayParameterizedCommand((obj) =>
             {
                 currentExpressionFormation.SetAdditionalOperation(AdditionalOperations.PartOfTheWhole);
                 UpdateMainProperties();
-            });
+            }, (obj) => NumberStandardization.NumberCheck(currentData.CurrentNumber));
 
-            SqrCommand = new RelayCommand(() =>
+            SqrCommand = new RelayParameterizedCommand((obj) =>
             {
                 currentExpressionFormation.SetAdditionalOperation(AdditionalOperations.Exponentiation);
                 UpdateMainProperties();
-            });
+            }, (obj) => NumberStandardization.NumberCheck(currentData.CurrentNumber));
 
-            SqrtCommand = new RelayCommand(() =>
+            SqrtCommand = new RelayParameterizedCommand((obj) =>
             {
                 currentExpressionFormation.SetAdditionalOperation(AdditionalOperations.RootExtraction);
                 UpdateMainProperties();
-            });
+            }, (obj) => NumberStandardization.NumberCheck(currentData.CurrentNumber));
 
             #endregion
 
             #region Commands for basic math operations
 
-            AdditionCommand = new RelayCommand(() =>
+            AdditionCommand = new RelayParameterizedCommand((obj) =>
             {
                 currentExpressionFormation.SetBasicMathOperation(BasicMathOperations.Addition);
                 UpdateMainProperties();
-            });
+            }, (obj) => NumberStandardization.NumberCheck(currentData.CurrentNumber));
 
-            SubtractionCommand = new RelayCommand(() =>
+            SubtractionCommand = new RelayParameterizedCommand((obj) =>
             {
                 currentExpressionFormation.SetBasicMathOperation(BasicMathOperations.Subtraction);
                 UpdateMainProperties();
-            });
+            }, (obj) => NumberStandardization.NumberCheck(currentData.CurrentNumber));
 
-            MultiplyCommand = new RelayCommand(() =>
+            MultiplyCommand = new RelayParameterizedCommand((obj) =>
             {
                 currentExpressionFormation.SetBasicMathOperation(BasicMathOperations.Multiplication);
                 UpdateMainProperties();
-            });
+            }, (obj) => NumberStandardization.NumberCheck(currentData.CurrentNumber));
 
-            DivisionCommand = new RelayCommand(() =>
+            DivisionCommand = new RelayParameterizedCommand((obj) =>
             {
                 currentExpressionFormation.SetBasicMathOperation(BasicMathOperations.Division);
                 UpdateMainProperties();
-            });
+            }, (obj) => NumberStandardization.NumberCheck(currentData.CurrentNumber));
 
-            EqualCommand = new RelayCommand(() =>
+            EqualCommand = new RelayParameterizedCommand((obj) =>
             {
                 currentExpressionFormation.SetBasicMathOperation(BasicMathOperations.Equal);
                 UpdateMainProperties();
-            });
+            }, (obj) => NumberStandardization.NumberCheck(currentData.CurrentNumber));
 
             #endregion
 

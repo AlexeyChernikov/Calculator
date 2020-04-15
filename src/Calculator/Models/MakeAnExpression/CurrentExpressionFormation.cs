@@ -32,14 +32,15 @@ namespace Calculator.Models.MakeAnExpression
                 buttonsState.AdditionalOperationBtnPressed_Change(false);
                 buttonsState.EqualBtnPressed_Change(false);
             }
-            else if (buttonsState.EqualBtnPressed && (pressedOperation == BasicMathOperations.Equal))
-            {
-                //логика при повторном нажатии на "="
-            }
 
+            //When you click "=" again
+            if (buttonsState.EqualBtnPressed && (pressedOperation == BasicMathOperations.Equal) && MathSignCheck(currentData.CurrentExpression))
+            {
+                currentData.CurrentExpression = NumberStandardization.Standardization(currentData.CurrentNumber) + CopyLastOperation(currentData.CurrentExpression.Remove(currentData.CurrentExpression.Length - 3, 3)) + SetSelectedBasicMathOperation(pressedOperation);
+            }
             //Both are pressed 
             //If the number and additional operation were pressed
-            if (buttonsState.NumberPadBtnPressed && buttonsState.AdditionalOperationBtnPressed)
+            else if (buttonsState.NumberPadBtnPressed && buttonsState.AdditionalOperationBtnPressed)
             {
                 currentData.CurrentExpression = currentData.CurrentExpression + SetSelectedBasicMathOperation(pressedOperation);
             }
@@ -128,6 +129,41 @@ namespace Calculator.Models.MakeAnExpression
             currentData.CurrentNumber = clearData.ClearNumber(currentData.CurrentNumber);
             buttonsState.NumberPadBtnPressed_Change(true);
             buttonsState.AdditionalOperationBtnPressed_Change(true);
+        }
+
+        /// <summary>
+        /// Удаляет последнюю дополнительную операцию если нажата цифра или CE
+        /// Для CE логика ещё не написана
+        /// </summary>
+        /// <returns>
+        /// 
+        /// </returns>
+        public string CurrentExpressionChange(string currentExpression)
+        {
+            int fragmentSize;
+            int pos;
+
+            //Search for the fragment size to replace
+            //If the expression has at least one basic math operation
+            if (MathSignCheck(currentExpression))
+            {
+                for (int i = currentExpression.Length - 1; ; i--)
+                {
+                    if (currentExpression[i] == ' ')
+                    {
+                        pos = i + 1;
+                        fragmentSize = currentExpression.Length - pos;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                pos = 0;
+                fragmentSize = currentExpression.Length;
+            }
+
+            return currentExpression.Remove(pos, fragmentSize);
         }
 
         #endregion
@@ -228,17 +264,67 @@ namespace Calculator.Models.MakeAnExpression
             string copiedFragment;
             StringBuilder stringBuilderCurExpr = CurrentExpressionChange(currentExpression, out pos, out copiedFragment);
             Calculate calculate = new Calculate();
+            double number;
 
             if (MathSignCheck(currentExpression))
             {
-                stringBuilderCurExpr.Insert(pos, calculate.CalcPercentage(copiedFragment, stringBuilderCurExpr.ToString().Remove(stringBuilderCurExpr.Length - 3, 3)));
+                number = calculate.CalcPercentage(copiedFragment, stringBuilderCurExpr.ToString().Remove(stringBuilderCurExpr.Length - 3, 3));
             }
             else
             {
-                stringBuilderCurExpr.Insert(pos, calculate.CalcPercentage(copiedFragment, stringBuilderCurExpr.ToString()));
+                number = calculate.CalcPercentage(copiedFragment, stringBuilderCurExpr.ToString());
+            }
+
+            if (NumberStandardization.NumberCheck(number.ToString()))
+            {
+                stringBuilderCurExpr.Insert(pos, number.ToString());
+            }
+            else
+            {
+                stringBuilderCurExpr.Insert(pos, ((int)Digits.Zero).ToString());
             }
 
             return stringBuilderCurExpr.ToString();
+        }
+
+        /// <summary>
+        /// To copy the last operation for recount
+        /// </summary>
+        /// <returns>
+        /// Returns the copied fragment
+        /// </returns>
+        private string CopyLastOperation(string currentExpression)
+        {
+            int pos = 0;
+            char[] destination;
+            int fragmentSize = currentExpression.Length;
+            int spaceCounter = 0;
+
+            //Search for the fragment size to copy
+            //If the expression has at least one basic math operation
+            if (MathSignCheck(currentExpression))
+            {
+                for (int i = currentExpression.Length - 1; ; i--)
+                {
+                    if (currentExpression[i] == ' ')
+                    {
+                        spaceCounter++;
+
+                        if (spaceCounter == 2)
+                        {
+                            pos = i;
+                            fragmentSize = currentExpression.Length - pos;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            //Copy the required fragment
+            destination = new char[fragmentSize];
+            currentExpression.CopyTo(pos, destination, 0, fragmentSize);
+
+            return new string(destination);
         }
 
         #endregion
