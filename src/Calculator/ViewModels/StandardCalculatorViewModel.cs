@@ -34,6 +34,21 @@ namespace Calculator.ViewModels
         /// </summary>
         private ExpressionFormation expressionFormation;
 
+        /// <summary>
+        /// To access methods for working with memory
+        /// </summary>
+        private Memory memory;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private string currentNumber;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private string currentExpression;
+
         #endregion
 
         #region Public properties
@@ -273,6 +288,14 @@ namespace Calculator.ViewModels
             CurrentExpression = currentData.CurrentExpression;
         }
 
+        /// <summary>
+        /// To check when to lock the memory buttons
+        /// </summary>
+        private bool MemoryBtnLockCondition()
+        {
+            return NumberStandardization.NumberCheck(currentData.CurrentNumber) && !memory.MemoryIsEmpty ? true : false;
+        }
+
         #endregion
 
         #region Constructor
@@ -289,20 +312,46 @@ namespace Calculator.ViewModels
             clearData = new ClearData(currentData, buttonsState);
             numberFormation = new NumberFormation(currentData, buttonsState, clearData);
             expressionFormation = new ExpressionFormation(currentData, buttonsState, clearData);
+            memory = new Memory();
 
             #endregion
 
             #region Create commands
 
             #region Commands for memory operations
-            /*
-            MemoryClearCommand = ;
-            MemoryReadCommand = ;
-            MemoryPlusCommand = ;
-            MemoryMinusCommand = ;
-            MemorySaveCommand = ;
-            MemoryStorageCommand = ;
-            */
+
+            MemoryClearCommand = new RelayParameterizedCommand((obj) =>
+            {
+                memory.MemoryClear();
+            }, (obj) => MemoryBtnLockCondition());
+
+            MemoryReadCommand = new RelayParameterizedCommand((obj) =>
+            {
+                //добавить сюда условие для очистки последней дополнительной операции
+                currentData.CurrentNumber = memory.CurrentValue.ToString();
+                UpdateMainProperties();
+            }, (obj) => MemoryBtnLockCondition());
+
+            MemoryPlusCommand = new RelayParameterizedCommand((obj) =>
+            {
+                memory.MemoryPlus(CurrentNumber);
+            }, (obj) => NumberStandardization.NumberCheck(currentData.CurrentNumber));
+
+            MemoryMinusCommand = new RelayParameterizedCommand((obj) =>
+            {
+                memory.MemoryMinus(CurrentNumber);
+            }, (obj) => NumberStandardization.NumberCheck(currentData.CurrentNumber));
+
+            MemorySaveCommand = new RelayParameterizedCommand((obj) =>
+            {
+                memory.MemorySave(CurrentNumber);
+            }, (obj) => NumberStandardization.NumberCheck(currentData.CurrentNumber));
+
+            MemoryStorageCommand = new RelayParameterizedCommand((obj) =>
+            {
+                System.Windows.MessageBox.Show(memory.CurrentValue.ToString());
+            }, (obj) => MemoryBtnLockCondition());
+
             #endregion
 
             #region Commands for clearing data
