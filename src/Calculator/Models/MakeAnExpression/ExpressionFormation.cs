@@ -7,7 +7,7 @@ namespace Calculator.Models.MakeAnExpression
     /// <summary>
     /// Contains methods for forming the current expression
     /// </summary>
-    class CurrentExpressionFormation
+    class ExpressionFormation
     {
         #region Private members
 
@@ -25,6 +25,7 @@ namespace Calculator.Models.MakeAnExpression
         /// </summary>
         public void SetBasicMathOperation(BasicMathOperations pressedOperation)
         {
+            //If the expression was calculated and any basic math operation was pressed, except for "="
             if (buttonsState.EqualBtnPressed && (pressedOperation != BasicMathOperations.Equal))
             {
                 currentData.CurrentExpression = clearData.ClearExpression(currentData.CurrentExpression);
@@ -33,29 +34,7 @@ namespace Calculator.Models.MakeAnExpression
                 buttonsState.EqualBtnPressed_Change(false);
             }
 
-            //When you click "=" again
-            if (buttonsState.EqualBtnPressed && (pressedOperation == BasicMathOperations.Equal) && MathSignCheck(currentData.CurrentExpression))
-            {
-                currentData.CurrentExpression = NumberStandardization.Standardization(currentData.CurrentNumber) + CopyLastOperation(currentData.CurrentExpression.Remove(currentData.CurrentExpression.Length - 3, 3)) + SetSelectedBasicMathOperation(pressedOperation);
-            }
-            //Both are pressed 
-            //If the number and additional operation were pressed
-            else if (buttonsState.NumberPadBtnPressed && buttonsState.AdditionalOperationBtnPressed)
-            {
-                currentData.CurrentExpression = currentData.CurrentExpression + SetSelectedBasicMathOperation(pressedOperation);
-            }
-            //Pressed and not pressed
-            //If a number was pressed, but not an additional operation
-            else if (buttonsState.NumberPadBtnPressed && !buttonsState.AdditionalOperationBtnPressed)
-            {
-                currentData.CurrentExpression = currentData.CurrentExpression + NumberStandardization.Standardization(currentData.CurrentNumber) + SetSelectedBasicMathOperation(pressedOperation);
-            }
-            //Сhanging the operation sign
-            else
-            {
-                currentData.CurrentExpression = ChangeOperation(currentData.CurrentExpression, SetSelectedBasicMathOperation(pressedOperation));
-            }
-
+            currentData.CurrentExpression = NewCurrentExpression(pressedOperation);
             currentData.CurrentNumber = pressedOperation == BasicMathOperations.Equal ? calculate.Calc(currentData.CurrentExpression).ToString() : clearData.ClearNumber(currentData.CurrentNumber);
 
             if (pressedOperation == BasicMathOperations.Equal)
@@ -80,17 +59,9 @@ namespace Calculator.Models.MakeAnExpression
                 buttonsState.EqualBtnPressed_Change(false);
             }
 
-            //If an additional operation is not used for the first time
-            if (buttonsState.AdditionalOperationBtnPressed)
-            {
-                currentData.CurrentExpression = ChangeTheSetOfRecentAdditionalOperations(currentData.CurrentExpression, SetSelectedAdditionalOperation(pressedOperation));
-            }
-            else
-            {
-                currentData.CurrentExpression = currentData.CurrentExpression + SetSelectedAdditionalOperation(pressedOperation) + '(' + NumberStandardization.Standardization(currentData.CurrentNumber) + ')';
-            }
-
+            currentData.CurrentExpression = NewCurrentExpression(pressedOperation);
             currentData.CurrentNumber = clearData.ClearNumber(currentData.CurrentNumber);
+
             buttonsState.NumberPadBtnPressed_Change(true);
             buttonsState.AdditionalOperationBtnPressed_Change(true);
         }
@@ -100,119 +71,45 @@ namespace Calculator.Models.MakeAnExpression
         /// </summary>
         public void FindPercentage()
         {
-            if (buttonsState.EqualBtnPressed)
-            {
-                currentData.CurrentExpression = NumberStandardization.Standardization(calculate.CalcPercentage(NumberStandardization.Standardization(currentData.CurrentNumber), currentData.CurrentExpression.Remove(currentData.CurrentExpression.Length - 3, 3)).ToString());
-                buttonsState.NumberPadBtnPressed_Change(true);
-                buttonsState.AdditionalOperationBtnPressed_Change(false);
-                buttonsState.EqualBtnPressed_Change(false);
-            }
-            else
-            {
-                if (currentData.CurrentExpression != string.Empty)
-                {
-                    if (buttonsState.AdditionalOperationBtnPressed)
-                    {
-                        currentData.CurrentExpression = ChangeTheSetOfRecentAdditionalOperations(currentData.CurrentExpression);
-                    }
-                    else
-                    {
-                        currentData.CurrentExpression = currentData.CurrentExpression + NumberStandardization.Standardization(calculate.CalcPercentage(NumberStandardization.Standardization(currentData.CurrentNumber), currentData.CurrentExpression.Remove(currentData.CurrentExpression.Length - 3, 3)).ToString());
-                    }
-                }
-                else
-                {
-                    currentData.CurrentExpression = currentData.CurrentExpression + NumberStandardization.Standardization(calculate.CalcPercentage(NumberStandardization.Standardization(currentData.CurrentNumber), ((int)Digits.Zero).ToString()).ToString());
-                }
-            }
-
+            currentData.CurrentExpression = NewCurrentExpression();
             currentData.CurrentNumber = clearData.ClearNumber(currentData.CurrentNumber);
+
             buttonsState.NumberPadBtnPressed_Change(true);
             buttonsState.AdditionalOperationBtnPressed_Change(true);
-        }
-
-        /// <summary>
-        /// Удаляет последнюю дополнительную операцию если нажата цифра или CE
-        /// Для CE логика ещё не написана
-        /// </summary>
-        /// <returns>
-        /// 
-        /// </returns>
-        public string CurrentExpressionChange(string currentExpression)
-        {
-            int fragmentSize;
-            int pos;
-
-            //Search for the fragment size to replace
-            //If the expression has at least one basic math operation
-            if (MathSignCheck(currentExpression))
-            {
-                for (int i = currentExpression.Length - 1; ; i--)
-                {
-                    if (currentExpression[i] == ' ')
-                    {
-                        pos = i + 1;
-                        fragmentSize = currentExpression.Length - pos;
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                pos = 0;
-                fragmentSize = currentExpression.Length;
-            }
-
-            return currentExpression.Remove(pos, fragmentSize);
         }
 
         #endregion
 
         #region Private methods
 
-        #region Methods for symbolizing the selected operation
+        #region Basic math operations private methods
 
         /// <summary>
-        /// To set the symbolic representation of a basic math operation
+        /// To change the current expression depending on the pressed operation and the state of the buttons
         /// </summary>
-        /// <returns>
-        /// A string representing the selected operation
-        /// </returns>
-        private string SetSelectedBasicMathOperation(BasicMathOperations pressedOperation)
+        private string NewCurrentExpression(BasicMathOperations pressedOperation)
         {
-            switch (pressedOperation)
+            //If the expression was calculated and "=" was pressed again
+            if (buttonsState.EqualBtnPressed && (pressedOperation == BasicMathOperations.Equal) && Common.MathSignCheck(currentData.CurrentExpression))
             {
-                case BasicMathOperations.Addition: return " + ";
-                case BasicMathOperations.Subtraction: return " - ";
-                case BasicMathOperations.Multiplication: return " × ";
-                case BasicMathOperations.Division: return " ÷ ";
-                case BasicMathOperations.Equal: return " = ";
+                return NumberStandardization.Standardization(currentData.CurrentNumber) + CopyLastOperation(currentData.CurrentExpression.Remove(currentData.CurrentExpression.Length - 3, 3)) + SetSelectedBasicMathOperation(pressedOperation);
             }
-
-            return "Operation not found";
-        }
-
-        /// <summary>
-        /// To set the symbolic representation of an additional operation
-        /// </summary>
-        /// <returns>
-        /// A string representing the selected operation
-        /// </returns>
-        private string SetSelectedAdditionalOperation(AdditionalOperations pressedOperation)
-        {
-            switch (pressedOperation)
+            //If the number and additional operation were pressed
+            else if (buttonsState.NumberPadBtnPressed && buttonsState.AdditionalOperationBtnPressed)
             {
-                case AdditionalOperations.PartOfTheWhole: return "1/";
-                case AdditionalOperations.Exponentiation: return "Sqr";
-                case AdditionalOperations.RootExtraction: return "√";
+                return currentData.CurrentExpression + SetSelectedBasicMathOperation(pressedOperation);
             }
-
-            return "Operation not found";
+            //If a number was pressed, but not an additional operation
+            else if (buttonsState.NumberPadBtnPressed && !buttonsState.AdditionalOperationBtnPressed)
+            {
+                return currentData.CurrentExpression + NumberStandardization.Standardization(currentData.CurrentNumber) + SetSelectedBasicMathOperation(pressedOperation);
+            }
+            //Сhanging the basic math operation sign
+            else
+            {
+                return ChangeOperation(currentData.CurrentExpression, SetSelectedBasicMathOperation(pressedOperation));
+            }
         }
-
-        #endregion
-
-        #region Methods for changing an operation
 
         /// <summary>
         /// To change the sign of the last operation
@@ -230,64 +127,6 @@ namespace Calculator.Models.MakeAnExpression
         }
 
         /// <summary>
-        /// To change an additional operation in the current expression
-        /// </summary>
-        /// <remarks>
-        /// <para>For operations that have a symbolic notation in the expression</para>
-        /// <para>The changes are that the last set of additional operations is placed in the last clicked additional operation</para>
-        /// </remarks>
-        /// <returns>
-        /// Modified additional operation
-        /// </returns>
-        private string ChangeTheSetOfRecentAdditionalOperations(string currentExpression, string pressedOperation)
-        {
-            int pos;
-            string copiedFragment;
-            StringBuilder stringBuilderCurExpr = CurrentExpressionChange(currentExpression, out pos, out copiedFragment);
-
-            return stringBuilderCurExpr.Insert(pos, pressedOperation + '(' + copiedFragment + ')').ToString();
-        }
-
-        /// <summary>
-        /// To find the percentage, if other additional operations are applied
-        /// </summary>
-        /// <remarks>
-        /// <para>For operations that do not have a character notation in the expression</para>
-        /// <para>In the case of the " % " operation, the change is that the last number or sequence of operations is replaced with a specific percentage of the rest of the expression</para>
-        /// </remarks>
-        /// <returns>
-        /// The string of the current expression with the percentage found
-        /// </returns>
-        private string ChangeTheSetOfRecentAdditionalOperations(string currentExpression)
-        {
-            int pos;
-            string copiedFragment;
-            StringBuilder stringBuilderCurExpr = CurrentExpressionChange(currentExpression, out pos, out copiedFragment);
-            Calculate calculate = new Calculate();
-            double number;
-
-            if (MathSignCheck(currentExpression))
-            {
-                number = calculate.CalcPercentage(copiedFragment, stringBuilderCurExpr.ToString().Remove(stringBuilderCurExpr.Length - 3, 3));
-            }
-            else
-            {
-                number = calculate.CalcPercentage(copiedFragment, stringBuilderCurExpr.ToString());
-            }
-
-            if (NumberStandardization.NumberCheck(number.ToString()))
-            {
-                stringBuilderCurExpr.Insert(pos, number.ToString());
-            }
-            else
-            {
-                stringBuilderCurExpr.Insert(pos, ((int)Digits.Zero).ToString());
-            }
-
-            return stringBuilderCurExpr.ToString();
-        }
-
-        /// <summary>
         /// To copy the last operation for recount
         /// </summary>
         /// <returns>
@@ -302,7 +141,7 @@ namespace Calculator.Models.MakeAnExpression
 
             //Search for the fragment size to copy
             //If the expression has at least one basic math operation
-            if (MathSignCheck(currentExpression))
+            if (Common.MathSignCheck(currentExpression))
             {
                 for (int i = currentExpression.Length - 1; ; i--)
                 {
@@ -327,6 +166,159 @@ namespace Calculator.Models.MakeAnExpression
             return new string(destination);
         }
 
+        /// <summary>
+        /// To set the symbolic representation of a basic math operation
+        /// </summary>
+        /// <returns>
+        /// A string representing the selected operation
+        /// </returns>
+        private string SetSelectedBasicMathOperation(BasicMathOperations pressedOperation)
+        {
+            switch (pressedOperation)
+            {
+                case BasicMathOperations.Addition: return " + ";
+                case BasicMathOperations.Subtraction: return " - ";
+                case BasicMathOperations.Multiplication: return " × ";
+                case BasicMathOperations.Division: return " ÷ ";
+                case BasicMathOperations.Equal: return " = ";
+            }
+
+            return "Operation not found";
+        }
+
+        #endregion
+
+        #region Additional operations private methods
+
+        /// <summary>
+        /// To change the current expression depending on the pressed operation and the state of the buttons
+        /// </summary>
+        private string NewCurrentExpression(AdditionalOperations pressedOperation)
+        {
+            //If an additional operation is not used for the first time
+            if (buttonsState.AdditionalOperationBtnPressed)
+            {
+                return ChangeTheSetOfRecentAdditionalOperations(currentData.CurrentExpression, SetSelectedAdditionalOperation(pressedOperation));
+            }
+            else
+            {
+                return currentData.CurrentExpression + SetSelectedAdditionalOperation(pressedOperation) + '(' + NumberStandardization.Standardization(currentData.CurrentNumber) + ')';
+            }
+        }
+
+        /// <summary>
+        /// To change an additional operation in the current expression
+        /// </summary>
+        /// <remarks>
+        /// <para>For operations that have a symbolic notation in the expression</para>
+        /// <para>The changes are that the last set of additional operations is placed in the last clicked additional operation</para>
+        /// </remarks>
+        /// <returns>
+        /// Modified additional operation
+        /// </returns>
+        private string ChangeTheSetOfRecentAdditionalOperations(string currentExpression, string pressedOperation)
+        {
+            int pos;
+            string copiedFragment;
+            StringBuilder stringBuilderCurExpr = CurrentExpressionChange(currentExpression, out pos, out copiedFragment);
+
+            return stringBuilderCurExpr.Insert(pos, pressedOperation + '(' + copiedFragment + ')').ToString();
+        }
+
+        /// <summary>
+        /// To set the symbolic representation of an additional operation
+        /// </summary>
+        /// <returns>
+        /// A string representing the selected operation
+        /// </returns>
+        private string SetSelectedAdditionalOperation(AdditionalOperations pressedOperation)
+        {
+            switch (pressedOperation)
+            {
+                case AdditionalOperations.PartOfTheWhole: return "1/";
+                case AdditionalOperations.Exponentiation: return "Sqr";
+                case AdditionalOperations.RootExtraction: return "√";
+            }
+
+            return "Operation not found";
+        }
+
+        #endregion
+
+        #region Percentage private methods
+
+        /// <summary>
+        /// To change the current expression depending on the pressed operation and the state of the buttons
+        /// </summary>
+        private string NewCurrentExpression()
+        {
+            if (buttonsState.EqualBtnPressed)
+            {
+                buttonsState.NumberPadBtnPressed_Change(true);
+                buttonsState.AdditionalOperationBtnPressed_Change(false);
+                buttonsState.EqualBtnPressed_Change(false);
+
+                return NumberStandardization.Standardization(calculate.CalcPercentage(NumberStandardization.Standardization(currentData.CurrentNumber), currentData.CurrentExpression.Remove(currentData.CurrentExpression.Length - 3, 3)).ToString());
+            }
+            else
+            {
+                if (currentData.CurrentExpression != string.Empty)
+                {
+                    if (buttonsState.AdditionalOperationBtnPressed)
+                    {
+                        return ChangeTheSetOfRecentAdditionalOperations(currentData.CurrentExpression);
+                    }
+                    else
+                    {
+                        return currentData.CurrentExpression + NumberStandardization.Standardization(calculate.CalcPercentage(NumberStandardization.Standardization(currentData.CurrentNumber), currentData.CurrentExpression.Remove(currentData.CurrentExpression.Length - 3, 3)).ToString());
+                    }
+                }
+                else
+                {
+                    return currentData.CurrentExpression + NumberStandardization.Standardization(calculate.CalcPercentage(NumberStandardization.Standardization(currentData.CurrentNumber), ((int)Digits.Zero).ToString()).ToString());
+                }
+            }
+        }
+
+        /// <summary>
+        /// To find the percentage, if other additional operations are applied
+        /// </summary>
+        /// <remarks>
+        /// <para>For operations that do not have a character notation in the expression</para>
+        /// <para>In the case of the " % " operation, the change is that the last number or sequence of operations is replaced with a specific percentage of the rest of the expression</para>
+        /// </remarks>
+        /// <returns>
+        /// The string of the current expression with the percentage found
+        /// </returns>
+        private string ChangeTheSetOfRecentAdditionalOperations(string currentExpression)
+        {
+            int pos;
+            string copiedFragment;
+            StringBuilder stringBuilderCurExpr = CurrentExpressionChange(currentExpression, out pos, out copiedFragment);
+            Calculate calculate = new Calculate();
+            double number;
+
+            if (Common.MathSignCheck(currentExpression))
+            {
+                number = calculate.CalcPercentage(copiedFragment, stringBuilderCurExpr.ToString().Remove(stringBuilderCurExpr.Length - 3, 3));
+            }
+            else
+            {
+                number = calculate.CalcPercentage(copiedFragment, stringBuilderCurExpr.ToString());
+            }
+
+            if (NumberStandardization.NumberCheck(number.ToString()))
+            {
+                stringBuilderCurExpr.Insert(pos, number.ToString());
+            }
+            else
+            {
+                stringBuilderCurExpr.Insert(pos, ((int)Digits.Zero).ToString());
+            }
+
+            return stringBuilderCurExpr.ToString();
+        }
+
         #endregion
 
         #region Additional methods
@@ -345,7 +337,7 @@ namespace Calculator.Models.MakeAnExpression
 
             //Search for the fragment size to replace
             //If the expression has at least one basic math operation
-            if (MathSignCheck(currentExpression))
+            if (Common.MathSignCheck(currentExpression))
             {
                 for (int i = stringBuilderCurExpr.Length - 1; ; i--)
                 {
@@ -372,19 +364,6 @@ namespace Calculator.Models.MakeAnExpression
             return stringBuilderCurExpr;
         }
 
-        /// <summary>
-        /// To search for any basic mathematical operation in the current expression
-        /// </summary>
-        /// <returns>
-        /// Returns "true" if a mathematical sign is found
-        /// </returns>
-        private bool MathSignCheck(string currentExpression)
-        {
-            return 
-                currentExpression.IndexOf('+') != -1 || currentExpression.IndexOf('-') != -1 ||
-                currentExpression.IndexOf('×') != -1 || currentExpression.IndexOf('÷') != -1 ? true : false;
-        }
-
         #endregion
 
         #endregion
@@ -394,12 +373,12 @@ namespace Calculator.Models.MakeAnExpression
         /// <summary>
         /// Default constructor
         /// </summary>
-        public CurrentExpressionFormation(CurrentData currentData, ButtonsState buttonsState)
+        public ExpressionFormation(CurrentData currentData, ButtonsState buttonsState, ClearData clearData)
         {
             this.currentData = currentData;
             this.buttonsState = buttonsState;
+            this.clearData = clearData;
             calculate = new Calculate();
-            clearData = new ClearData(currentData, buttonsState);
         }
 
         #endregion

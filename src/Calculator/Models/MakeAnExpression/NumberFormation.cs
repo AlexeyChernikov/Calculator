@@ -5,14 +5,13 @@ namespace Calculator.Models.MakeAnExpression
     /// <summary>
     /// Contains methods for forming the current number
     /// </summary>
-    class CurrentNumberFormation
+    class NumberFormation
     {
         #region Private members
 
         private CurrentData currentData;
         private ButtonsState buttonsState;
         private ClearData clearData;
-        private CurrentExpressionFormation currentExpressionFormation;
 
         /// <summary>
         /// The maximum size of the current number
@@ -29,12 +28,7 @@ namespace Calculator.Models.MakeAnExpression
         public void SetNumber(Digits pressedDigit)
         {
             EqualBtnPressed_Check();
-
-            if (buttonsState.AdditionalOperationBtnPressed)
-            {
-                currentData.CurrentExpression = currentExpressionFormation.CurrentExpressionChange(currentData.CurrentExpression);
-                buttonsState.AdditionalOperationBtnPressed_Change(false);
-            }
+            AdditionalOperationBtnPressed_Check();
 
             if (CurrentNumberSizeCheck(currentData.CurrentNumber))
             {
@@ -50,12 +44,7 @@ namespace Calculator.Models.MakeAnExpression
         public void InvertNumber()
         {
             EqualBtnPressed_Check();
-
-            if (buttonsState.AdditionalOperationBtnPressed)
-            {
-                currentData.CurrentExpression = currentExpressionFormation.CurrentExpressionChange(currentData.CurrentExpression);
-                buttonsState.AdditionalOperationBtnPressed_Change(false);
-            }
+            AdditionalOperationBtnPressed_Check();
 
             if (currentData.CurrentNumber != ((int)Digits.Zero).ToString())
             {
@@ -71,12 +60,7 @@ namespace Calculator.Models.MakeAnExpression
         public void PutAComma()
         {
             EqualBtnPressed_Check();
-
-            if (buttonsState.AdditionalOperationBtnPressed)
-            {
-                currentData.CurrentExpression = currentExpressionFormation.CurrentExpressionChange(currentData.CurrentExpression);
-                buttonsState.AdditionalOperationBtnPressed_Change(false);
-            }
+            AdditionalOperationBtnPressed_Check();
 
             currentData.CurrentNumber = currentData.CurrentNumber.IndexOf(',') == -1 ? currentData.CurrentNumber + ',' : currentData.CurrentNumber;
             buttonsState.NumberPadBtnPressed_Change(true);
@@ -109,7 +93,20 @@ namespace Calculator.Models.MakeAnExpression
         }
 
         /// <summary>
-        /// To check if the "Equal" button has been pressed
+        /// To check if the "Additional operation" button has been pressed
+        /// </summary>
+        /// <remarks>If "true", clears last additional operation</remarks>
+        private void AdditionalOperationBtnPressed_Check()
+        {
+            if (buttonsState.AdditionalOperationBtnPressed)
+            {
+                currentData.CurrentExpression = clearData.ClearLastAdditionalOperation(currentData.CurrentExpression);
+                buttonsState.AdditionalOperationBtnPressed_Change(false);
+            }
+        }
+
+        /// <summary>
+        /// To check if the "=" button has been pressed
         /// </summary>
         /// <remarks>If "true", clears all data</remarks>
         private void EqualBtnPressed_Check()
@@ -128,12 +125,11 @@ namespace Calculator.Models.MakeAnExpression
         /// <summary>
         /// Default constructor
         /// </summary>
-        public CurrentNumberFormation(CurrentData currentData, ButtonsState buttonsState)
+        public NumberFormation(CurrentData currentData, ButtonsState buttonsState, ClearData clearData)
         {
             this.currentData = currentData;
             this.buttonsState = buttonsState;
-            clearData = new ClearData(currentData, buttonsState);
-            currentExpressionFormation = new CurrentExpressionFormation(currentData, buttonsState);
+            this.clearData = clearData;
         }
 
         #endregion

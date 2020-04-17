@@ -11,7 +11,6 @@ namespace Calculator.Models.MakeAnExpression
 
         private CurrentData currentData;
         private ButtonsState buttonsState;
-        private CurrentExpressionFormation currentExpressionFormation;
 
         #endregion
 
@@ -41,12 +40,12 @@ namespace Calculator.Models.MakeAnExpression
             {
                 ClearAll();
             }
-            //else if (buttonsState.AdditionalOperationBtnPressed && currentExpressionFormation.MathSignCheck(currentData.CurrentExpression))
-            //{
-            //    currentData.CurrentExpression = currentExpressionFormation.CurrentExpressionChange(currentData.CurrentExpression);
-            //    buttonsState.NumberPadBtnPressed_Change(true);
-            //    buttonsState.AdditionalOperationBtnPressed_Change(false);
-            //}
+            else if (buttonsState.AdditionalOperationBtnPressed && Common.MathSignCheck(currentData.CurrentExpression))
+            {
+                currentData.CurrentExpression = ClearLastAdditionalOperation(currentData.CurrentExpression);
+                buttonsState.NumberPadBtnPressed_Change(true);
+                buttonsState.AdditionalOperationBtnPressed_Change(false);
+            }
             else
             {
                 currentData.CurrentNumber = ClearNumber(currentData.CurrentNumber);
@@ -93,6 +92,31 @@ namespace Calculator.Models.MakeAnExpression
         public string ClearExpression(string currentExpression)
         {
             return currentExpression != string.Empty ? string.Empty : currentExpression;
+        }
+
+        /// <summary>
+        /// To remove the last additional operation from the current expression
+        /// </summary>
+        public string ClearLastAdditionalOperation(string currentExpression)
+        {
+            int pos = 0;
+            int fragmentSize = currentExpression.Length;
+
+            //If the expression has at least one basic math operation
+            if (Common.MathSignCheck(currentData.CurrentExpression))
+            {
+                for (int i = currentExpression.Length - 1; ; i--)
+                {
+                    if (currentExpression[i] == ' ')
+                    {
+                        pos = i + 1;
+                        fragmentSize = currentExpression.Length - pos;
+                        break;
+                    }
+                }
+            }
+
+            return currentExpression.Remove(pos, fragmentSize);
         }
 
         #endregion

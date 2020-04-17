@@ -74,11 +74,12 @@
     <Compile Include="Models\Calculation\Operations\ArithmeticOperations\Division.cs" />
     <Compile Include="Models\Calculation\Operations\ArithmeticOperations\Addition.cs" />
     <Compile Include="Models\MakeAnExpression\ButtonsState.cs" />
+    <Compile Include="Models\MakeAnExpression\Common.cs" />
     <Compile Include="Models\MakeAnExpression\ClearData.cs" />
     <Compile Include="Models\MakeAnExpression\CurrentData.cs" />
     <Compile Include="Models\MakeAnExpression\NumberStandardization.cs" />
-    <Compile Include="Models\MakeAnExpression\CurrentExpressionFormation.cs" />
-    <Compile Include="Models\MakeAnExpression\CurrentNumberFormation.cs" />
+    <Compile Include="Models\MakeAnExpression\ExpressionFormation.cs" />
+    <Compile Include="Models\MakeAnExpression\NumberFormation.cs" />
     <Compile Include="ViewModels\Base\BaseViewModel.cs" />
     <Compile Include="ViewModels\Base\RelayParameterizedCommand.cs" />
     <Compile Include="ViewModels\Base\RelayCommand.cs" />

@@ -27,12 +27,12 @@ namespace Calculator.ViewModels
         /// <summary>
         /// To access methods for formation the current number
         /// </summary>
-        private CurrentNumberFormation currentNumberFormation;
+        private NumberFormation numberFormation;
 
         /// <summary>
         /// To access methods for formation the current expression
         /// </summary>
-        private CurrentExpressionFormation currentExpressionFormation;
+        private ExpressionFormation expressionFormation;
 
         #endregion
 
@@ -287,8 +287,8 @@ namespace Calculator.ViewModels
             currentData = new CurrentData();
             buttonsState = new ButtonsState();
             clearData = new ClearData(currentData, buttonsState);
-            currentNumberFormation = new CurrentNumberFormation(currentData, buttonsState);
-            currentExpressionFormation = new CurrentExpressionFormation(currentData, buttonsState);
+            numberFormation = new NumberFormation(currentData, buttonsState, clearData);
+            expressionFormation = new ExpressionFormation(currentData, buttonsState, clearData);
 
             #endregion
 
@@ -331,25 +331,25 @@ namespace Calculator.ViewModels
 
             FindPercentageCommand = new RelayParameterizedCommand((obj) =>
             {
-                currentExpressionFormation.FindPercentage();
+                expressionFormation.FindPercentage();
                 UpdateMainProperties();
             }, (obj) => NumberStandardization.NumberCheck(currentData.CurrentNumber));
 
             PartOfTheWholeCommand = new RelayParameterizedCommand((obj) =>
             {
-                currentExpressionFormation.SetAdditionalOperation(AdditionalOperations.PartOfTheWhole);
+                expressionFormation.SetAdditionalOperation(AdditionalOperations.PartOfTheWhole);
                 UpdateMainProperties();
             }, (obj) => NumberStandardization.NumberCheck(currentData.CurrentNumber));
 
             SqrCommand = new RelayParameterizedCommand((obj) =>
             {
-                currentExpressionFormation.SetAdditionalOperation(AdditionalOperations.Exponentiation);
+                expressionFormation.SetAdditionalOperation(AdditionalOperations.Exponentiation);
                 UpdateMainProperties();
             }, (obj) => NumberStandardization.NumberCheck(currentData.CurrentNumber));
 
             SqrtCommand = new RelayParameterizedCommand((obj) =>
             {
-                currentExpressionFormation.SetAdditionalOperation(AdditionalOperations.RootExtraction);
+                expressionFormation.SetAdditionalOperation(AdditionalOperations.RootExtraction);
                 UpdateMainProperties();
             }, (obj) => NumberStandardization.NumberCheck(currentData.CurrentNumber));
 
@@ -359,31 +359,31 @@ namespace Calculator.ViewModels
 
             AdditionCommand = new RelayParameterizedCommand((obj) =>
             {
-                currentExpressionFormation.SetBasicMathOperation(BasicMathOperations.Addition);
+                expressionFormation.SetBasicMathOperation(BasicMathOperations.Addition);
                 UpdateMainProperties();
             }, (obj) => NumberStandardization.NumberCheck(currentData.CurrentNumber));
 
             SubtractionCommand = new RelayParameterizedCommand((obj) =>
             {
-                currentExpressionFormation.SetBasicMathOperation(BasicMathOperations.Subtraction);
+                expressionFormation.SetBasicMathOperation(BasicMathOperations.Subtraction);
                 UpdateMainProperties();
             }, (obj) => NumberStandardization.NumberCheck(currentData.CurrentNumber));
 
             MultiplyCommand = new RelayParameterizedCommand((obj) =>
             {
-                currentExpressionFormation.SetBasicMathOperation(BasicMathOperations.Multiplication);
+                expressionFormation.SetBasicMathOperation(BasicMathOperations.Multiplication);
                 UpdateMainProperties();
             }, (obj) => NumberStandardization.NumberCheck(currentData.CurrentNumber));
 
             DivisionCommand = new RelayParameterizedCommand((obj) =>
             {
-                currentExpressionFormation.SetBasicMathOperation(BasicMathOperations.Division);
+                expressionFormation.SetBasicMathOperation(BasicMathOperations.Division);
                 UpdateMainProperties();
             }, (obj) => NumberStandardization.NumberCheck(currentData.CurrentNumber));
 
             EqualCommand = new RelayParameterizedCommand((obj) =>
             {
-                currentExpressionFormation.SetBasicMathOperation(BasicMathOperations.Equal);
+                expressionFormation.SetBasicMathOperation(BasicMathOperations.Equal);
                 UpdateMainProperties();
             }, (obj) => NumberStandardization.NumberCheck(currentData.CurrentNumber));
 
@@ -393,73 +393,73 @@ namespace Calculator.ViewModels
 
             DigitZeroCommand = new RelayCommand(() =>
             {
-                currentNumberFormation.SetNumber(Digits.Zero);
+                numberFormation.SetNumber(Digits.Zero);
                 UpdateMainProperties();
             });
 
             DigitOneCommand = new RelayCommand(() =>
             {
-                currentNumberFormation.SetNumber(Digits.One);
+                numberFormation.SetNumber(Digits.One);
                 UpdateMainProperties();
             });
 
             DigitTwoCommand = new RelayCommand(() =>
             {
-                currentNumberFormation.SetNumber(Digits.Two);
+                numberFormation.SetNumber(Digits.Two);
                 UpdateMainProperties();
             });
 
             DigitThreeCommand = new RelayCommand(() =>
             {
-                currentNumberFormation.SetNumber(Digits.Three);
+                numberFormation.SetNumber(Digits.Three);
                 UpdateMainProperties();
             });
 
             DigitFourCommand = new RelayCommand(() =>
             {
-                currentNumberFormation.SetNumber(Digits.Four);
+                numberFormation.SetNumber(Digits.Four);
                 UpdateMainProperties();
             });
 
             DigitFiveCommand = new RelayCommand(() =>
             {
-                currentNumberFormation.SetNumber(Digits.Five);
+                numberFormation.SetNumber(Digits.Five);
                 UpdateMainProperties();
             });
 
             DigitSixCommand = new RelayCommand(() =>
             {
-                currentNumberFormation.SetNumber(Digits.Six);
+                numberFormation.SetNumber(Digits.Six);
                 UpdateMainProperties();
             });
 
             DigitSevenCommand = new RelayCommand(() =>
             {
-                currentNumberFormation.SetNumber(Digits.Seven);
+                numberFormation.SetNumber(Digits.Seven);
                 UpdateMainProperties();
             });
 
             DigitEightCommand = new RelayCommand(() =>
             {
-                currentNumberFormation.SetNumber(Digits.Eight);
+                numberFormation.SetNumber(Digits.Eight);
                 UpdateMainProperties();
             });
 
             DigitNineCommand = new RelayCommand(() =>
             {
-                currentNumberFormation.SetNumber(Digits.Nine);
+                numberFormation.SetNumber(Digits.Nine);
                 UpdateMainProperties();
             });
 
             InvertNumberCommand = new RelayCommand(() =>
             {
-                currentNumberFormation.InvertNumber();
+                numberFormation.InvertNumber();
                 UpdateMainProperties();
             });
 
             CommaCommand = new RelayCommand(() =>
             {
-                currentNumberFormation.PutAComma();
+                numberFormation.PutAComma();
                 UpdateMainProperties();
             });
 
