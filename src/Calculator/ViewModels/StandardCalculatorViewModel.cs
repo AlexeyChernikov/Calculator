@@ -317,8 +317,18 @@ namespace Calculator.ViewModels
 
             MemoryReadCommand = new RelayParameterizedCommand((obj) =>
             {
-                //добавить сюда условие для очистки последней дополнительной операции
+                if (buttonsState.EqualBtnPressed)
+                {
+                    clearData.ClearAll();
+                }
+                else if (buttonsState.AdditionalOperationBtnPressed)
+                {
+                    currentData.CurrentExpression = clearData.ClearLastAdditionalOperation(currentData.CurrentExpression);
+                    buttonsState.AdditionalOperationBtnPressed_Change(false);
+                }
+
                 currentData.CurrentNumber = memory.CurrentValue.ToString();
+                buttonsState.NumberPadBtnPressed_Change(true);
                 UpdateMainProperties();
             }, (obj) => MemoryBtnLockCondition());
 
