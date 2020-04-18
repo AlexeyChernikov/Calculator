@@ -17,7 +17,7 @@
     
     <!--#region Button colors-->
     <!--#region Default button-->
-    <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD" />
+    <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
     <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
     <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFC3C3C3"/>
     <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF8D8D8D"/>
@@ -116,5 +116,12 @@
     <SolidColorBrush x:Key="ResultButton.Pressed.Border" Color="#FF0068B9"/>
     <!--#endregion-->
     <!--#endregion-->
-    
+
+    <!--#region ToopTip colors-->
+    <SolidColorBrush x:Key="ToopTip.Static.Background" Color="#FFE0E0E0"/>
+    <SolidColorBrush x:Key="ToopTip.Static.Border" Color="#FFC1C1C1"/>
+    <SolidColorBrush x:Key="ToopTip.Static.Foreground" Color="#FF1F1F1F"/>
+    <Color x:Key="ToopTip.Static.Shadow">#FF000000</Color>
+    <!--#endregion-->
+
 </ResourceDictionary>

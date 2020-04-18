@@ -99,15 +99,41 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <Button Content="MC" Command="{Binding MemoryClearCommand}" Grid.Column="0"/>
-                    <Button Content="MR" Command="{Binding MemoryReadCommand}" Grid.Column="1"/>
-                    <Button Content="M+" Command="{Binding MemoryPlusCommand}" Grid.Column="2"/>
-                    <Button Content="M-" Command="{Binding MemoryMinusCommand}" Grid.Column="3"/>
-                    <Button Content="MS" Command="{Binding MemorySaveCommand}" Grid.Column="4"/>
+                    <Button 
+                        Content="MC" 
+                        Command="{Binding MemoryClearCommand}" 
+                        Grid.Column="0" 
+                        ToolTip="Clear all memory"/>
+                    
+                    <Button 
+                        Content="MR" 
+                        Command="{Binding MemoryReadCommand}" 
+                        Grid.Column="1" 
+                        ToolTip="Memory recall"/>
+                    
+                    <Button 
+                        Content="M+" 
+                        Command="{Binding MemoryPlusCommand}" 
+                        Grid.Column="2" 
+                        ToolTip="Memory add"/>
+                    <Button 
+                        Content="M-" 
+                        Command="{Binding MemoryMinusCommand}" 
+                        Grid.Column="3" 
+                        ToolTip="Memory subtract"/>
+                    <Button 
+                        Content="MS" 
+                        Command="{Binding MemorySaveCommand}" 
+                        Grid.Column="4" 
+                        ToolTip="Memory store"/>
                 </Grid>
 
-                <!--Memory history-->
-                <Button Content="Mˇ" Command="{Binding MemoryStorageCommand}" Grid.Column="2"/>
+                <!--Memory storage-->
+                <Button 
+                    Content="Mˇ" 
+                    Command="{Binding MemoryStorageCommand}" 
+                    Grid.Column="2" 
+                    ToolTip="Memory"/>
             </Grid>
 
             <!--Main keyboard-->

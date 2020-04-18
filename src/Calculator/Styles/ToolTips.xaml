@@ -1,0 +1,38 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Calculator.Styles">
+
+    <!--Base tooltip style-->
+    <Style TargetType="ToolTip">
+        <Setter Property="Background" Value="{StaticResource ToopTip.Static.Background}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource ToopTip.Static.Border}"/>
+        <Setter Property="Foreground" Value="{StaticResource ToopTip.Static.Foreground}"/>
+        <Setter Property="FontFamily" Value="{StaticResource CalcMDL2}"/>
+
+        <Setter Property="Padding" Value="8, 6"/>
+
+        <Setter Property="Placement" Value="MousePoint"/>
+        <Setter Property="HorizontalOffset" Value="-70"/>
+        <Setter Property="VerticalOffset" Value="-60"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToolTip">
+                    <Border Padding="20">
+                        <Border.Effect>
+                            <DropShadowEffect Color="{StaticResource ToopTip.Static.Shadow}" Opacity="0.2" BlurRadius="20" ShadowDepth="5" Direction="270"/>
+                        </Border.Effect>
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true" CornerRadius="3">
+                            <ContentPresenter
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                Margin="{TemplateBinding Padding}"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

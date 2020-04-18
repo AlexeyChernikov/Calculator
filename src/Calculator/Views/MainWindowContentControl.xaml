@@ -21,7 +21,8 @@
                 Content="☰"
                 Command=""
                 Style="{StaticResource NavigationButtonStyle}"
-                FontSize="16"/>
+                FontSize="16"
+                ToolTip="Open navigation"/>
 
             <!--The name of the current calculator-->
             <TextBlock 
@@ -35,7 +36,8 @@
                 Content="◳"
                 Command=""
                 Style="{StaticResource BaseTopPanelButtonStyle}"
-                FontSize="20"/>
+                FontSize="20"
+                ToolTip="Over other windows"/>
         </StackPanel>
 
         <!--Content-->
