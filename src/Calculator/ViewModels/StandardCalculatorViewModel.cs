@@ -39,16 +39,6 @@ namespace Calculator.ViewModels
         /// </summary>
         private Memory memory;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        private string currentNumber;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private string currentExpression;
-
         #endregion
 
         #region Public properties
@@ -442,61 +432,61 @@ namespace Calculator.ViewModels
 
             DigitZeroCommand = new RelayCommand(() =>
             {
-                numberFormation.SetNumber(Digits.Zero);
+                numberFormation.AddDigit(Digits.Zero);
                 UpdateMainProperties();
             });
 
             DigitOneCommand = new RelayCommand(() =>
             {
-                numberFormation.SetNumber(Digits.One);
+                numberFormation.AddDigit(Digits.One);
                 UpdateMainProperties();
             });
 
             DigitTwoCommand = new RelayCommand(() =>
             {
-                numberFormation.SetNumber(Digits.Two);
+                numberFormation.AddDigit(Digits.Two);
                 UpdateMainProperties();
             });
 
             DigitThreeCommand = new RelayCommand(() =>
             {
-                numberFormation.SetNumber(Digits.Three);
+                numberFormation.AddDigit(Digits.Three);
                 UpdateMainProperties();
             });
 
             DigitFourCommand = new RelayCommand(() =>
             {
-                numberFormation.SetNumber(Digits.Four);
+                numberFormation.AddDigit(Digits.Four);
                 UpdateMainProperties();
             });
 
             DigitFiveCommand = new RelayCommand(() =>
             {
-                numberFormation.SetNumber(Digits.Five);
+                numberFormation.AddDigit(Digits.Five);
                 UpdateMainProperties();
             });
 
             DigitSixCommand = new RelayCommand(() =>
             {
-                numberFormation.SetNumber(Digits.Six);
+                numberFormation.AddDigit(Digits.Six);
                 UpdateMainProperties();
             });
 
             DigitSevenCommand = new RelayCommand(() =>
             {
-                numberFormation.SetNumber(Digits.Seven);
+                numberFormation.AddDigit(Digits.Seven);
                 UpdateMainProperties();
             });
 
             DigitEightCommand = new RelayCommand(() =>
             {
-                numberFormation.SetNumber(Digits.Eight);
+                numberFormation.AddDigit(Digits.Eight);
                 UpdateMainProperties();
             });
 
             DigitNineCommand = new RelayCommand(() =>
             {
-                numberFormation.SetNumber(Digits.Nine);
+                numberFormation.AddDigit(Digits.Nine);
                 UpdateMainProperties();
             });
 
@@ -508,7 +498,7 @@ namespace Calculator.ViewModels
 
             CommaCommand = new RelayCommand(() =>
             {
-                numberFormation.PutAComma();
+                numberFormation.AddComma();
                 UpdateMainProperties();
             });
 

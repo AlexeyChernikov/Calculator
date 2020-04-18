@@ -25,7 +25,7 @@ namespace Calculator.Models.MakeAnExpression
         /// <summary>
         /// To add the pressed digit to the current number
         /// </summary>
-        public void SetNumber(Digits pressedDigit)
+        public void AddDigit(Digits pressedDigit)
         {
             EqualBtnPressed_Check();
             AdditionalOperationBtnPressed_Check();
@@ -57,7 +57,7 @@ namespace Calculator.Models.MakeAnExpression
         /// <summary>
         /// To add a comma to the current number
         /// </summary>
-        public void PutAComma()
+        public void AddComma()
         {
             EqualBtnPressed_Check();
             AdditionalOperationBtnPressed_Check();
