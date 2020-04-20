@@ -5,7 +5,7 @@ namespace Calculator.Models.Calculation.Operations.ArithmeticOperations
     /// <summary>
     /// For dividing numbers
     /// </summary>
-    class Division : BinaryOperation
+    public class Division : BinaryOperation
     {
         public Division(UniversalOperation leftArg, UniversalOperation rightArg) : base(leftArg, rightArg) { }
 

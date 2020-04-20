@@ -5,7 +5,7 @@ namespace Calculator.Models.Calculation.Operations.ArithmeticOperations
     /// <summary>
     /// To raise the specified number to the specified power
     /// </summary>
-    class Exponentiation : BinaryOperation
+    public class Exponentiation : BinaryOperation
     {
         public Exponentiation(UniversalOperation number, UniversalOperation power) : base(number, power) { }
 

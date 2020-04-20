@@ -5,7 +5,7 @@ namespace Calculator.Models.Calculation.Operations.ArithmeticOperations
     /// <summary>
     /// Makes numbers negative
     /// </summary>
-    class Negation : UnaryOperation
+    public class Negation : UnaryOperation
     {
         public Negation(UniversalOperation negate) : base(negate) { }
 

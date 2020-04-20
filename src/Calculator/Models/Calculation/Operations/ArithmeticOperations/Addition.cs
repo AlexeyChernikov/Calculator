@@ -5,7 +5,7 @@ namespace Calculator.Models.Calculation.Operations.ArithmeticOperations
     /// <summary>
     /// For adding numbers
     /// </summary>
-    class Addition : BinaryOperation
+    public class Addition : BinaryOperation
     {
         public Addition(UniversalOperation leftArg, UniversalOperation rightArg) : base(leftArg, rightArg) { }
 

@@ -5,7 +5,7 @@ namespace Calculator.Models.Calculation.Operations.ArithmeticOperations
     /// <summary>
     /// For multiplying numbers
     /// </summary>
-    class Multiplication : BinaryOperation
+    public class Multiplication : BinaryOperation
     {
         public Multiplication(UniversalOperation leftArg, UniversalOperation rightArg) : base(leftArg, rightArg) { }
 

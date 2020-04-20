@@ -5,7 +5,7 @@ namespace Calculator.Models.Calculation.Operations.ArithmeticOperations
     /// <summary>
     /// For subtracting numbers
     /// </summary>
-    class Subtraction : BinaryOperation
+    public class Subtraction : BinaryOperation
     {
         public Subtraction(UniversalOperation leftArg, UniversalOperation rightArg) : base(leftArg, rightArg) { }
 

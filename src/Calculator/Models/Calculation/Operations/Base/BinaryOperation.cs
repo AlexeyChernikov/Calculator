@@ -3,7 +3,7 @@
     /// <summary>
     /// To perform operations with two operands
     /// </summary>
-    abstract class BinaryOperation : UniversalOperation
+    public abstract class BinaryOperation : UniversalOperation
     {
         protected UniversalOperation leftArg;
         protected UniversalOperation rightArg;

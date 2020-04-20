@@ -3,7 +3,7 @@
     /// <summary>
     /// To store the number obtained from the current expression
     /// </summary>
-    class Number : UniversalOperation
+    public class Number : UniversalOperation
     {
         private double value;
 

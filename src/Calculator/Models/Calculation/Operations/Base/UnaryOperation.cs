@@ -3,7 +3,7 @@
     /// <summary>
     /// To perform operations with one operand
     /// </summary>
-    abstract class UnaryOperation : UniversalOperation
+    public abstract class UnaryOperation : UniversalOperation
     {
         protected UniversalOperation arg;
 

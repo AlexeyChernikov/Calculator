@@ -3,7 +3,7 @@
     /// <summary>
     /// Base class for all operations
     /// </summary>
-    abstract class UniversalOperation
+    public abstract class UniversalOperation
     {
         public abstract double Operation();
     }
