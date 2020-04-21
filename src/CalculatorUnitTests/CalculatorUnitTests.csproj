@@ -49,7 +49,13 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArithmeticOperationsTests.cs" />
+    <Compile Include="ArithmeticOperationsTests\DivisionTests.cs" />
+    <Compile Include="ArithmeticOperationsTests\ExponentiationTests.cs" />
+    <Compile Include="ArithmeticOperationsTests\MultiplicationTests.cs" />
+    <Compile Include="ArithmeticOperationsTests\NegationTests.cs" />
+    <Compile Include="ArithmeticOperationsTests\RootExtractionTests.cs" />
+    <Compile Include="ArithmeticOperationsTests\SubtractionTests.cs" />
+    <Compile Include="ArithmeticOperationsTests\AdditionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
