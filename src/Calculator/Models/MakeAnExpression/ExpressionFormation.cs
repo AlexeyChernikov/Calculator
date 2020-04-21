@@ -37,6 +37,12 @@ namespace Calculator.Models.MakeAnExpression
             currentData.CurrentExpression = NewCurrentExpression(pressedOperation);
             currentData.CurrentNumber = pressedOperation == BasicMathOperations.Equal ? calculate.Calc(currentData.CurrentExpression).ToString() : clearData.ClearNumber(currentData.CurrentNumber);
 
+            if (double.IsNaN(double.Parse(currentData.CurrentNumber)) || double.IsPositiveInfinity(double.Parse(currentData.CurrentNumber)) || 
+                double.IsNegativeInfinity(double.Parse(currentData.CurrentNumber)))
+            {
+                currentData.CurrentNumber = "Calculation error";
+            }
+
             if (pressedOperation == BasicMathOperations.Equal)
             {
                 buttonsState.EqualBtnPressed_Change(true);
