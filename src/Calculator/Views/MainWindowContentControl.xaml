@@ -4,8 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Calculator.Views"
+             xmlns:vm="clr-namespace:Calculator.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="480" d:DesignWidth="340">
+
+    <UserControl.DataContext>
+        <vm:MainWindowContentControlViewModel/>
+    </UserControl.DataContext>
+    
     <Grid>
         <Grid.RowDefinitions>
             <!--Top panel (menu)-->
@@ -19,7 +25,7 @@
             <!--Navigation button-->
             <Button
                 Content="☰"
-                Command=""
+                Command="{Binding NopeCommand}"
                 Style="{StaticResource NavigationButtonStyle}"
                 FontSize="16"
                 ToolTip="Open navigation"/>
@@ -34,7 +40,7 @@
             <!--Over other windows button-->
             <Button
                 Content="◳"
-                Command=""
+                Command="{Binding NopeCommand}"
                 Style="{StaticResource BaseTopPanelButtonStyle}"
                 FontSize="20"
                 ToolTip="Over other windows"/>
